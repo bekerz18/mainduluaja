@@ -48,13 +48,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
+
 */
-$route['tambah-dosen-json'] = 'Users/dosen';
-$route['pembimbing-administrasi'] = 'Pembimbing/administrasi';
-$route['pembimbing-hukum'] = 'Pembimbing/hukum';
-$route['pembimbing-manajemen'] = 'Pembimbing/manajemen';
-$route['pengajuan-judul'] = 'pengajuan/judul';
-$route['logout'] = 'home/logout';
-$route['default_controller'] = 'home';
+$route['all'] = 'BackendC/rank/3';
+$route['rank/2'] = 'BackendC/rank/2';
+$route['rank/1'] = 'BackendC/rank/1';
+$route['logout']='loginadmin/logout';
+$route['default_controller'] = 'BackendC';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

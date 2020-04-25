@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin | Dashboard</title>
+  <title>Mahasiswa | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+   <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
@@ -37,11 +37,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <li class="nav-item dropdown">
         <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="#" class="dropdown-item">Pengajuan Judul</a></li>
-          <li><a href="#" class="dropdown-item">Data Mahasiswa</a></li>
+          <li><a href="<?php echo base_url('pengajuan-judul');?>" class="dropdown-item">Pengajuan Judul</a></li>
+          <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
         </ul>
       </li>
-     
           <!-- Bimbingan -->
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Bimbingan</a>
@@ -51,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -59,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -70,13 +69,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="nav-item dropdown">
             <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Users</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Mahasiswa</a></li>
+              <li><a href="<?php echo base_url('users-mahasiswa');?>" class="dropdown-item">Mahasiswa</a></li>
               <li><a href="<?php echo base_url('logout');?>" class="dropdown-item">Logout</a></li>
             </ul>
           </li>
         </ul>
-    
-  </nav>
+    </nav>
   <!-- /.navbar -->
 
 
@@ -102,88 +100,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">Penentuan Pembimbing</li>
+          <li class="nav-header">Pengajuan</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('pengajuan-judul');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Pengajuan Judul</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('pengajuan');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Data Mahasiswa</p>
             </a>
-          </li>
-          <li class="nav-header">Penentuan Pembimbing</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Adm Pend
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisADM');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perhitungan Adm Pend</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembimbing Adm</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Manajemen
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisMM');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perhitungan Manajemen</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembimbing Manajemen</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Hukum
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisHUKUM');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perhitungan Hukum</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembimbing Hukum</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <!-- Bimbingan -->
           <li class="nav-header">Bimbingan</li>
@@ -197,7 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('data-bimbingan-1');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Bimbingan</p>
                 </a>
@@ -214,7 +142,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('data-bimbingan-2');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Bimbingan</p>
                 </a>
@@ -224,19 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User -->
           <li class="nav-header">Users</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Admin</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Dosen</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Mahasiswa</p>
             </a>

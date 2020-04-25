@@ -30,11 +30,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="card-body login-card-body">
       <p class="login-box-msg">Silahkan login</p>
 
-      <?php if($this->session->flashdata('failed')){ ?>
+      <?php if($this->session->flashdata('failed')) { ?>
         <p class="mb-1 text-center text-danger">
-          <a href="#" class="text-danger">Identitas tidak ditemukan</a>
+          Identitas tidak ditemukan
         </p>
-      <?php } ?>
+      <?php }?>
+     
       <form action="<?php echo base_url('home/login');?>" method="post">
         <div class="input-group mb-3">
           <input type="text" name="username" class="form-control" placeholder="Masukan username">

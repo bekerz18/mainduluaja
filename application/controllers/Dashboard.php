@@ -7,23 +7,22 @@ class Dashboard extends CI_Controller {
 	{
 		parent::__construct();
 
-		if(!$this->session->userdata('level')) redirect('home');
-		
+		if($this->session->userdata('login') != true ) redirect('home');
 
-		// $this->load->model('Dashboard_model');
-		$this->load->library('form_validation');
 
 	}
 
 	public function index()
 	{
 		$data["nama"] = $this->session->userdata('nama');
-		if($this->session->userdata('level')==0){
+		if($this->session->userdata('level') == 0){
 			$this->load->view('dashboard/admin',$data);
-		}elseif ($this->session->userdata('level')==1) {
+		}elseif ($this->session->userdata('level') == 1) {
 			$this->load->view('dashboard/dosen',$data);
-		}elseif ($this->session->userdata('level')==2) {
+		}elseif ($this->session->userdata('level') == 2) {
 			$this->load->view('dashboard/mahasiswa',$data);
+		}else{
+			redirect('home');
 		}
 	}
 

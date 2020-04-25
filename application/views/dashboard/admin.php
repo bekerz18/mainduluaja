@@ -37,8 +37,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <li class="nav-item dropdown">
         <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="#" class="dropdown-item">Pengajuan Judul</a></li>
-          <li><a href="#" class="dropdown-item">Data Mahasiswa</a></li>
+          <li><a href="<?php echo base_url('pengajuan-judul');?>" class="dropdown-item">Pengajuan Judul</a></li>
+          <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
         </ul>
       </li>
       <!-- Penentuan Pembimbing -->
@@ -50,10 +50,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a id="dropdownSubMenuPenentuan2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Adm Pend</a>
             <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
               <li>
-                <a tabindex="-1" href="<?php echo base_url('AhpTopsisADM');?>" class="dropdown-item">Perhitungan Adm Pend</a>
+                <a tabindex="-1" href="<?php echo base_url('adpend');?>" class="dropdown-item">Perhitungan Adm Pend</a>
               </li>
               <li>
-                <a tabindex="-1" href="#" class="dropdown-item">Pembimbing Adm Pend</a>
+                <a tabindex="-1" href="<?php echo base_url('pembimbing-administrasi');?>" class="dropdown-item">Pembimbing Adm Pend</a>
               </li>
             </ul>
           </li>
@@ -61,10 +61,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Manajemen</a>
             <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
               <li>
-                <a tabindex="-1" href="<?php echo base_url('AhpTopsisMM');?>" class="dropdown-item">Perhitungan Manajemen</a>
+                <a tabindex="-1" href="<?php echo base_url('manajemen');?>" class="dropdown-item">Perhitungan Manajemen</a>
               </li>
               <li>
-                <a tabindex="-1" href="#" class="dropdown-item">Pembimbing Manajemen</a>
+                <a tabindex="-1" href="<?php echo base_url('pembimbing-manajemen');?>" class="dropdown-item">Pembimbing Manajemen</a>
               </li>
             </ul>
           </li>
@@ -72,10 +72,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hukum</a>
             <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
               <li>
-                <a tabindex="-1" href="<?php echo base_url('AhpTopsisHUKUM');?>" class="dropdown-item">Perhitungan Hukum</a>
+                <a tabindex="-1" href="<?php echo base_url('hukum');?>" class="dropdown-item">Perhitungan Hukum</a>
               </li>
               <li>
-                <a tabindex="-1" href="#" class="dropdown-item">Pembimbing Hukum</a>
+                <a tabindex="-1" href="<?php echo base_url('pembimbing-hukum');?>" class="dropdown-item">Pembimbing Hukum</a>
               </li>
             </ul>
           </li>
@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -110,9 +110,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="nav-item dropdown">
             <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Users</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Admin</a></li>
-              <li><a href="#" class="dropdown-item">Dosen</a></li>
-              <li><a href="#" class="dropdown-item">Mahasiswa</a></li>
+              <li><a href="<?php echo base_url('users-admin');?>" class="dropdown-item">Admin</a></li>
+              <li><a href="<?php echo base_url('users-dosen');?>" class="dropdown-item">Dosen</a></li>
+              <li><a href="<?php echo base_url('users-mahasiswa');?>" class="dropdown-item">Mahasiswa</a></li>
               <li><a href="<?php echo base_url('logout');?>" class="dropdown-item">Logout</a></li>
             </ul>
           </li>
@@ -146,13 +146,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                with font-awesome or any other icon font library -->
           <li class="nav-header">Penentuan Pembimbing</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('pengajuan-judul');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Pengajuan Judul</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('pengajuan');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Data Mahasiswa</p>
             </a>
@@ -168,13 +168,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisADM');?>" class="nav-link">
+                <a href="<?php echo base_url('adpend');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Perhitungan Adm Pend</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('pembimbing-administrasi');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembimbing Adm</p>
                 </a>
@@ -191,13 +191,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisMM');?>" class="nav-link">
+                <a href="<?php echo base_url('manajemen');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Perhitungan Manajemen</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('pembimbing-manajemen');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembimbing Manajemen</p>
                 </a>
@@ -214,13 +214,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisHUKUM');?>" class="nav-link">
+                <a href="<?php echo base_url('hukum');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Perhitungan Hukum</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('pembimbing-hukum');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembimbing Hukum</p>
                 </a>
@@ -239,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('data-bimbingan-1');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Bimbingan</p>
                 </a>
@@ -256,7 +256,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?php echo base_url('data-bimbingan-2');?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Bimbingan</p>
                 </a>
@@ -266,19 +266,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User -->
           <li class="nav-header">Users</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('users-admin');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Admin</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Dosen</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Mahasiswa</p>
             </a>

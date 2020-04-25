@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin | Dashboard</title>
+  <title>Dosen | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -37,12 +37,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <li class="nav-item dropdown">
         <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="#" class="dropdown-item">Data Mahasiswa</a></li>
+          <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
         </ul>
       </li>
       <!-- Penentuan Pembimbing -->
      <li class="nav-item dropdown">
-        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
+        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Penentuan Pembimbing</a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
           <li><a href="#" class="dropdown-item">Pembimbing Adm. Pend</a></li>
           <li><a href="#" class="dropdown-item">Pembimbing Manajemen</a></li>
@@ -109,13 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">Penentuan Pembimbing</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Pengajuan Judul</p>
-            </a>
-          </li>
+          <li class="nav-header">Pengajuan</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
@@ -123,74 +117,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
           </li>
           <li class="nav-header">Penentuan Pembimbing</li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Adm Pend
-                <i class="right fas fa-angle-left"></i>
-              </p>
+              <p>Pembimbing Adm. Pendidikan</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisADM');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perhitungan Adm Pend</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembimbing Adm</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Manajemen
-                <i class="right fas fa-angle-left"></i>
-              </p>
+              <p>Pembimbing Manajemen</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisMM');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perhitungan Manajemen</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembimbing Manajemen</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Hukum
-                <i class="right fas fa-angle-left"></i>
-              </p>
+              <p>Pembimbing Hukum</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('AhpTopsisHUKUM');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perhitungan Hukum</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembimbing Hukum</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <!-- Bimbingan -->
           <li class="nav-header">Bimbingan</li>
@@ -233,19 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
-              <p>Admin</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
               <p>Dosen</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Mahasiswa</p>
             </a>
           </li>
           <li class="nav-item">

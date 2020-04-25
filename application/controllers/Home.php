@@ -12,7 +12,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		if($this->session->userdata('level')) redirect('dashboard');
+		// if($this->session->userdata('level')) redirect('dashboard');
 		$this->load->view('login/default');
 	}
 
@@ -29,20 +29,23 @@ class Home extends CI_Controller {
 			$login = $model->login_check($username,$password);
 
 			if(!empty($login)){
-				var_dump($login);
 				$session = array(
 					'id'		=> $login["id"],
 					'nama'		=> $login["nama"],
 					'username'	=> $login["username"],
 					'gender'	=> $login["gender"],
 					'level'		=> $login["level"],
-					'user_role'	=> 'admin'
+					'login'		=> true
 				);
+
+				if($login["level"]==0){
+					$this->session->set_userdata('user_role','admin');
+				}
 
 				$this->session->set_userdata($session);
 				redirect('dashboard');
 			}else{
-				$this->session->set_flashdata('failed');
+				$this->session->set_flashdata('failed','login');
 				redirect('home');
 			}
 		}else{
