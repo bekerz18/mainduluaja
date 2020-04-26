@@ -53,14 +53,19 @@ class Users extends CI_Controller{
 		}else{
 			$model = $this->Users_model;
 			$insert = $model->create_user(array(
-			'id'				=> uniqid(),
-			'username'			=> $this->input->post('nim'),
-			'nama'				=> $this->input->post('nama'),
-			'prodi'				=> $this->input->post('prodi'),
-			'gender'			=> $this->input->post('gender'),
-			'level'				=> '2',
-			'password'			=> md5($this->input->post('nim'))	
-		));
+				'id'				=> uniqid(),
+				'username'			=> $this->input->post('nim'),
+				'nama'				=> $this->input->post('nama'),
+				'prodi'				=> $this->input->post('prodi'),
+				'gender'			=> $this->input->post('gender'),
+				'level'				=> '2',
+				'password'			=> md5($this->input->post('nim'))	
+			));
+			if($insert){
+				$this->session->set_flashdata('success_add','Berhasil Menambahkan Data!');
+			}else{
+				$this->session->set_flashdata('failed_add','Gagal Menambahkan Data!');
+			}
 
 		}
 	}
@@ -68,39 +73,48 @@ class Users extends CI_Controller{
 		if($this->session->userdata('level') != 0){
 			redirect('beranda');
 		}else{
-			$model = $this->Users_model;
-			$insert = $model->create_user(array(
-			'id'				=> uniqid(),
-			'username'			=> $this->input->post('username'),
-			'nama'				=> $this->input->post('nama'),
-			'gender'			=> $this->input->post('gender'),
-			'level'				=> '0',
-			'password'			=> md5($this->input->post('username'))	
-		));
+			if($this->input->method()=="post"){
+				$model = $this->Users_model;
+				$insert = $model->create_user(array(
+				'id'				=> uniqid(),
+				'username'			=> $this->input->post('username'),
+				'nama'				=> $this->input->post('nama'),
+				'gender'			=> $this->input->post('gender'),
+				'level'				=> '0',
+				'password'			=> md5($this->input->post('username'))	
+			));
+				if($insert){
+					$this->session->set_flashdata('success_add','Berhasil Menambahkan Data!');
+				}else{
+					$this->session->set_flashdata('failed_add','Gagal Menambahkan Data!');
+				}
 
+			}
 		}
 	}
 
 	public function insert_dosen(){
 		$model = $this->Users_model;
-
-		$insert = $model->create_user(array(
-			'id'				=> uniqid(),
-			'username'			=> $this->input->post('nik'),
-			'nama'				=> $this->input->post('nama'),
-			'prodi'				=> $this->input->post('prodi'),
-			'kode_alternatif'	=> $this->input->post('kode'),
-			'gender'			=> $this->input->post('gender'),
-			'level'				=> '1',
-			'password'			=> md5($this->input->post('nik'))	
-		));
-
-		if($insert){
-			return 'berhasil';
-		}else{
-			return 'gagal';
+		if($this->input->method()=="post"){
+			$insert = $model->create_user(array(
+				'id'				=> uniqid(),
+				'username'			=> $this->input->post('nik'),
+				'nama'				=> $this->input->post('nama'),
+				'prodi'				=> $this->input->post('prodi'),
+				'kode_alternatif'	=> $this->input->post('kode'),
+				'gender'			=> $this->input->post('gender'),
+				'level'				=> '1',
+				'password'			=> md5($this->input->post('nik'))	
+			));
+			if($insert){
+				$this->session->set_flashdata('success_add','Berhasil Menambahkan Data!');
+			}else{
+				$this->session->set_flashdata('failed_add','Gagal Menambahkan Data!');
+			}
 		}
+
 	}
+
 
 	public function info_user($id){
 		$model = $this->Users_model;
@@ -115,16 +129,69 @@ class Users extends CI_Controller{
 		}else{
 			if($this->input->method()=="post"){
 				$model = $this->Users_model;
-				// $data = array(
-				// 	'nama'				=> $this->input->post('nama'),
-				// 	'gender'			=> $this->input->post('gender'),
-				// 	'password'			=> md5($this->input->post('password'))	
-				// );
-				$model->update_user($id,array(
+				
+				$update = $model->update_user($id,array(
+					'nama'				=> $this->input->post('nama'),
+					'prodi'				=> $this->input->post('prodi'),
+					'kode_alternatif'	=> $this->input->post('kode'),
+					'gender'			=> $this->input->post('gender'),
+					'password'			=> md5($this->input->post('nik'))	
+				));
+				if($update){
+					$this->session->set_flashdata('success_upd','Berhasil Mengubah Data!');
+				}else{
+					$this->session->set_flashdata('failed_upd','Gagal Mengubah Data!');
+				}
+
+
+			}
+		}
+	}
+	public function update_dosen($id){
+		
+		if($this->session->userdata('level') != 0){
+			redirect('beranda');
+		}else{
+			if($this->input->method()=="post"){
+				$model = $this->Users_model;
+				
+				$update = $model->update_user($id,array(
 					'nama'				=> $this->input->post('nama'),
 					'gender'			=> $this->input->post('gender'),
+					'prodi'				=> $this->input->post('prodi'),
+					'kode_alternatif'	=> $this->input->post('kode'),
 					'password'			=> md5($this->input->post('password'))	
 				));
+				if($update){
+					$this->session->set_flashdata('success_upd','Berhasil Mengubah Data!');
+				}else{
+					$this->session->set_flashdata('failed_upd','Gagal Mengubah Data!');
+				}
+				
+
+
+			}
+		}
+	}
+	public function update_mahasiswa($id){
+		
+		if($this->session->userdata('level') != 0){
+			redirect('beranda');
+		}else{
+			if($this->input->method()=="post"){
+				$model = $this->Users_model;
+				
+				$update = $model->update_user($id,array(
+					'nama'				=> $this->input->post('nama'),
+					'gender'			=> $this->input->post('gender'),
+					'prodi'				=> $this->input->post('prodi'),
+					'password'			=> md5($this->input->post('password'))	
+				));
+				if($update){
+					$this->session->set_flashdata('success_upd','Berhasil Mengubah Data!');
+				}else{
+					$this->session->set_flashdata('failed_upd','Gagal Mengubah Data!');
+				}
 				
 
 

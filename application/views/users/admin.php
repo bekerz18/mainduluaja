@@ -324,6 +324,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       Gagal menghapus data.
                     </div>
                   <?php }?>
+                  <?php if($this->session->flashdata('success_add')){?>
+                    <div class="alert alert-success alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Berhasil menambahkan data.
+                    </div>
+                  <?php }elseif($this->session->flashdata('failed_add')){?>
+                    <div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Gagal menambah data.
+                    </div>
+                  <?php }?>
+                  <?php if($this->session->flashdata('success_upd')){?>
+                    <div class="alert alert-success alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Berhasil mengubah data.
+                    </div>
+                  <?php }elseif($this->session->flashdata('failed_upd')){?>
+                    <div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Gagal mengubah data.
+                    </div>
+                  <?php }?>
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
                   Tambah Admin
                 </button>
@@ -386,8 +412,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
-<!-- Toastr -->
-<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 <!-- SweetAlert2 -->
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
 <!-- Bootstrap 4 -->
@@ -421,11 +445,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           url : '<?php echo base_url('users/update_admin/');?>'+id,
           data : {nama:nama,gender:gender,password:password},
           success: function(data){
-              Swal.fire(
-                'Berhasil',
-                'Mengubah admin berhasil',
-                'success'
-              )
+            
               $("#username-ubah").val('');
               $("#nama-ubah").val('');
               $("#password").val('');
@@ -495,11 +515,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           url: '<?php echo base_url('users/insert_admin');?>',
           data: {username:username,nama:nama,gender:gender},
           success: function(data){
-            Swal.fire(
-              'Berhasil',
-              'Menambahkan admin berhasil',
-              'success'
-            )
+            
             $("#username").val('');
             $("#nama").val('');
             location.reload();
