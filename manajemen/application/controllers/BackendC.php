@@ -140,5 +140,18 @@ class BackendC extends CI_Controller{
 	public function get_rank_all(){
         return $this->db->query("SELECT hasil_rank.alternatif_kode as kode_dosen, alternatif.alternatif_nama as nama_dosen, hasil_rank.hr_value as nilai FROM hasil_rank INNER JOIN alternatif ON alternatif.alternatif_kode=hasil_rank.alternatif_kode ORDER by nilai DESC")->result_array();
     }
+    public function bala(){
+		$model = $this->Mymod;
+		$users = $model->get_all();
+
+		foreach ($users as $user) {
+			$update = $model->update_id($user->alternatif_kode);
+			if($update){
+				echo 'berhasi '.$user->alternatif_kode.'<br>';
+			}else{
+				echo 'gagal '.$user->alternatif_kode.'<br>';
+			}
+		}
+	}
 
 }

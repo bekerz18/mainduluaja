@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2020 at 09:33 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Apr 26, 2020 at 04:51 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -38,9 +36,24 @@ CREATE TABLE `alternatif` (
 --
 
 INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`) VALUES
-('A1', 'Alter 1'),
-('A2', 'Alter 2'),
-('A3', 'Alter 3');
+('A01', 'Prof. Dr. H. Day Ravena, SH., MH'),
+('A02', 'Prof. Dr. H. Toto Suryaatmadja, SH., MH'),
+('A03', 'Dr. Ida Farida, SH., MH'),
+('A04', 'Dr. Hj. Nining Latianingsih, SH., MH'),
+('A05', 'Dr. Nanang Abimanyu, drg., SP.KG., MH.Kes'),
+('A06', 'Dr. Eman Sungkawa, SH., MH'),
+('A07', 'Dr. H. Amin Mashur, DRS., SH., M.Hum'),
+('A08', 'Dr. Juju Samsudin, SH., MH'),
+('A09', 'Dr. H. Sobari, SH., MH'),
+('A10', 'Brigjen (Pol) Dr. Agung Makbul, SH., MH'),
+('A11', 'Dr. H. Yana Sahyana, SH., MH'),
+('A12', 'Dr. R. Herman Katimin, SH., MH'),
+('A13', 'Dr. Hj. Ratnawati, SH., MH'),
+('A14', 'Dr. Hj Yetti Suciati, SH., MBA'),
+('A15', 'Dr. H. Zulkarnaen, SH., MH'),
+('A16', 'Dr. dr. Herdi Wibowo, SH., MH.Kes.,MM'),
+('A17', 'Dr. Renny Supriyatni, SH., MH'),
+('A18', 'Dr. Rachmatin Artita, SH., MH');
 
 -- --------------------------------------------------------
 
@@ -59,9 +72,24 @@ CREATE TABLE `hasil_rank` (
 --
 
 INSERT INTO `hasil_rank` (`hr_id`, `alternatif_kode`, `hr_value`) VALUES
-(47, 'A1', 0.434),
-(48, 'A2', 0.341),
-(49, 'A3', 0.792);
+(50, 'A01', 0.515),
+(51, 'A02', 0.387),
+(52, 'A03', 0.311),
+(53, 'A04', 0.707),
+(54, 'A05', 0.441),
+(55, 'A06', 0.161),
+(56, 'A07', 0.436),
+(57, 'A08', 0.535),
+(58, 'A09', 0.567),
+(59, 'A10', 0.423),
+(60, 'A11', 0.237),
+(61, 'A12', 0.394),
+(62, 'A13', 0.37),
+(63, 'A14', 0.518),
+(64, 'A15', 0.542),
+(65, 'A16', 0.605),
+(66, 'A17', 0.372),
+(67, 'A18', 0.578);
 
 -- --------------------------------------------------------
 
@@ -79,11 +107,13 @@ CREATE TABLE `kriteria` (
 --
 
 INSERT INTO `kriteria` (`kriteria_kode`, `kriteria_nama`) VALUES
-('B1', 'reveneu'),
-('B2', 'Nilai Tes Kompetensi'),
-('B3', 'Absensi'),
-('B4', 'Jumlah Prioritas'),
-('B5', 'Pelanggaran SOP');
+('B1', 'Absen'),
+('B2', 'Status Ikatan Kerja'),
+('B3', 'Jabatan Akademik'),
+('B4', 'Kuota Mahasiswa'),
+('B5', 'Durasi Bimbingan'),
+('B6', 'Konsentrasi Jurusan'),
+('B7', 'Keahlian Matakuliah');
 
 -- --------------------------------------------------------
 
@@ -102,21 +132,131 @@ CREATE TABLE `nilai` (
 --
 
 INSERT INTO `nilai` (`nilai_id`, `alternatif_kode`, `parameter_id`) VALUES
-(31, 'A1', 3),
-(32, 'A1', 7),
-(33, 'A1', 12),
-(34, 'A1', 15),
-(35, 'A1', 20),
-(36, 'A2', 4),
-(37, 'A2', 6),
-(38, 'A2', 10),
-(39, 'A2', 17),
-(40, 'A2', 19),
-(41, 'A3', 2),
-(42, 'A3', 7),
-(43, 'A3', 9),
-(44, 'A3', 14),
-(45, 'A3', 20);
+(46, 'A01', 21),
+(47, 'A01', 24),
+(48, 'A01', 26),
+(49, 'A01', 33),
+(50, 'A01', 37),
+(51, 'A01', 39),
+(52, 'A01', 41),
+(53, 'A02', 22),
+(54, 'A02', 24),
+(55, 'A02', 34),
+(56, 'A02', 36),
+(57, 'A02', 40),
+(58, 'A02', 42),
+(59, 'A03', 21),
+(60, 'A03', 25),
+(61, 'A03', 29),
+(62, 'A03', 30),
+(63, 'A03', 36),
+(64, 'A03', 40),
+(65, 'A03', 43),
+(66, 'A04', 22),
+(67, 'A04', 24),
+(68, 'A04', 26),
+(69, 'A04', 32),
+(70, 'A04', 37),
+(71, 'A04', 38),
+(72, 'A04', 44),
+(73, 'A05', 22),
+(74, 'A05', 24),
+(75, 'A05', 26),
+(76, 'A05', 31),
+(77, 'A05', 36),
+(78, 'A05', 39),
+(79, 'A05', 41),
+(80, 'A06', 21),
+(81, 'A06', 24),
+(82, 'A06', 28),
+(83, 'A06', 30),
+(84, 'A06', 36),
+(85, 'A06', 40),
+(86, 'A06', 42),
+(87, 'A07', 22),
+(88, 'A07', 24),
+(89, 'A07', 26),
+(90, 'A07', 31),
+(91, 'A07', 36),
+(92, 'A07', 40),
+(93, 'A07', 43),
+(94, 'A08', 21),
+(95, 'A08', 24),
+(96, 'A08', 26),
+(97, 'A08', 33),
+(98, 'A08', 37),
+(99, 'A08', 38),
+(100, 'A08', 44),
+(101, 'A09', 22),
+(102, 'A09', 24),
+(103, 'A09', 26),
+(104, 'A09', 33),
+(105, 'A09', 37),
+(106, 'A09', 39),
+(107, 'A09', 41),
+(108, 'A10', 22),
+(109, 'A10', 24),
+(110, 'A10', 26),
+(111, 'A10', 31),
+(112, 'A10', 36),
+(113, 'A10', 38),
+(114, 'A10', 42),
+(115, 'A11', 21),
+(116, 'A11', 24),
+(117, 'A11', 27),
+(118, 'A11', 30),
+(119, 'A11', 35),
+(120, 'A11', 40),
+(121, 'A11', 43),
+(122, 'A12', 23),
+(123, 'A12', 24),
+(124, 'A12', 28),
+(125, 'A12', 30),
+(126, 'A12', 36),
+(127, 'A12', 38),
+(128, 'A12', 44),
+(129, 'A13', 23),
+(130, 'A13', 24),
+(131, 'A13', 29),
+(132, 'A13', 30),
+(133, 'A13', 36),
+(134, 'A13', 39),
+(135, 'A13', 41),
+(136, 'A14', 23),
+(137, 'A14', 24),
+(138, 'A14', 26),
+(139, 'A14', 31),
+(140, 'A14', 37),
+(141, 'A14', 40),
+(142, 'A14', 42),
+(143, 'A15', 21),
+(144, 'A15', 25),
+(145, 'A15', 27),
+(146, 'A15', 32),
+(147, 'A15', 35),
+(148, 'A15', 38),
+(149, 'A15', 43),
+(150, 'A16', 22),
+(151, 'A16', 24),
+(152, 'A16', 26),
+(153, 'A16', 34),
+(154, 'A16', 36),
+(155, 'A16', 39),
+(156, 'A16', 44),
+(157, 'A17', 21),
+(158, 'A17', 24),
+(159, 'A17', 26),
+(160, 'A17', 30),
+(161, 'A17', 36),
+(162, 'A17', 38),
+(163, 'A17', 41),
+(164, 'A18', 21),
+(165, 'A18', 25),
+(166, 'A18', 28),
+(167, 'A18', 32),
+(168, 'A18', 37),
+(169, 'A18', 39),
+(170, 'A18', 42);
 
 -- --------------------------------------------------------
 
@@ -136,26 +276,30 @@ CREATE TABLE `parameter` (
 --
 
 INSERT INTO `parameter` (`parameter_id`, `kriteria_kode`, `parameter_ukuran`, `parameter_nilai`) VALUES
-(1, 'B1', '10.000.000 s/d 13.000.000', 5),
-(2, 'B1', '7.000.000 s/d 9.900.000', 4),
-(3, 'B1', '4.000.000 s/d 6.900.000', 3),
-(4, 'B1', '1.000.000 s/d 3.900.000', 2),
-(5, 'B1', '< 1.000.000', 1),
-(6, 'B2', '100', 5),
-(7, 'B2', '75 s/d 99', 4),
-(8, 'B2', '< 75', 3),
-(9, 'B3', '0 Kali', 5),
-(10, 'B3', '1 Kali s/d 3 Kali', 4),
-(11, 'B3', '4        Kali s/d 6', 3),
-(12, 'B3', '>6 Kali', 2),
-(13, 'B4', '37 aplikasi s/d 50 aplikasi', 5),
-(14, 'B4', '30 aplikasi s/d 36 aplikasi', 4),
-(15, 'B4', '20 aplikasi s/d 29 aplikasi', 3),
-(16, 'B4', '10 aplikasi s/d 19 aplikasi', 2),
-(17, 'B4', '< 10 aplikasi', 1),
-(18, 'B5', '0 Kali', 5),
-(19, 'B5', '1 Kali s/d 3 Kali', 4),
-(20, 'B5', '>3Kali', 3);
+(21, 'B1', '7 sampai 11', 4),
+(22, 'B1', '12 sampai 15', 8),
+(23, 'B1', '16 full', 12),
+(24, 'B2', 'Tidak Tetap', 5),
+(25, 'B2', 'Tetap', 10),
+(26, 'B3', 'tenaga pengajar', 10),
+(27, 'B3', 'lektor kepala', 5),
+(28, 'B3', 'lektor', 3),
+(29, 'B3', 'wakil rektor', 3),
+(30, 'B4', '1-5 orang', 3),
+(31, 'B4', '6-8 orang', 5),
+(32, 'B4', '19-25 orang', 20),
+(33, 'B4', '13-18 orang', 10),
+(34, 'B4', '9-12 orang', 15),
+(35, 'B5', '1 x /Minggu', 3),
+(36, 'B5', '2 x /Minggu', 5),
+(37, 'B5', '3 x /Minggu', 10),
+(38, 'B6', 'Hukum Pidana', 8),
+(39, 'B6', 'Hukum Tata Negara', 10),
+(40, 'B6', 'Hukum Perdata', 6),
+(41, 'B7', 'Filsafat Ilmu Hukum dan Tindak Pidana Medis', 6),
+(42, 'B7', 'Hukum Tata Lingkungan dan Sengketa Hukum Pemilu', 5),
+(43, 'B7', 'Hukum Bisnis Internasional dan Hukum Perbankan', 8),
+(44, 'B7', 'Tindak Pidana Korupsi dan Hukum Ekonomi', 10);
 
 -- --------------------------------------------------------
 
@@ -192,8 +336,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_username`, `user_password`, `user_nama`, `user_email`, `user_tel`, `user_alamat`, `user_jk`, `user_role`) VALUES
-(7, 'adityads', '202cb962ac59075b964b07152d234b70', 'Aditya Dharmawan Saputra', 'adityads@ymail.com', '082371373347', '', 'L', 'admin'),
-(8, 'super', '202cb962ac59075b964b07152d234b70', 'super', 'super@aaa.com', '08999', 'aaa', 'L', 'supervisor');
+(8, 'super', '202cb962ac59075b964b07152d234b70', 'super', 'super@aaa.com', '08999', 'aaa', 'L', 'supervisor'),
+(9, 'harin', '827ccb0eea8a706c4c34a16891f84e7b', 'Harin Sanditha', 'harins@yahoo.com', '082217116202', 'ciamis', 'P', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -254,26 +398,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `hasil_rank`
 --
 ALTER TABLE `hasil_rank`
-  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
-
+  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `nilai_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
+  MODIFY `nilai_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 --
 -- AUTO_INCREMENT for table `parameter`
 --
 ALTER TABLE `parameter`
-  MODIFY `parameter_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+  MODIFY `parameter_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --
@@ -302,7 +442,6 @@ ALTER TABLE `parameter`
 --
 ALTER TABLE `sub_kriteria`
   ADD CONSTRAINT `sub_kriteria_ibfk_1` FOREIGN KEY (`kriteria_kode`) REFERENCES `kriteria` (`kriteria_kode`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -136,4 +136,25 @@ class BackendC extends CI_Controller{
 			redirect('../home');
 		}
 	}
+	// public function tambah_alternatif(){
+	// 	if($this->session->userdata('level') == 0){
+	// 		$model = $this->Mymod;
+	// 	}else{
+	// 		redirect('../home');
+	// 	}
+	// }
+
+	public function bala(){
+		$model = $this->Mymod;
+		$users = $model->get_all();
+
+		foreach ($users as $user) {
+			$update = $model->update_id($user->alternatif_kode);
+			if($update){
+				echo 'berhasi '.$user->alternatif_kode.'<br>';
+			}else{
+				echo 'gagal '.$user->alternatif_kode.'<br>';
+			}
+		}
+	}
 }

@@ -6,7 +6,7 @@ class Pengajuan extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
-		if($this->session->userdata('login') != true ) redirect('home');
+		if($this->session->userdata('login') != true ) redirect('login');
 		
 		$this->load->model('Pengajuan_model');
 		$this->load->library('form_validation');
@@ -14,7 +14,7 @@ class Pengajuan extends CI_Controller{
 
 	public function judul()
 	{
-		if($this->session->userdata('level') == 1) redirect('../home');
+		if($this->session->userdata('level') == 1) redirect('../login');
 		$model = $this->Pengajuan_model;
 		$validasi = $this->form_validation;
 		

@@ -25,7 +25,7 @@ class Pengajuan_model extends CI_Model {
 
 	public function get_pengajuan()
 	{
-		return $this->db->get($this->_tabel)->result();
+		return $this->db->query("SELECT * FROM pengajuan ORDER BY id DESC")->result();
 	}
 
 	public function delete_pengajuan($id)

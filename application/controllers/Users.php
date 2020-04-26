@@ -6,7 +6,7 @@ class Users extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
-		if($this->session->userdata('login') != true ) redirect('home');
+		if($this->session->userdata('login') != true ) redirect('login');
 		
 		$this->load->model('Users_model');
 		$this->load->library('form_validation');

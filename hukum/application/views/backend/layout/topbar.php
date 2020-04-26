@@ -8,8 +8,8 @@
           </a>
         </li>
         <li class="nav-item mr-auto">
-          <a class="navbar-brand" href="<?= base_url();?>admin">
-            <h2 class="brand-text">PROGRAM PASCASARJANA</h2>
+          <a class="navbar-brand" href="<?php echo str_replace("hukum/","",base_url())?>beranda">
+            <h2 class="brand-text">Pascasarjana</h2>
           </a>
         </li>
         <li class="nav-item d-none d-md-block nav-toggle">

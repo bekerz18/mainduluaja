@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php if($this->session->userdata('level') == 0) echo 'Admin'; else echo'Mahasiswa';?> | Pengajuan Judul</title>
+  <title>Pengajuan Judul - Pascasarjana Universitas Galuh</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item">
-        <a href="<?php echo base_url('dashboard');?>" class="nav-link">Dashboard</a>
+        <a href="<?php echo base_url('beranda');?>" class="nav-link">Beranda</a>
       </li>
       <!-- Pengajuan -->
       <li class="nav-item dropdown">
@@ -115,17 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <!-- Pengajuan -->
-          <li class="nav-item dropdown">
-            <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Users</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <?php if($this->session->userdata('level') == 0) :?>
-                <li><a href="<?php echo base_url('users-admin');?>" class="dropdown-item">Admin</a></li>
-                <li><a href="<?php echo base_url('users-dosen');?>" class="dropdown-item">Dosen</a></li>
-              <?php endif;?>
-              <li><a href="<?php echo base_url('users-mahasiswa');?>" class="dropdown-item">Mahasiswa</a></li>
-              <li><a href="<?php echo base_url('logout');?>" class="dropdown-item">Logout</a></li>
-            </ul>
-          </li>
+
         </ul>
     
   </nav>
@@ -136,7 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?php echo base_url('dashboard');?>" class="brand-link">
+    <a href="<?php echo base_url('beranda');?>" class="brand-link">
       <span class="brand-text font-weight-light">Program Pascasarjana</span>
     </a>
 
@@ -154,127 +144,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">Pengajuan</li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('pengajuan-judul');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Pengajuan Judul</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('pengajuan');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Data Mahasiswa</p>
-            </a>
-          </li>
-          <?php if($this->session->userdata('level') == 0) :?>
-            <li class="nav-header">Penentuan Pembimbing</li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>
-                  Adm Pend
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?php echo base_url('adpend');?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Perhitungan Adm Pend</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?php echo base_url('pembimbing-administrasi');?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Pembimbing Adm</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>
-                  Manajemen
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?php echo base_url('manajemen');?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Perhitungan Manajemen</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?php echo base_url('pembimbing-manajemen');?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Pembimbing Manajemen</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>
-                  Hukum
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?php echo base_url('hukum');?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Perhitungan Hukum</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?php echo base_url('pembimbing-hukum');?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Pembimbing Hukum</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          <?php endif;?>
-          <!-- Bimbingan -->
-          <li class="nav-header">Bimbingan</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Pembimbing 1
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('data-bimbingan-1');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Bimbingan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Pembimbing 2
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('data-bimbingan-2');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Bimbingan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <!-- User -->
           <li class="nav-header">Users</li>
           <?php if($this->session->userdata('level') == 0) :?>

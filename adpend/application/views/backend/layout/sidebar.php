@@ -6,9 +6,9 @@
         data-original-title="General"></i>
       </li>
 
-      <li class="nav-item <?php if($title=='Dashboard'){echo "active";}?>">
-        <a href="<?= base_url();?>"><i class="ft-home"></i>
-          <span class="menu-title" data-i18n="">Dashboard</span>
+      <li class="nav-item">
+        <a href="<?php echo str_replace("adpend/","",base_url())?>beranda"><i class="ft-home"></i>
+          <span class="menu-title" data-i18n="">Beranda</span>
         </a>
       </li>
       <?php if($_SESSION['user_role'] == 'admin') :?>

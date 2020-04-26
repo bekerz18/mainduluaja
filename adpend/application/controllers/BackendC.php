@@ -4,7 +4,7 @@ class BackendC extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 
-		if($this->session->userdata('login') != true ) redirect('../home');
+		if(!$this->session->userdata('login')) redirect('../beranda');
 
 		$this->load->model('kriteria_m');
 		$this->load->model('alternatif_m');
@@ -17,7 +17,7 @@ class BackendC extends CI_Controller{
 
 	public function index()
 	{
-		if($this->session->userdata('level') != 0 ) redirect('../home');
+		if($this->session->userdata('level') != 0 ) redirect('../beranda');
 		$y['title']='Dashboard';
 
 		$this->data['kriteria']     = $this->kriteria_m->get_by_order('kriteria_kode','asc');
@@ -136,7 +136,20 @@ class BackendC extends CI_Controller{
 			}
 			
 		}else{
-			redirect('../home');
+			redirect('../beranda');
+		}
+	}
+	public function bala(){
+		$model = $this->Mymod;
+		$users = $model->get_all();
+
+		foreach ($users as $user) {
+			$update = $model->update_id($user->alternatif_kode);
+			if($update){
+				echo 'berhasi '.$user->alternatif_kode.'<br>';
+			}else{
+				echo 'gagal '.$user->alternatif_kode.'<br>';
+			}
 		}
 	}
 }

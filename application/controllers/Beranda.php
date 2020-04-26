@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Beranda extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') != true ) redirect('home');
+		if($this->session->userdata('login') != true ) redirect('login');
 
 
 	}
@@ -22,8 +22,9 @@ class Dashboard extends CI_Controller {
 		}elseif ($this->session->userdata('level') == 2) {
 			$this->load->view('dashboard/mahasiswa',$data);
 		}else{
-			redirect('home');
+			redirect('login');
 		}
 	}
+
 
 }

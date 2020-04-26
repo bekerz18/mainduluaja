@@ -1,24 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Login extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Home_model');
+		$this->load->model('Login_model');
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
-		// if($this->session->userdata('level')) redirect('dashboard');
+		// if($this->session->userdata('level')) redirect('beranda');
 		$this->load->view('login/default');
 	}
 
 	public function login(){
 		$validasi = $this->form_validation;
-		$model = $this->Home_model;
+		$model = $this->Login_model;
 		$validasi->set_rules('username','Username','required');
 		$validasi->set_rules('password','Password','required');
 
@@ -43,13 +43,13 @@ class Home extends CI_Controller {
 				}
 
 				$this->session->set_userdata($session);
-				redirect('dashboard');
+				redirect('beranda');
 			}else{
 				$this->session->set_flashdata('failed','login');
-				redirect('home');
+				redirect('login');
 			}
 		}else{
-			redirect('home');
+			redirect('login');
 		}
 		
 		
@@ -58,6 +58,6 @@ class Home extends CI_Controller {
 
 	public function logout(){
 		$this->session->sess_destroy();
-		redirect('home');
+		redirect('login');
 	}
 }

@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Mahasiswa | Dashboard</title>
+  <title>Beranda - Pascasarjana Universitas Galuh</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item">
-        <a href="<?php echo base_url('dashboard');?>" class="nav-link">Dashboard</a>
+        <a href="<?php echo base_url('beranda');?>" class="nav-link">Beranda</a>
       </li>
       <!-- Pengajuan -->
       <li class="nav-item dropdown">
@@ -65,14 +65,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- End Level two -->
             </ul>
           </li>
-          <!-- Pengajuan -->
-          <li class="nav-item dropdown">
-            <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Users</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="<?php echo base_url('users-mahasiswa');?>" class="dropdown-item">Mahasiswa</a></li>
-              <li><a href="<?php echo base_url('logout');?>" class="dropdown-item">Logout</a></li>
-            </ul>
-          </li>
         </ul>
     </nav>
   <!-- /.navbar -->
@@ -82,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?php echo base_url('dashboard');?>" class="brand-link">
+    <a href="<?php echo base_url('beranda');?>" class="brand-link">
       <span class="brand-text font-weight-light">Program Pascasarjana</span>
     </a>
 
@@ -100,56 +92,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">Pengajuan</li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('pengajuan-judul');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Pengajuan Judul</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('pengajuan');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Data Mahasiswa</p>
-            </a>
-          </li>
-          <!-- Bimbingan -->
-          <li class="nav-header">Bimbingan</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Pembimbing 1
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('data-bimbingan-1');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Bimbingan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Pembimbing 2
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url('data-bimbingan-2');?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Bimbingan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- User -->
+
+               <!-- User -->
           <li class="nav-header">Users</li>
           <li class="nav-item">
             <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
@@ -171,28 +115,103 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          
+          <div class="col-sm-12">
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item active">Beranda</li>
+            </ol>
+          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <div class="row"> 
-          <div class="col-md-3 text-center">
-            <img class="rounded" src="<?php echo base_url('assets/images/logo_unigal.png');?>" height="220px">
+      <div class="container-fluid card card-default">
+        <div class="card-body">
+          <div class="row"> 
+            <div class="col-md-3 text-center">
+              <img class="rounded" src="<?php echo base_url('assets/images/logo_unigal.png');?>" height="220px">
+            </div>
+            <div class="col-md-6 text-center">
+              <h1>UNIVERSITAS GALUH</h1>
+              <h2>PROGRAM PASCASARJANA</h2>
+            </div>
+            <div class="col-md-3 text-center">
+              <img class="rounded" src="https://pasca.unigal.ac.id/asset/images/ico.ico">
+            </div>
           </div>
-          <div class="col-md-6 text-center">
-            <h1>UNIVERSITAS GALUH</h1>
-            <h2>PROGRAM PASCASARJANA</h2>
-          </div>
-          <div class="col-md-3 text-center">
-            <img class="rounded" src="https://pasca.unigal.ac.id/asset/images/ico.ico">
+          <div class="row">
+            <div class="content px-2">
+              <p class="text-lg text-justify">
+                Universitas Galuh Ciamis (UNIGAL) merupakan Universitas yang berada di tatar Galuh Ciamis, tepatnya di Jalan R. E. Martadinata nomor 150 Ciamis 46274, Jawa Barat. Universitas ini berada di bawah naungan Yayasan Pendidikan Galuh Ciamis.
+              </p>
+              <p class="text-lg text-justify">
+                Perguruan tinggi ini didirikan pada hari Selasa tanggal 8 April 1998. Cikal bakal berdirinya universitas ini adalah mergernya beberapa sekolah tinggi yang ada di Ciamis pada waktu itu, yaitu Sekolah Tinggi Keguruan dan Ilmu Pendidikan Galuh, Sekolah Tinggi Hukum Galuh, Sekolah Tinggi Ilmu Ekonomi Galuh, dan Sekolah Tinggi Ilmu Politik Galuh. Pada awal pembentukannya hanya terdapat 3 (Tiga) fakultas, yakni: Fakultas Keguruan dan Ilmu Pendidikan, Fakultas Hukum, dan Fakultas Ekonomi. Seiring dengan perkembangannya kemudian ada penambahan untuk Fakultas Pertanian, Fakultas Ilmu Sosial dan Ilmu Politik, Fakultas Teknik, dan yang terbaru adalah Fakultas Kesehatan. Sehingga kini universitas ini terdiri dari tujuh fakultas dengan duapuluh program studi.
+              </p>
+              <p class="text-lg text-justify">
+                Universitas Galuh kini juga menyelenggarakan program pascasarjana (S2), program studi Magister Manajemen, Magister Manajemen Pendidikan serta Magister Hukum. Pengajar program tersebut merupakan pengajar-pengajar dari beberapa Universitas Negeri di Jawa Barat, diantaranya dari ITB, UNPAD, dan UPI.
+              </p>
+              <strong class="text-lg text-justify">VISI</strong>
+              <p class="text-lg text-justify">
+                Menjadi Universitas Unggul dan Berdaya Saing Global pada Tahun 2030.
+              </p>
+              <strong class="text-lg text-justify">MISI</strong>
+              <p class="text-lg text-justify">Misi Universitas adalah:</p>
+              <ol class="text-lg text-justify">
+                <li>
+                  Meningkatkan mutu manajemen internal Perguruan Tinggi yang diharapkan akan meningkatkan efisiensi internal dan pada gilirannya akan meningkatkan citra institusi dimata stakeholders.
+                </li>
+                <li>
+                  Mengembangkan institusi yang ditujukan untuk meningkatkan mutu dan relevansi Perguruan Tinggi agar dapat berkontribusi dalam meningkatkan daya saing bangsa serta perluasan akses pada pendidikan tinggi bagi masyarakat.
+                </li>
+                <li>
+                  Mendorong dan mengembangkan unggulan dan inovasi Perguruan Tinggi di bidang penelitian dan/atau pelayanan masyarakat yang secara langsung dapat membantu peningkatan daya saing daerah dan pembangunan nasional.
+                </li>
+                <li>
+                  Mengembangkan program unggulan Perguruan Tinggi seperti peningkatan jumlah publikasi ilmiah, pertukaran dosen/mahasiswa, kerja sama serta perolehan status akreditasi yang kesemuanya bertaraf internasional untuk meningkatkan daya saing global.
+                </li>
+                <li>
+                  Menghasilkan lulusan yang unggul dan berdaya saing global.
+                </li>
+                <li>
+                  Menjalin kerja sama akademik dan/atau non akademik dengan Perguruan Tinggi lain, atau Institusi lain, baik di dalam negeri maupun luar negeri.
+                </li>
+              </ol>
+              <strong class="text-lg text-justify">TUJUAN</strong>
+              <p class="text-lg text-justify">
+                Tujuan Universitas adalah: 
+              </p>
+              <ol class="text-lg text-justify">
+                <li>
+                  Meningkatnya kualitas tatakelola dan penjaminan mutu untuk meningkatkan posisi sebagai Perguruan Tinggi yang berstandar internasional yang didasari manajemen berbasis perencanaan dan penjaminan mutu dengan sasaran mempertahankan dan meningkatkan mutu, daya saing lulusan dan perluasan akses.
+                </li>
+                <li>
+                  Terwujudnya infrastruktur, dengan menyediakan fasilitas dan peralatan utama, pengembangan sarana dan prasarana, serta laboratorium untuk meningkatkan pelayanan terhadap stakeholders internal.
+                </li>
+                <li>
+                  Terjaminnya sistem pengelolaan keuangan yang sehat dan terencana dengan transparansi dan akuntabel.
+                </li>
+                <li>
+                  Terwujudnya kondisi sumberdaya manusia yang berkualitas dan berdaya saing global.
+                </li>
+                <li>
+                  Terwujudnya suasana akdemik yang kondusif, sehingga mendorong semangat belajar dan berkarya yang berkesinambungan bagi civitas akademika.
+                </li>
+                <li>
+                  Meningkatnya mutu pelayanan pendidikan yang memuaskan stakeholders sesuai dengan standar nasional.
+                </li>
+                <li>
+                  Terbentuknya organisasi yang mantap dan sinergi.
+                </li>
+                <li>
+                  Melahirkan cendekiawan yang berakhlaqul karimah yang memiliki dan menguasai salah satu bidang ilmu pengetahuan, teknologi atau seni tertentu dan mampu menerapkannya dalam masyarakat global.
+                </li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>

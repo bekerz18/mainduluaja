@@ -6,13 +6,13 @@ class Pembimbing extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
-		if($this->session->userdata('login') != true ) redirect('home');
+		if($this->session->userdata('login') != true ) redirect('login');
 		
 		
 	}
 
 	public function index(){
-		redirect('home');
+		redirect('login');
 	}
 
 	public function administrasi(){
