@@ -44,6 +44,39 @@ class Pengajuan extends CI_Controller{
 		$data['nama'] = $this->session->userdata('nama');
 		$this->load->view('pengajuan/list',$data);
 	}
+	public function ubah($edit=null)
+	{
+		
+		if($this->session->userdata('level') != '0'){
+			redirect('pengajuan');
+		}elseif(!isset($id)){
+			redirect('pengajuan');
+		}else{
+			$model = $this->Pengajuan_model;
+		}
+		
+	}
+	public function hapus($id=null)
+	{
+		if($this->session->userdata('level') != '0'){
+			redirect('pengajuan');
+		}elseif(!isset($id)){
+			redirect('pengajuan');
+		}else{
+
+			$model = $this->Pengajuan_model;
+			$hapus = $model->delete_pengajuan($id);
+			
+			if($hapus){
+				$this->session->set_flashdata('berhasil_hapus_pengajuan','Pengajuan Berhasil Dihapus!');
+				redirect('pengajuan');
+			}else{
+				$this->session->set_flashdata('gagal_hapus_pengajuan','Pengajuan Gagal Dihapus!');
+			}
+		}
+		
+
+	}
 	
 
 }

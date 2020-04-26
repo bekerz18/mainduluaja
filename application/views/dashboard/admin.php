@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand-lg navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -309,16 +309,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
-            <img src="<?php echo base_url('assets/images/logo_unigal.png');?>" height="220px">
+        <div class="row"> 
+          <div class="col-md-3 text-center">
+            <img class="rounded" src="<?php echo base_url('assets/images/logo_unigal.png');?>" height="220px">
           </div>
           <div class="col-md-6 text-center">
             <h1>UNIVERSITAS GALUH</h1>
             <h2>PROGRAM PASCASARJANA</h2>
           </div>
-          <div class="col-md-3">
-            <img src="https://pasca.unigal.ac.id/asset/images/ico.ico">
+          <div class="col-md-3 text-center">
+            <img class="rounded" src="https://pasca.unigal.ac.id/asset/images/ico.ico">
           </div>
         </div>
       </div>

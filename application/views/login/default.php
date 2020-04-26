@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <img src="<?php echo base_url('assets/images/logo.png');?>";?>
+    <img class="img-fluid" src="<?php echo base_url('assets/images/logo.png');?>";?>
   </div>
   <!-- /.login-logo -->
   <div class="card">

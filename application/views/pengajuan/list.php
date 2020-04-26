@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand-lg navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -383,6 +383,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>DITERIMA</th>
                     <th>PEMBIMBING 1</th>
                     <th>PEMBIMBING 2</th>
+                    <?php if($this->session->userdata('level') == 0) :?>
+                      <th>OPTIONS</th>
+                    <?php endif;?>
                   </tr>
                   </thead>
                   <tbody>
@@ -394,7 +397,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td>
                           <?php
                           if($pengajuan->prodi == "adpend"){
-                            echo "Administrasi Pendidikan";
+                            echo "Adm Pend";
                           }elseif($pengajuan->prodi == "manajemen"){
                             echo "Manajemen";
                           }else{
@@ -432,6 +435,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }
                           ?> 
                         </td>
+                        <?php if($this->session->userdata('level') == 0) :?>
+                          <td class="text-center">
+                            <a class="text-info text-sm" href="pengajuan/ubah/<?php echo $pengajuan->id;?>">Edit</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id;?>">Hapus</a>
+                          </td>
+                        <?php endif;?>
 
                       </tr>
                     <?php endforeach;?>

@@ -28,4 +28,10 @@ class Pengajuan_model extends CI_Model {
 		return $this->db->get($this->_tabel)->result();
 	}
 
+	public function delete_pengajuan($id)
+	{
+		$this->db->where('id',$id);
+		return $this->db->delete($this->_tabel);
+	}
+
 }
