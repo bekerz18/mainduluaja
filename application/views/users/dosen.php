@@ -6,12 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pembimbing Hukum - Pascasarjana Universitas Galuh</title>
+  <title>Daftar Dosen - Pascasarjana Universitas Galuh</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.css');?>">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
@@ -22,6 +20,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
+  <style type="text/css">
+    a:hover{
+      cursor: pointer;
+    }
+  </style>
   
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -47,6 +50,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
         </ul>
       </li>
+      <?php if($this->session->userdata('level') == 1) :?>
+        <li class="nav-item dropdown">
+        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Penentuan Pembimbing</a>
+        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+          <li><a href="#" class="dropdown-item">Pembimbing Adm. Pend</a></li>
+          <li><a href="#" class="dropdown-item">Pembimbing Manajemen</a></li>
+          <li><a href="#" class="dropdown-item">Pembimbing Hukum</a></li>
+        </ul>
+      </li>
+      <?php endif;?>
       <?php if($this->session->userdata('level') == 0) :?>
         <!-- Penentuan Pembimbing -->
         <li class="nav-item dropdown">
@@ -99,7 +112,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -107,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -115,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <!-- Pengajuan -->
- 
+         
         </ul>
     
   </nav>
@@ -144,27 +157,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
           <!-- User -->
           <li class="nav-header">Users</li>
+          <?php if($this->session->userdata('level') == 0) :?>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-admin');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Admin</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Dosen</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Mahasiswa</p>
               </a>
             </li>
+          <?php endif;?>
+           <?php if($this->session->userdata('level') == 1) :?>
+           
             <li class="nav-item">
+              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
+                <i class="nav-icon fas fa-circle"></i>
+                <p>Dosen</p>
+              </a>
+            </li>
+           
+          <?php endif;?>
+           <?php if($this->session->userdata('level') == 2) :?>
+            <li class="nav-item">
+              <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
+                <i class="nav-icon fas fa-circle"></i>
+                <p>Mahasiswa</p>
+              </a>
+            </li>
+          <?php endif;?>
+          <li class="nav-item">
             <a href="<?php echo base_url('logout');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
               <p>Logout</p>
@@ -185,8 +219,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="#">Penentuan Pembimbing</a></li>
-              <li class="breadcrumb-item active">Pembimbing Hukum</li>
+              <li class="breadcrumb-item"><a href="#">Users</a></li>
+              <li class="breadcrumb-item active">Daftar Dosen</li>
             </ol>
           </div>
         </div>
@@ -197,27 +231,84 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="container-fluid">
         <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Data Dosen Pembimbing</h3>
+                <h3 class="card-title">Daftar Dosen</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                
-                <table id="data-pembimbing" class="table table-bordered table-striped">
+                <?php if($this->session->userdata('success')) {?>
+                    <div class="alert alert-success alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Berhasil menghapus data.
+                    </div>
+                  <?php }elseif($this->session->userdata('failed')){?>
+                    <div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Gagal menghapus data.
+                    </div>
+                  <?php }?>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
+                  Tambah Dosen
+                </button>
+                <table id="data-pengajuan" class="table table-bordered table-striped">
                   <thead>
                   <tr class="text-center">
                     <th>NO</th>
-                    <th>NAMA DOSEN</th>
-                    <th>NILAI PREFERENSI</th>
-                    <th>PENENTUAN</th>
+                    <th>NAMA</th>
+                    <th>NIK/NIDN</th>
+                    <th>PROGRAM STUDI</th>
+                    <th>KODE ALTERNATIF</th>
+                    <th>OPSI</th>
                   </tr>
-                  </thead>
-                  <tbody id="pembimbing-administrasi">
-                    
+                  <tbody>
+                    <?php $no = 1; foreach ($users as $user) :?>
+                      <tr>
+                        <td class="text-center"><?php echo $no++;?></td>
+                        <td><?php echo $user->nama;?></td>
+                        <td><?php echo $user->username;?></td>
+                        <td>
+                          <?php
+                          if($user->prodi == "adpend"){
+                            echo "Adm Pend";
+                          }elseif($user->prodi == "manajemen"){
+                            echo "Manajemen";
+                          }else{
+                            echo "Hukum";
+                          }
+                          ?>
+                        </td>
+                        <td class="text-center">
+                          <?php echo $user->kode_alternatif;?>
+                        </td>
+                        <td class="text-center"><a class="text-info" data-id="<?php echo $user->id;?>">Ubah</a> <a class="text-danger" href="<?php echo base_url('users/hapus/dosen/').$user->id;?>">Hapus</a></td>
+                      </tr>
+                    <?php endforeach;?>
                   </tbody>
                 </table>
 
               </div>
-              
+              <div class="modal fade" id="modal-lg">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Tambah Dsoen</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                      <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
     </section>
     <!-- /.content -->
   </div>
@@ -259,33 +350,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   $(function () {
-    const $PembAdmin = $("#pembimbing-administrasi");
-    var $datas = '';
-    var $status = '';
-    $.ajax({
-      type : 'GET',
-      url : '<?php echo base_url('/hukum/all');?>',
-      dataType : 'json',
-      success:function(data){
-        for(var i = 0; i < data.length; i++){
-          if(i < 5){
-            $status = "Dosen Pembimbing";
-          }else{
-            $status = "Bukan Dosen Pembimbing";
-          }
-          $datas += '<tr><td class="text-center">'+(i+1)+'</td><td>'+data[i].nama_dosen+'</td><td class="text-center">'+data[i].nilai+'</td><td>'+$status+'</td></tr>';
-        }
-        
-        $("#data-pembimbing").dataTable().fnClearTable();
-        $("#data-pembimbing").dataTable().fnDestroy();
-        $PembAdmin.html($datas);
-        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
-      },error : function(data){
-        alert('Gagal mengambil data');
-      }
-    })
 
-    
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
   });
 </script>

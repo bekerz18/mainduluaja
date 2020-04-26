@@ -50,7 +50,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['tambah-dosen-json'] = 'Users/dosen';
+$route['users-admin'] = 'users/admin';
+$route['users-dosen'] = 'users/dosen';
+$route['users-mahasiswa'] = 'users/mahasiswa';
+// $route['tambah-dosen-json'] = 'Users/dosen';
 $route['pembimbing-administrasi'] = 'Pembimbing/administrasi';
 $route['pembimbing-hukum'] = 'Pembimbing/hukum';
 $route['pembimbing-manajemen'] = 'Pembimbing/manajemen';
