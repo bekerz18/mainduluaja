@@ -9,12 +9,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <title>Daftar Pengajuan - Pascasarjana Universitas Galuh</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.css');?>">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2/css/select2.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css');?>">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css');?>">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css');?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
   <!-- Ionicons -->
@@ -25,6 +29,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style type="text/css">
+    a:hover{
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
   <!-- Site wrapper -->
@@ -43,8 +52,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <li class="nav-item dropdown">
         <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          
+          <?php if($this->session->userdata('level')==2){?>
+            <li><a href="<?php echo base_url('pengajuan-judul');?>" class="dropdown-item">Pengajuan Judul</a></li>
+          <?php }?>
           <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
+
         </ul>
       </li>
       <?php if($this->session->userdata('level') == 1) :?>
@@ -232,7 +244,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                
+                <?php if($this->session->userdata('success_delete')) {?>
+                    <div class="alert alert-success alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Berhasil menghapus data.
+                    </div>
+                  <?php }elseif($this->session->userdata('failed_delete')){?>
+                    <div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Gagal menghapus data.
+                    </div>
+                  <?php }?>
+                  <?php if($this->session->flashdata('success_upd')){?>
+                    <div class="alert alert-success alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Berhasil mengubah data.
+                    </div>
+                  <?php }elseif($this->session->flashdata('failed_upd')){?>
+                    <div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                      Gagal mengubah data.
+                    </div>
+                  <?php }?>
                 <table id="data-pengajuan" class="table table-bordered table-striped">
                   <thead>
                   <tr class="text-center">
@@ -300,7 +337,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </td>
                         <?php if($this->session->userdata('level') == 0) :?>
                           <td class="text-center">
-                            <a class="text-info text-sm" href="pengajuan/ubah/<?php echo $pengajuan->id;?>">Edit</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id;?>">Hapus</a>
+                            <a class="<?php if($this->session->userdata('level') == 0) echo 'ubah-pengajuan';?> text-info text-sm" data-id="<?php echo $pengajuan->id;?>">Ubah</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id;?>">Hapus</a>
                           </td>
                         <?php endif;?>
 
@@ -310,7 +347,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </table>
 
               </div>
-              
+              <?php if($this->session->userdata('level') == 0) :?>
+                <div class="modal fade" id="modal-ubah">
+                  <div class="modal-dialog modal-xs">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Ubah Pengajuan</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden"id="idubah" value="">
+                        <div class="form-group">
+                          <label for="nim">NIM :</label>
+                          <input type="text" class="form-control" id="nim" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="username-ubah">NAMA :</label>
+                          <input type="text" class="form-control" id="nama">
+                        </div>
+                        <div class="form-group">
+                          <label for="prodi">PROGRAM STUDI :</label>
+                          <select id="prodi" class="form-control">
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="konsentrasi">KONSENTRASI :</label>
+                          <input type="text" class="form-control" id="konsentrasi" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="judul">JUDUL :</label>
+                          <input type="text" class="form-control" id="judul"  required>
+                        </div>
+                        <div class="form-group">
+                          <label for="tglpengajuan">Tanggal Pengajuan</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-calendar-alt"></i>
+                              </span>
+                            </div>
+                            <input type="date" class="form-control" id="tglpengajuan">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="tglditerima">Tanggal Diterima</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-calendar-alt"></i>
+                              </span>
+                            </div>
+                            <input type="date" class="form-control" id="tglditerima" in="<?php echo date('Y-m-d');?>">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="pembimbing1">Pembimbing 1</label>
+                          <select class="form-control select2" data-placeholder="Silahkan pilih Pembimbing 1" id="pembimbing1"style="width: 100%;" required>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="pembimbing2">Pembimbing 2</label>
+                          <select class="form-control select2" data-placeholder="Silahkan pilih Pembimbing 2" id="pembimbing2" name="pembimbing2" style="width: 100%;" required>
+                          </select>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                          <button type="button" id="ubah" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+              <?php endif;?>
     </section>
     <!-- /.content -->
   </div>
@@ -344,16 +453,142 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
-
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js');?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
-
+<!-- SweetAlert2 -->
+<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   $(function () {
 
     $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    <?php if($this->session->userdata('level') == 0) :?>
+      const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+      const $ubahBtn = $(".ubah-pengajuan");
+      // if click ubah
+      $ubahBtn.click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+          type : 'GET',
+          url :'<?php echo base_url('pengajuan/get_judul/');?>'+id,
+          dataType : 'json',
+          success:function(data){
+            $("#idubah").val(id);
+            $("#nim").val(data[0].nim);
+            $("#nama").val(data[0].nama);
+            if(data[0].prodi=="adpend"){
+              $("#prodi").html('<option value="adpend" selected>Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen">Manajemen</option>');
+            }else if(data[0].prodi=="hukum"){
+              $("#prodi").html('<option value="adpend">Administrasi Pendidikan</option><option value="hukum" selected>Hukum</option><option value="manajemen">Manajemen</option>');
+            }else if(data[0].prodi=="manajemen"){
+              $("#prodi").html('<option value="adpend">Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen"selected>Manajemen</option>');
+            }else{
+              $("#prodi-ubah").html('<option>Silahkan Pilih</option><option value="adpend">Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen">Manajemen</option>');
+            }
+            $("#tglpengajuan").val(data[0].tglpengajuan);
+            $("#tglditerima").val(data[0].tglditerima);
+            $("#judul").val(data[0].judul);
+            $("#konsentrasi").val(data[0].konsentrasi);
+            $("#modal-ubah").modal();
+            GetPembimbing1(data[0].prodi);
+            GetPembimbing2(data[0].prodi);
+          },error:function(data){
+            Swal.fire(
+              'Gagal',
+              'Gagal mengambil data :(',
+              'error'
+            )
+          }
+        });
+        
+        
+      });
+      function GetPembimbing1(prodi){
+        var api = '<?php echo base_url();?>'+prodi+'/rank/1';
+        var datas='';
+        
+        $.ajax({
+          type : 'GET',
+          url : api,
+          datatype: 'json',
+          success:function(data){
+            var posts = JSON.parse(data);
+            $.each(posts, function() {
+              datas += '<option value="'+ this.kode_dosen + '">' + this.nama_dosen + '</li>' ;
+            });
+            $("#pembimbing1").html('<option></option>'+datas);
+          },error:function(data){
+            alert('mohon maaf, data tidak bisa diambil'); 
+            console.log('tidak dapat mengambil data');
+          }
+        });
+      }
+      function GetPembimbing2(prodi){
+        var api = '<?php echo base_url();?>'+prodi+'/rank/2';
+        var datas='';
+        
+        $.ajax({
+          type : 'GET',
+          url : api,
+          datatype: 'json',
+          success:function(data){
+            var posts = JSON.parse(data);
+            $.each(posts, function() {
+              datas += '<option value="'+ this.kode_dosen + '">' + this.nama_dosen + '</li>' ;
+            });
+            $("#pembimbing2").html('<option></option>'+datas);
+          },error:function(data){
+            alert('mohon maaf, data tidak bisa diambil'); 
+            console.log('tidak dapat mengambil data');
+          }
+        });
+      }
+      $("#ubah").on('click',function(){
+        var id = $("#idubah").val();
+        var nim = $("#nim").val();
+        var nama = $("#nama").val();
+        var prodi = $("#prodi").val();
+        var pembimbing1 = $("#pembimbing1").val();
+        var pembimbing2 = $("#pembimbing2").val();
+        var konsentrasi = $("#konsentrasi").val();
+        var judul = $("#judul").val();
+        var tglditerima = $("#tglditerima").val();
+        var tglpengajuan = $("#tglpengajuan").val();
+
+        if(id == '' || nama == '' || nim =='' || prodi =='' || pembimbing1 =='' || pembimbing2 == '' || konsentrasi == '' || judul =='' || tglditerima == '' || tglpengajuan == ''){
+          Swal.fire(
+              'Perhatian!',
+              'Silahkan lengkapi data!',
+              'warning'
+            )
+        }else{
+
+          $.ajax({
+            type : 'POST',
+            url : '<?php echo base_url('pengajuan/update');?>',
+            data: {id:id,nim:nim,nama:nama,prodi:prodi,pembimbing1:pembimbing1,pembimbing2:pembimbing2,konsentrasi:konsentrasi,judul:judul,tglditerima:tglditerima,tglpengajuan:tglpengajuan},
+            success: function(data){
+              location.reload();
+            },error: function(data){
+              Swal.fire(
+                'Gagal',
+                'Gagal menyimpan data :(',
+                'error'
+              )
+            }
+          });
+        }
+      });
+      $('.select2').select2();
+    <?php endif;?>
 
   });
 </script>

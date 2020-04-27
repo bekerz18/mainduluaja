@@ -10,11 +10,38 @@ class Users extends CI_Controller{
 		
 		$this->load->model('Users_model');
 		$this->load->library('form_validation');
+		$this->load->helper('form');
 	}
-
+	private function _password(){
+		if(!empty($this->input->post('password'))){
+			return md5($this->input->post('password'));
+			
+		}else{
+			return $this->session->userdata('password');
+		}
+	}
 	public function mahasiswa(){
 		if($this->session->userdata('level') == 2){
-			
+			if($this->input->method()=="post"){
+				$model = $this->Users_model;
+				$password = $this->_password();
+				$update = $model->update_by_client($password);
+
+				if($update){
+					$this->session->set_flashdata('success_upd','Berhasil diubah');
+					$session = array(
+						'handphone'		=> $this->input->post('handphone'),
+						'email'			=> $this->input->post('email'),
+						'password'		=> $password
+					);
+					$this->session->set_userdata($session);
+				}else{
+					$this->session->set_flashdata('failed_upd','Gagal diubah');
+				}
+			}
+
+			$data['nama'] = $this->session->userdata('nama');
+			$this->load->view('users/setting_mahasiswa',$data);
 		}elseif($this->session->userdata('level') == 0){
 			$model = $this->Users_model;
 			$data['users'] = $model->get_mahasiswa();
@@ -26,7 +53,25 @@ class Users extends CI_Controller{
 	}
 	public function dosen(){
 		if($this->session->userdata('level') == 1){
-			
+			if($this->input->method()=="post"){
+				$model = $this->Users_model;
+				$password = $this->_password();
+				$update = $model->update_by_client($password);
+
+				if($update){
+					$this->session->set_flashdata('success_upd','Berhasil diubah');
+					$session = array(
+						'handphone'		=> $this->input->post('handphone'),
+						'email'			=> $this->input->post('email'),
+						'password'		=> $password
+					);
+					$this->session->set_userdata($session);
+				}else{
+					$this->session->set_flashdata('failed_upd','Gagal diubah');
+				}
+			}
+			$data['nama'] = $this->session->userdata('nama');
+			$this->load->view('users/setting_dosen',$data);
 		}elseif($this->session->userdata('level') == 0){
 			$model = $this->Users_model;
 			$data['users'] = $model->get_dosen();

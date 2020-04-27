@@ -30,12 +30,17 @@ class Login extends CI_Controller {
 
 			if(!empty($login)){
 				$session = array(
-					'id'		=> $login["id"],
-					'nama'		=> $login["nama"],
-					'username'	=> $login["username"],
-					'gender'	=> $login["gender"],
-					'level'		=> $login["level"],
-					'login'		=> true
+					'id'				=> $login["id"],
+					'nama'				=> $login["nama"],
+					'username'			=> $login["username"],
+					'gender'			=> $login["gender"],
+					'password'			=> $login["password"],
+					'kode_alternatif'	=> $login["kode_alternatif"],
+					'prodi'				=> $login["prodi"],
+					'handphone'			=> $login["handphone"],
+					'email'				=> $login["email"],
+					'level'				=> $login["level"],
+					'login'				=> true
 				);
 
 				if($login["level"]==0){

@@ -44,18 +44,7 @@ class Pengajuan extends CI_Controller{
 		$data['nama'] = $this->session->userdata('nama');
 		$this->load->view('pengajuan/list',$data);
 	}
-	public function ubah($edit=null)
-	{
-		
-		if($this->session->userdata('level') != '0'){
-			redirect('pengajuan');
-		}elseif(!isset($id)){
-			redirect('pengajuan');
-		}else{
-			$model = $this->Pengajuan_model;
-		}
-		
-	}
+	
 	public function hapus($id=null)
 	{
 		if($this->session->userdata('level') != '0'){
@@ -68,15 +57,45 @@ class Pengajuan extends CI_Controller{
 			$hapus = $model->delete_pengajuan($id);
 			
 			if($hapus){
-				$this->session->set_flashdata('berhasil_hapus_pengajuan','Pengajuan Berhasil Dihapus!');
+				$this->session->set_flashdata('success_delete','Pengajuan Berhasil Dihapus!');
 				redirect('pengajuan');
 			}else{
-				$this->session->set_flashdata('gagal_hapus_pengajuan','Pengajuan Gagal Dihapus!');
+				$this->session->set_flashdata('failed_delete','Pengajuan Gagal Dihapus!');
 			}
 		}
 		
 
 	}
-	
+	public function get_judul($id){
+		$model = $this->Pengajuan_model;
+		$data = $model->get_select_pengajuan($id);
+
+		echo json_encode($data);
+	}
+	public function update(){
+		if($this->session->userdata('level') == 0){
+			if($this->input->method()=="post"){
+				$model = $this->Pengajuan_model;
+				$id = $this->input->post('id');
+				$data = array(
+					'nim'			=> $this->input->post('nim'),
+					'nama'			=> $this->input->post('nama'),
+					'prodi'			=> $this->input->post('prodi'),
+					'pembimbing1'	=> $this->input->post('pembimbing1'),
+					'pembimbing2'	=> $this->input->post('pembimbing2'),
+					'konsentrasi'	=> $this->input->post('konsentrasi'),
+					'judul'			=> $this->input->post('judul'),
+					'tglpengajuan'	=> $this->input->post('tglpengajuan'),	
+					'tglditerima'	=> $this->input->post('tglditerima')
+				);
+				$update = $model->update($id,$data);
+				if($update){
+					$this->session->set_flashdata('success_upd','Berhasil Mengubah Data!');
+				}else{
+					$this->session->set_flashdata('failed_upd','Gagal Mengubah Data!');
+				}
+			}
+		}
+	}
 
 }

@@ -35,5 +35,17 @@ class Users_model extends CI_Model {
 		$this->db->where('id',$id);
 		return $this->db->delete($this->_tabel);
 	}
+	public function update_by_client($password){
+
+		$data = array(
+			'email'			=> $this->input->post('email'),
+			'handphone'		=> $this->input->post('handphone'),
+			'password'		=> $password
+		);
+
+		$this->db->where('id',$this->session->userdata('id'));
+		return $this->db->update($this->_tabel,$data);
+	}
+
 
 }

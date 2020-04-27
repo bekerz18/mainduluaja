@@ -33,5 +33,15 @@ class Pengajuan_model extends CI_Model {
 		$this->db->where('id',$id);
 		return $this->db->delete($this->_tabel);
 	}
+	public function get_select_pengajuan($id)
+	{
+		$this->db->where('id',$id);
+		return $this->db->get($this->_tabel)->result_array();
+	}
+	public function update($id,$data)
+	{
+		$this->db->where('id',$id);
+		return $this->db->update($this->_tabel,$data);
+	}
 
 }
