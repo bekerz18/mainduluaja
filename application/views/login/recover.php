@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Log in - Pascasarjana Universitas Galuh</title>
+  <title>Lupa Password - Pascasarjana Universitas Galuh</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,30 +28,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-       <?php if(!empty($this->session->flashdata('berhasil_diubah'))):?>
-        <div class="alert alert-success">
-          Password berhasil diubah! Yuk login kembali
+      <p class="login-box-msg">Hai <?php echo $nama;?>! satu langkah lagi untuk mendapatkan password baru, pulihkan sekarang!</p>
+
+      <?php echo form_open();?>
+      <?php if(!empty($this->session->flashdata('not_found'))):?>
+        <div class="alert alert-warning">
+          Ooops, terjadi masalah saat mengganti password, yuk coba kembali!
         </div>
       <?php endif; ?>
-      <p class="login-box-msg">Silahkan login</p>
-
-      <?php if($this->session->flashdata('failed')) { ?>
-        <p class="mb-1 text-center text-danger">
-          Identitas tidak ditemukan
-        </p>
-      <?php }?>
-    
-      <form action="<?php echo base_url('login/login');?>" method="post">
+      <span class="text-danger"><?php echo form_error('password');?></span>
         <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="Masukan username" autofocus="">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Masukan password">
+          <input type="password" class="form-control" name="password" placeholder="Silahkan isi dengan password baru" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -59,18 +46,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
         <div class="row">
-          <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+            <button type="submit" class="btn btn-primary btn-block">Ubah password</button>
           </div>
           <!-- /.col -->
         </div>
-      </form>
+      <?php echo form_close();?>
 
-
-      <p class="mb-1 text-center text-danger">
-        <a href="<?php echo base_url('lupa-password');?>" class="text-danger">Lupa Password ?</a>
+      <p class="mt-3 mb-1">
+        <a href="<?php echo base_url('login');?>">Login</a>
       </p>
+      
     </div>
     <!-- /.login-card-body -->
   </div>

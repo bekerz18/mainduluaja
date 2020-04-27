@@ -38,5 +38,24 @@ class Login_model extends CI_Model {
 
 		return $this->db->get('mahasiswa')->row_array();
 	}
+	public function forgot_dosen($username,$nama){
+		$this->db->where('username',$username);
+		$this->db->where('nama',$nama);
+		return $this->db->get('dosen')->row_array();
+	}
+	public function forgot_mahasiswa($username,$nama){
+		$this->db->where('username',$username);
+		$this->db->where('nama',$nama);
+		return $this->db->get('mahasiswa')->row_array();
+	}
+	public function forgot_admin($username,$nama){
+		$this->db->where('username',$username);
+		$this->db->where('nama',$nama);
+		return $this->db->get('users')->row_array();
+	}
+	public function set_password($id,$table,$data){
+		$this->db->where('id',$id);
+		return $this->db->update($table,$data);
+	}
 
 }
