@@ -1,3 +1,21 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Apr 27, 2020 at 06:44 PM
+-- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
+-- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `ahptopmm`
 --
@@ -10,32 +28,33 @@
 
 CREATE TABLE `alternatif` (
   `alternatif_kode` varchar(5) NOT NULL,
-  `alternatif_nama` varchar(50) NOT NULL
+  `alternatif_nama` varchar(50) NOT NULL,
+  `users_id` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `alternatif`
 --
 
-INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`) VALUES
-('A01', 'Prof. Dr. H. Suryana, M.Si.'),
-('A02', 'Prof. Dr. H. Sucherly, SE., MS'),
-('A03', 'Prof. Dr. H. Endang Sumantri, M.Ed'),
-('A04', 'Prof. Dr. Sadu Wasistiono, MS'),
-('A05', 'Prof. Dr. Endang Wirjatmi Trilestari, M.Si.'),
-('A06', 'Prof. Dr. H. Idrus Affandi, SH.'),
-('A07', 'Dr. H. A. A. Anwar Prabu Mangkunegara, MS., Psi.'),
-('A08', 'Dr. H. Yat Rospia Brata, M.Si'),
-('A09', 'Dr. H. Oyon Saryono, MM'),
-('A10', 'Dr. Hj. Dyah Kusumastuti, MS'),
-('A11', 'Dr. H. Kusnendi, M.Si'),
-('A12', 'Ir. H. Ridwan Sutriadi, MT., Ph.D'),
-('A13', 'Dr. Hj. Aini Kusniawati, MM'),
-('A14', 'Dr. Hj. Irma Bastaman Darmawati, MM'),
-('A15', 'Dr. H. Hariswan, SE., SH., MM., MH'),
-('A16', 'Dr. Ferey Herman, SE., MM'),
-('A17', 'Dr. H. Enas, SE., MM.'),
-('A18', 'Dr. Apri Budianto, MM');
+INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`, `users_id`) VALUES
+('A01', 'Prof. Dr. H. Suryana, M.Si.', '10'),
+('A02', 'Prof. Dr. H. Sucherly, SE., MS', '49'),
+('A03', 'Prof. Dr. H. Endang Sumantri, M.Ed', '50'),
+('A04', 'Prof. Dr. Sadu Wasistiono, MS', '51'),
+('A05', 'Prof. Dr. Endang Wirjatmi Trilestari, M.Si.', '52'),
+('A06', 'Prof. Dr. H. Idrus Affandi, SH.', '53'),
+('A07', 'Dr. H. A. A. Anwar Prabu Mangkunegara, MS., Psi.', '54'),
+('A08', 'Dr. H. Yat Rospia Brata, M.Si', '55'),
+('A09', 'Dr. H. Oyon Saryono, MM', '56'),
+('A10', 'Dr. Hj. Dyah Kusumastuti, MS', '57'),
+('A11', 'Dr. H. Kusnendi, M.Si', '58'),
+('A12', 'Ir. H. Ridwan Sutriadi, MT., Ph.D', '59'),
+('A13', 'Dr. Hj. Aini Kusniawati, MM', '60'),
+('A14', 'Dr. Hj. Irma Bastaman Darmawati, MM', '61'),
+('A15', 'Dr. H. Hariswan, SE., SH., MM., MH', '62'),
+('A16', 'Dr. Ferey Herman, SE., MM', '63'),
+('A17', 'Dr. H. Enas, SE., MM.', '29'),
+('A18', 'Dr. Apri Budianto, MM', '65');
 
 -- --------------------------------------------------------
 
@@ -54,24 +73,24 @@ CREATE TABLE `hasil_rank` (
 --
 
 INSERT INTO `hasil_rank` (`hr_id`, `alternatif_kode`, `hr_value`) VALUES
-(1, 'A01', 0.274),
-(2, 'A02', 0.538),
-(3, 'A03', 0.284),
-(4, 'A04', 0.518),
-(5, 'A05', 0.517),
-(6, 'A06', 0.252),
-(7, 'A07', 0.512),
-(8, 'A08', 0.299),
-(9, 'A09', 0.44),
-(10, 'A10', 0.463),
-(11, 'A11', 0.232),
-(12, 'A12', 0.73),
-(13, 'A13', 0.68),
-(14, 'A14', 0.821),
-(15, 'A15', 0.288),
-(16, 'A16', 0.478),
-(17, 'A17', 0.249),
-(18, 'A18', 0.242);
+(1, 'A01', 0.442),
+(2, 'A02', 0.545),
+(3, 'A03', 0.424),
+(4, 'A04', 0.544),
+(5, 'A05', 0.568),
+(6, 'A06', 0.393),
+(7, 'A07', 0.518),
+(8, 'A08', 0.384),
+(9, 'A09', 0.438),
+(10, 'A10', 0.493),
+(11, 'A11', 0.283),
+(12, 'A12', 0.598),
+(13, 'A13', 0.551),
+(14, 'A14', 0.737),
+(15, 'A15', 0.437),
+(16, 'A16', 0.386),
+(17, 'A17', 0.376),
+(18, 'A18', 0.337);
 
 -- --------------------------------------------------------
 
@@ -279,7 +298,7 @@ INSERT INTO `parameter` (`parameter_id`, `kriteria_kode`, `parameter_ukuran`, `p
 (38, 'B7', 'Manajemen Strategi dan Manajemen Pemasaran', 10),
 (39, 'B7', 'Metodologi Penelitian dan Sistem Informasi', 8),
 (40, 'B7', 'Manajemen Keuangan dan Statistika Terapan', 6),
-(41, 'B7', 'Manajemen Operasional dan Filsafat Ilmu	', 4);
+(41, 'B7', 'Manajemen Operasional dan Filsafat Ilmu ', 4);
 
 -- --------------------------------------------------------
 

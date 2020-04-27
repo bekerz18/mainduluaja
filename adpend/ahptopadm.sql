@@ -1,3 +1,21 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Apr 27, 2020 at 06:43 PM
+-- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
+-- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `ahptopadm`
 --
@@ -10,35 +28,36 @@
 
 CREATE TABLE `alternatif` (
   `alternatif_kode` varchar(5) NOT NULL,
-  `alternatif_nama` varchar(50) NOT NULL
+  `alternatif_nama` varchar(50) NOT NULL,
+  `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `alternatif`
 --
 
-INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`) VALUES
-('A01', 'Prof. Dr. H. Djam’an Satori, MA'),
-('A02', 'Prof. Dr. H. Suryana, M.Si.'),
-('A03', 'Prof. dr. H. JS. Husdarta, M.Pd. '),
-('A04', 'Prof. Dr. H. Wahyudin, M.Pd.'),
-('A05', 'Prof. Dr. H. Dadang Suhardan, M.Pd'),
-('A06', 'Prof. Dr. H.  Toto SGU, M.Pd'),
-('A07', 'Prof. Dr. H. Udin Saud, M.Pd.'),
-('A08', 'Prof. Dr. H. Yudha, MS., M.s.'),
-('A09', 'Prof. Dr. Herman Subarjah, M.Si.'),
-('A10', 'Dr. H. Tatang Parjaman, M.Si.'),
-('A11', 'Dr. H. Kusnandi, MM., M.Pd.'),
-('A12', 'Dr. H. Awang Kustiawan, MM.'),
-('A13', 'Dr. Maman Herman, M.Pd.'),
-('A14', 'Dr. Hj. Elly Resli Rachlan, MM.'),
-('A15', 'Dr. H. Abdul Rohman, M.Pd.'),
-('A16', 'Dr. H. Toto, M.Pd.'),
-('A17', 'Dr. Hj. Dedeh Rukaesih, M.Pd.'),
-('A18', 'Dr. H. Adun Rusyana, M.Pd.'),
-('A19', 'Dr. H. Nono Mulyono, MM.'),
-('A20', 'Dr. Alan Rusyandi, MM.'),
-('A21', 'Dr. H. Enas, MM.');
+INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`, `users_id`) VALUES
+('A01', 'Prof. Dr. H. Djam’an Satori, MA', 9),
+('A02', 'Prof. Dr. H. Suryana, M.Si.', 10),
+('A03', 'Prof. dr. H. JS. Husdarta, M.Pd. ', 11),
+('A04', 'Prof. Dr. H. Wahyudin, M.Pd.', 12),
+('A05', 'Prof. Dr. H. Dadang Suhardan, M.Pd', 13),
+('A06', 'Prof. Dr. H.  Toto SGU, M.Pd', 14),
+('A07', 'Prof. Dr. H. Udin Saud, M.Pd.', 15),
+('A08', 'Prof. Dr. H. Yudha, MS., M.s.', 16),
+('A09', 'Prof. Dr. Herman Subarjah, M.Si.', 17),
+('A10', 'Dr. H. Tatang Parjaman, M.Si.', 18),
+('A11', 'Dr. H. Kusnandi, MM., M.Pd.', 19),
+('A12', 'Dr. H. Awang Kustiawan, MM.', 20),
+('A13', 'Dr. Maman Herman, M.Pd.', 21),
+('A14', 'Dr. Hj. Elly Resli Rachlan, MM.', 22),
+('A15', 'Dr. H. Abdul Rohman, M.Pd.', 23),
+('A16', 'Dr. H. Toto, M.Pd.', 24),
+('A17', 'Dr. Hj. Dedeh Rukaesih, M.Pd.', 25),
+('A18', 'Dr. H. Adun Rusyana, M.Pd.', 26),
+('A19', 'Dr. H. Nono Mulyono, MM.', 27),
+('A20', 'Dr. Alan Rusyandi, MM.', 28),
+('A21', 'Dr. H. Enas, MM.', 29);
 
 -- --------------------------------------------------------
 
@@ -57,27 +76,27 @@ CREATE TABLE `hasil_rank` (
 --
 
 INSERT INTO `hasil_rank` (`hr_id`, `alternatif_kode`, `hr_value`) VALUES
-(50, 'A01', 0.381),
-(52, 'A02', 0.455),
-(53, 'A03', 0.34),
-(54, 'A04', 0.494),
-(55, 'A05', 0.496),
-(56, 'A06', 0.358),
-(57, 'A07', 0.513),
-(58, 'A08', 0.377),
-(59, 'A09', 0.457),
-(60, 'A10', 0.449),
-(62, 'A11', 0.255),
-(63, 'A12', 0.651),
-(64, 'A13', 0.568),
-(65, 'A14', 0.701),
-(66, 'A15', 0.403),
-(67, 'A16', 0.407),
-(68, 'A17', 0.354),
-(69, 'A18', 0.417),
-(70, 'A19', 0.664),
-(71, 'A20', 0.657),
-(72, 'A21', 0.319);
+(50, 'A01', 0.46),
+(52, 'A02', 0.514),
+(53, 'A03', 0.375),
+(54, 'A04', 0.535),
+(55, 'A05', 0.551),
+(56, 'A06', 0.456),
+(57, 'A07', 0.565),
+(58, 'A08', 0.479),
+(59, 'A09', 0.531),
+(60, 'A10', 0.416),
+(62, 'A11', 0.287),
+(63, 'A12', 0.563),
+(64, 'A13', 0.392),
+(65, 'A14', 0.566),
+(66, 'A15', 0.454),
+(67, 'A16', 0.483),
+(68, 'A17', 0.437),
+(69, 'A18', 0.525),
+(70, 'A19', 0.504),
+(71, 'A20', 0.545),
+(72, 'A21', 0.259);
 
 -- --------------------------------------------------------
 

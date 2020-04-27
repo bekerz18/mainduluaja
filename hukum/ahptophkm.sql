@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.4.1deb2ubuntu2.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 26, 2020 at 04:51 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Host: localhost
+-- Generation Time: Apr 27, 2020 at 06:43 PM
+-- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
+-- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,32 +28,33 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alternatif` (
   `alternatif_kode` varchar(5) NOT NULL,
-  `alternatif_nama` varchar(50) NOT NULL
+  `alternatif_nama` varchar(50) NOT NULL,
+  `users_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `alternatif`
 --
 
-INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`) VALUES
-('A01', 'Prof. Dr. H. Day Ravena, SH., MH'),
-('A02', 'Prof. Dr. H. Toto Suryaatmadja, SH., MH'),
-('A03', 'Dr. Ida Farida, SH., MH'),
-('A04', 'Dr. Hj. Nining Latianingsih, SH., MH'),
-('A05', 'Dr. Nanang Abimanyu, drg., SP.KG., MH.Kes'),
-('A06', 'Dr. Eman Sungkawa, SH., MH'),
-('A07', 'Dr. H. Amin Mashur, DRS., SH., M.Hum'),
-('A08', 'Dr. Juju Samsudin, SH., MH'),
-('A09', 'Dr. H. Sobari, SH., MH'),
-('A10', 'Brigjen (Pol) Dr. Agung Makbul, SH., MH'),
-('A11', 'Dr. H. Yana Sahyana, SH., MH'),
-('A12', 'Dr. R. Herman Katimin, SH., MH'),
-('A13', 'Dr. Hj. Ratnawati, SH., MH'),
-('A14', 'Dr. Hj Yetti Suciati, SH., MBA'),
-('A15', 'Dr. H. Zulkarnaen, SH., MH'),
-('A16', 'Dr. dr. Herdi Wibowo, SH., MH.Kes.,MM'),
-('A17', 'Dr. Renny Supriyatni, SH., MH'),
-('A18', 'Dr. Rachmatin Artita, SH., MH');
+INSERT INTO `alternatif` (`alternatif_kode`, `alternatif_nama`, `users_id`) VALUES
+('A01', 'Prof. Dr. H. Day Ravena, SH., MH', 30),
+('A02', 'Prof. Dr. H. Toto Suryaatmadja, SH., MH', 31),
+('A03', 'Dr. Ida Farida, SH., MH', 32),
+('A04', 'Dr. Hj. Nining Latianingsih, SH., MH', 33),
+('A05', 'Dr. Nanang Abimanyu, drg., SP.KG., MH.Kes', 34),
+('A06', 'Dr. Eman Sungkawa, SH., MH', 35),
+('A07', 'Dr. H. Amin Mashur, DRS., SH., M.Hum', 36),
+('A08', 'Dr. Juju Samsudin, SH., MH', 37),
+('A09', 'Dr. H. Sobari, SH., MH', 38),
+('A10', 'Brigjen (Pol) Dr. Agung Makbul, SH., MH', 39),
+('A11', 'Dr. H. Yana Sahyana, SH., MH', 40),
+('A12', 'Dr. R. Herman Katimin, SH., MH', 41),
+('A13', 'Dr. Hj. Ratnawati, SH., MH', 42),
+('A14', 'Dr. Hj Yetti Suciati, SH., MBA', 43),
+('A15', 'Dr. H. Zulkarnaen, SH., MH', 44),
+('A16', 'Dr. dr. Herdi Wibowo, SH., MH.Kes.,MM', 45),
+('A17', 'Dr. Renny Supriyatni, SH., MH', 46),
+('A18', 'Dr. Rachmatin Artita, SH., MH', 47);
 
 -- --------------------------------------------------------
 
