@@ -244,6 +244,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <a href="<?php echo base_url('pengajuan-judul');?>">
+                  <button type="button" class="btn btn-primary">Ajukan Judul</button>
+                </a>
                 <?php if($this->session->userdata('success_delete')) {?>
                     <div class="alert alert-success alert-dismissible">
                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

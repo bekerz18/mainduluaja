@@ -244,7 +244,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
-                      <input type="date" class="form-control" id="tglpengajuan" name="tglpengajuan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal pengajuan (tanggal/bulan/tahun)" value="<?=date('Y-m-d');?>"required disabled>
+                      <input type="date" class="form-control" id="tglpengajuan" name="tglpengajuan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal pengajuan (tanggal/bulan/tahun)" min="<?=date('Y-m-d');?>"required disabled>
                     </div>
                   </div>
                   <?php if($this->session->userdata('level') == 0) {?>
