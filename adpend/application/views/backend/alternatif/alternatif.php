@@ -76,14 +76,14 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<!-- <form> -->
+					<form action="<?= base_url('alternatif/create')?>" method="POST" enctype="multipart/form-data">
 						<div class="modal-body">
 
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>Alternatif Kode: </label>
-										<input type="text" placeholder="kode" name="kode" id="kode" class="form-control" required>
+										<input type="text" placeholder="kode" name="kode" class="form-control">
 									</div>
 								</div>
 							</div>
@@ -91,35 +91,16 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label>Nama Alternatif: </label>
-										<input type="text" placeholder="alternatamaif_nama" name="nama" id="nama" class="form-control" required>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label>NIDN/NIK: </label>
-										<input type="text" placeholder="alternatamaif_nama" name="nik" id="nik" class="form-control" required>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label>Jenis Kelamin: </label>
-										<select id="gender" class="form-control" required>
-											<option value="Pria">Pria</option>
-											<option value="Wanita">Wanita</option>
-										</select>
+										<input type="text" placeholder="alternatamaif_nama" name="nama" class="form-control">
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
 							<input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="close">
-							<input type="submit" class="btn btn-outline-primary btn-lg" name="save_alternatif" value="Submit" id="submit">
+							<input type="submit" class="btn btn-outline-primary btn-lg" name="save_alternatif" value="Submit">
 						</div>
-					<!-- </form> -->
+					</form>
 				</div>
 			</div>
 		</div>
