@@ -40,15 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
         </ul>
       </li>
-      <!-- Penentuan Pembimbing -->
-     <li class="nav-item dropdown">
-        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Penentuan Pembimbing</a>
-        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="#" class="dropdown-item">Pembimbing Adm. Pend</a></li>
-          <li><a href="#" class="dropdown-item">Pembimbing Manajemen</a></li>
-          <li><a href="#" class="dropdown-item">Pembimbing Hukum</a></li>
-        </ul>
-      </li>
+    
           <!-- Bimbingan -->
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Bimbingan</a>

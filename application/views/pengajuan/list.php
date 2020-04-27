@@ -59,16 +59,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         </ul>
       </li>
-      <?php if($this->session->userdata('level') == 1) :?>
-        <li class="nav-item dropdown">
-        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Penentuan Pembimbing</a>
-        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="#" class="dropdown-item">Pembimbing Adm. Pend</a></li>
-          <li><a href="#" class="dropdown-item">Pembimbing Manajemen</a></li>
-          <li><a href="#" class="dropdown-item">Pembimbing Hukum</a></li>
-        </ul>
-      </li>
-      <?php endif;?>
       <?php if($this->session->userdata('level') == 0) :?>
         <!-- Penentuan Pembimbing -->
         <li class="nav-item dropdown">

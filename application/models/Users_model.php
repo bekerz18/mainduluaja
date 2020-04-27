@@ -26,7 +26,6 @@ class Users_model extends CI_Model {
 		return $this->db->get('mahasiswa')->result();
 	}
 	public function get_admin(){
-		$this->db->where('level','0');
 		$this->db->order_by('nama','ASC');
 		return $this->db->get($this->_tabel)->result();
 	}

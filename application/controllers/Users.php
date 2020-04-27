@@ -188,8 +188,6 @@ class Users extends CI_Controller{
 				
 				$update = $model->update_user($id,array(
 					'nama'				=> $this->input->post('nama'),
-					'prodi'				=> $this->input->post('prodi'),
-					'kode_alternatif'	=> $this->input->post('kode'),
 					'gender'			=> $this->input->post('gender'),
 					'password'			=> md5($this->input->post('nik'))	
 				));
