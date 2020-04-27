@@ -26,29 +26,60 @@ class Login extends CI_Controller {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
-			$login = $model->login_check($username,$password);
+			$admin = $model->login_admin($username,$password);
+			$dosen = $model->login_dosen($username,$password);
+			$mahasiswa = $model->login_mahasiswa($username,$password);
 
-			if(!empty($login)){
+			if(!empty($admin)){
 				$session = array(
-					'id'				=> $login["id"],
-					'nama'				=> $login["nama"],
-					'username'			=> $login["username"],
-					'gender'			=> $login["gender"],
-					'password'			=> $login["password"],
-					'kode_alternatif'	=> $login["kode_alternatif"],
-					'prodi'				=> $login["prodi"],
-					'handphone'			=> $login["handphone"],
-					'email'				=> $login["email"],
-					'level'				=> $login["level"],
-					'login'				=> true
+					'id'				=> $admin["id"],
+					'nama'				=> $admin["nama"],
+					'username'			=> $admin["username"],
+					'gender'			=> $admin["gender"],
+					'password'			=> $admin["password"],
+					'handphone'			=> $admin["handphone"],
+					'email'				=> $admin["email"],
+					'level'				=> 0,
+					'login'				=> true,
+					'user_role'			=> 'admin'
 				);
-
-				if($login["level"]==0){
-					$this->session->set_userdata('user_role','admin');
-				}
 
 				$this->session->set_userdata($session);
 				redirect('beranda');
+
+			}elseif(!empty($dosen)){
+				$session = array(
+					'id'				=> $dosen["id"],
+					'nama'				=> $dosen["nama"],
+					'username'			=> $dosen["username"],
+					'gender'			=> $dosen["gender"],
+					'password'			=> $dosen["password"],
+					'kode_alternatif'	=> $dosen["kode_alternatif"],
+					'handphone'			=> $dosen["handphone"],
+					'email'				=> $dosen["email"],
+					'level'				=> 1,
+					'login'				=> true
+				);
+				
+				$this->session->set_userdata($session);
+				redirect('beranda');
+			}elseif(!empty($mahasiswa)){
+				$session = array(
+					'id'				=> $mahasiswa["id"],
+					'nama'				=> $mahasiswa["nama"],
+					'username'			=> $mahasiswa["username"],
+					'gender'			=> $mahasiswa["gender"],
+					'password'			=> $mahasiswa["password"],
+					'prodi'				=> $mahasiswa["prodi"],
+					'handphone'			=> $mahasiswa["handphone"],
+					'email'				=> $mahasiswa["email"],
+					'level'				=> 2,
+					'login'				=> true
+				);
+				
+				$this->session->set_userdata($session);
+				redirect('beranda');
+
 			}else{
 				$this->session->set_flashdata('failed','login');
 				redirect('login');

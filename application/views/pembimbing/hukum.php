@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pembimbing Hukum - Pascasarjana Universitas Galuh</title>
+  <title>Pembimbing Hukum - Universitas Galuh</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -107,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -115,7 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
           </li>
           <!-- Pengajuan -->
- 
+
         </ul>
     
   </nav>
@@ -144,22 +144,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
           <!-- User -->
-          <li class="nav-header">Users</li>
+<li class="nav-header">Users</li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-admin');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Admin</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Dosen</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Mahasiswa</p>
               </a>
@@ -197,7 +198,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="container-fluid">
         <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Data Dosen Pembimbing</h3>
+                <h3 class="card-title">Data Pembimbing</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -211,7 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>PENENTUAN</th>
                   </tr>
                   </thead>
-                  <tbody id="pembimbing-administrasi">
+                  <tbody id="pembimbing-hukum">
                     
                   </tbody>
                 </table>
@@ -259,7 +260,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   $(function () {
-    const $PembAdmin = $("#pembimbing-administrasi");
+    const $PembAdmin = $("#pembimbing-hukum");
     var $datas = '';
     var $status = '';
     $.ajax({
@@ -279,7 +280,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $("#data-pembimbing").dataTable().fnClearTable();
         $("#data-pembimbing").dataTable().fnDestroy();
         $PembAdmin.html($datas);
-        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
       },error : function(data){
         alert('Gagal mengambil data');
       }

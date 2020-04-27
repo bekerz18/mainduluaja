@@ -25,7 +25,7 @@ class Users extends CI_Controller{
 			if($this->input->method()=="post"){
 				$model = $this->Users_model;
 				$password = $this->_password();
-				$update = $model->update_by_client($password);
+				$update = $model->update_by_mhs($password);
 
 				if($update){
 					$this->session->set_flashdata('success_upd','Berhasil diubah');
@@ -52,11 +52,13 @@ class Users extends CI_Controller{
 		}
 	}
 	public function dosen(){
+		$model = $this->Users_model;
+		$data['model'] = $model;
 		if($this->session->userdata('level') == 1){
 			if($this->input->method()=="post"){
-				$model = $this->Users_model;
+
 				$password = $this->_password();
-				$update = $model->update_by_client($password);
+				$update = $model->update_by_dosen($password);
 
 				if($update){
 					$this->session->set_flashdata('success_upd','Berhasil diubah');
@@ -70,11 +72,12 @@ class Users extends CI_Controller{
 					$this->session->set_flashdata('failed_upd','Gagal diubah');
 				}
 			}
+			
 			$data['nama'] = $this->session->userdata('nama');
 			$this->load->view('users/setting_dosen',$data);
 		}elseif($this->session->userdata('level') == 0){
 			$model = $this->Users_model;
-			$data['users'] = $model->get_dosen();
+			$data['users'] = $model->get_dosens();
 			$data['nama'] = $this->session->userdata('nama');
 			$this->load->view('users/dosen',$data);
 		}else{
@@ -97,13 +100,11 @@ class Users extends CI_Controller{
 			redirect('beranda');
 		}else{
 			$model = $this->Users_model;
-			$insert = $model->create_user(array(
-				'id'				=> uniqid(),
+			$insert = $model->create_mahasiswa(array(
 				'username'			=> $this->input->post('nim'),
 				'nama'				=> $this->input->post('nama'),
 				'prodi'				=> $this->input->post('prodi'),
 				'gender'			=> $this->input->post('gender'),
-				'level'				=> '2',
 				'password'			=> md5($this->input->post('nim'))	
 			));
 			if($insert){
@@ -141,14 +142,12 @@ class Users extends CI_Controller{
 	public function insert_dosen(){
 		$model = $this->Users_model;
 		if($this->input->method()=="post"){
-			$insert = $model->create_user(array(
-				'id'				=> uniqid(),
+			$insert = $model->create_dosen(array(
 				'username'			=> $this->input->post('nik'),
 				'nama'				=> $this->input->post('nama'),
 				'prodi'				=> $this->input->post('prodi'),
 				'kode_alternatif'	=> $this->input->post('kode'),
 				'gender'			=> $this->input->post('gender'),
-				'level'				=> '1',
 				'password'			=> md5($this->input->post('nik'))	
 			));
 			if($insert){
@@ -164,6 +163,18 @@ class Users extends CI_Controller{
 	public function info_user($id){
 		$model = $this->Users_model;
 		$get = $model->get_user($id);
+
+		echo json_encode($get);
+	}
+	public function info_dosen($id){
+		$model = $this->Users_model;
+		$get = $model->get_dosen($id);
+
+		echo json_encode($get);
+	}
+	public function info_mhs($id){
+		$model = $this->Users_model;
+		$get = $model->get_mhs($id);
 
 		echo json_encode($get);
 	}
@@ -200,7 +211,7 @@ class Users extends CI_Controller{
 			if($this->input->method()=="post"){
 				$model = $this->Users_model;
 				
-				$update = $model->update_user($id,array(
+				$update = $model->update_dosen($id,array(
 					'nama'				=> $this->input->post('nama'),
 					'gender'			=> $this->input->post('gender'),
 					'prodi'				=> $this->input->post('prodi'),
@@ -226,7 +237,7 @@ class Users extends CI_Controller{
 			if($this->input->method()=="post"){
 				$model = $this->Users_model;
 				
-				$update = $model->update_user($id,array(
+				$update = $model->update_mhs($id,array(
 					'nama'				=> $this->input->post('nama'),
 					'gender'			=> $this->input->post('gender'),
 					'prodi'				=> $this->input->post('prodi'),
@@ -245,12 +256,19 @@ class Users extends CI_Controller{
 	}
 	public function hapus($from=null,$id=null){
 		if(!isset($id)){
-			redirec('beranda');
+			redirect('beranda');
 		}elseif(!isset($from)){
 			redirect('beranda');
 		}else{
 			$model = $this->Users_model;
-			$hapus = $model->delete_user($id);
+			if($from == 'admin'){
+				$hapus = $model->delete_user($id);
+			}elseif($from == 'dosen'){
+				$hapus = $model->delete_dosen($id);
+			}elseif($from == 'mahasiswa'){
+				$hapus = $model->delete_mhs($id);
+			}
+			
 			if($hapus){
 				$this->session->set_flashdata('success','Berhasil menghapus data');
 				redirect('users/'.$from);

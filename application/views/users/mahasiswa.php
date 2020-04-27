@@ -488,7 +488,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
     });
 
-    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
     $(".ubah-user").click(function(){
 
@@ -505,7 +505,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $.ajax({
         type : 'GET',
         dataType : 'json',
-        url: '<?php echo base_url('users/info_user/');?>'+id,
+        url: '<?php echo base_url('users/info_mhs/');?>'+id,
         success : function(data){
           $("#nama-ubah").val(data.nama);
           $("#nim-ubah").val(data.username);

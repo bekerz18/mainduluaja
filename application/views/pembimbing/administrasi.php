@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -107,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Data Bimbingan</a>
+                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
                   </li>
                 </ul>
               </li>
@@ -148,19 +148,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- User -->
 <li class="nav-header">Users</li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-admin');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Admin</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Dosen</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
                 <p>Mahasiswa</p>
               </a>
@@ -280,7 +280,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $("#data-pembimbing").dataTable().fnClearTable();
         $("#data-pembimbing").dataTable().fnDestroy();
         $PembAdmin.html($datas);
-        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
       },error : function(data){
         alert('Gagal mengambil data');
       }

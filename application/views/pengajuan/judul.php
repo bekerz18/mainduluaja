@@ -47,49 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
         </ul>
       </li>
-      <!-- Penentuan Pembimbing -->
-      <?php if($this->session->userdata('level') == 0) : ?>
-      <li class="nav-item dropdown">
-        <a id="dropdownPenentuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Penentuan Pembimbing</a>
-        <ul aria-labelledby="dropdownSubMenuPenentuan1" class="dropdown-menu border-0 shadow">
-          <!-- Level two dropdown-->
-          <li class="dropdown-submenu dropdown-hover">
-            <a id="dropdownSubMenuPenentuan2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Adm Pend</a>
-            <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-              <li>
-                <a tabindex="-1" href="<?php echo base_url('adpend');?>" class="dropdown-item">Perhitungan Adm Pend</a>
-              </li>
-              <li>
-                <a tabindex="-1" href="<?php echo base_url('pembimbing-administrasi');?>" class="dropdown-item">Pembimbing Adm Pend</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown-submenu dropdown-hover">
-            <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Manajemen</a>
-            <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-              <li>
-                <a tabindex="-1" href="<?php echo base_url('manajemen');?>" class="dropdown-item">Perhitungan Manajemen</a>
-              </li>
-              <li>
-                <a tabindex="-1" href="<?php echo base_url('pembimbing-manajemen');?>" class="dropdown-item">Pembimbing Manajemen</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown-submenu dropdown-hover">
-            <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hukum</a>
-            <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-              <li>
-                <a tabindex="-1" href="<?php echo base_url('hukum');?>" class="dropdown-item">Perhitungan Hukum</a>
-              </li>
-              <li>
-                <a tabindex="-1" href="<?php echo base_url('pembimbing-hukum');?>" class="dropdown-item">Pembimbing Hukum</a>
-              </li>
-            </ul>
-          </li>
-          <!-- End Level two -->
-        </ul>
-      </li>
-    <?php endif;?>
+      
           <!-- Bimbingan -->
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Bimbingan</a>
@@ -146,20 +104,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                with font-awesome or any other icon font library -->
           <!-- User -->
           <li class="nav-header">Users</li>
-          <?php if($this->session->userdata('level') == 0) :?>
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-admin');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Admin</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Dosen</p>
-              </a>
-            </li>
-          <?php endif;?>
           <li class="nav-item">
             <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
               <i class="nav-icon fas fa-circle"></i>
@@ -205,9 +149,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- form start -->
               <?php echo form_open();?>
                 <div class="card-body">
-                  <a href="<?php echo base_url('pengajuan');?>">
-                    <button type="button" class="btn btn-success">Lihat Daftar Pengajuan</button>
-                  </a>
+                  <div class="row">
+                    <a href="<?php echo base_url('pengajuan');?>">
+                      <button type="button" class="btn btn-info">Lihat Daftar Pengajuan</button>
+                    </a>
+                  </div>
                   <?php if($this->session->userdata('Success')) {?>
                     <div class="alert alert-success alert-dismissible">
                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -250,29 +196,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <input type="date" class="form-control" id="tglpengajuan" name="tglpengajuan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal pengajuan (tanggal/bulan/tahun)" min="<?=date('Y-m-d');?>"required>
                     </div>
                   </div>
-                  <?php if($this->session->userdata('level') == 0) {?>
-                    <div class="form-group">
-                      <label for="tglditerima">Tanggal Diterima<?php echo form_error('tglditerima',' <span class="text-danger">');?></label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                        </div>
-                        <input type="date" class="form-control" id="tglditerima" name="tglditerima" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal diterima (tanggal/bulan/tahun)">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="pembimbing1">Pembimbing 1<?php echo form_error('pembimbing1',' <span class="text-danger">');?></label>
-                      <select class="form-control select2" data-placeholder="Silahkan pilih Pembimbing 1" id="pembimbing1" name="pembimbing1" style="width: 100%;" required>
-                        <option></option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="pembimbing2">Pembimbing 2<?php echo form_error('pembimbing2',' <span class="text-danger">');?></label>
-                      <select class="form-control select2" data-placeholder="Silahkan pilih Pembimbing 2" id="pembimbing2" name="pembimbing2" style="width: 100%;" required>
-                        <option></option>
-                      </select>
-                    </div>
-                  <?php }?>
 
 
                 </div>
@@ -325,63 +248,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   $(function () {
-      const $pembimbing1 = $('#pembimbing1');
-      const $pembimbing2 = $('#pembimbing2'); 
     //Initialize Select2 Elements
       $('.select2').select2();
       $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'tanggal/bulan/tahun' });
       $('[data-mask]').inputmask();
       $.widget.bridge('uibutton', $.ui.button);
 
-      $('#prodi').change(function(){
-        var $SelectedProdi ='';
-        $('#prodi option:selected').each(function(){
-          $SelectedProdi += $(this).val();
-          GetPembimbing1($SelectedProdi);
-          GetPembimbing2($SelectedProdi);
-        })
-      });
-
-      function GetPembimbing1(prodi){
-        var api = '<?php echo base_url();?>'+prodi+'/rank/1';
-        var datas='';
-        
-        $.ajax({
-          type : 'GET',
-          url : api,
-          datatype: 'json',
-          success:function(data){
-            var posts = JSON.parse(data);
-            $.each(posts, function() {
-              datas += '<option value="'+ this.kode_dosen + '">' + this.nama_dosen + '</li>' ;
-            });
-            $pembimbing1.html('<option></option>'+datas);
-          },error:function(data){
-            alert('mohon maaf, data tidak bisa diambil'); 
-            console.log('tidak dapat mengambil data');
-          }
-        });
-      }
-      function GetPembimbing2(prodi){
-        var api = '<?php echo base_url();?>'+prodi+'/rank/2';
-        var datas='';
-        
-        $.ajax({
-          type : 'GET',
-          url : api,
-          datatype: 'json',
-          success:function(data){
-            var posts = JSON.parse(data);
-            $.each(posts, function() {
-              datas += '<option value="'+ this.kode_dosen + '">' + this.nama_dosen + '</li>' ;
-            });
-            $pembimbing2.html('<option></option>'+datas);
-          },error:function(data){
-            alert('mohon maaf, data tidak bisa diambil'); 
-            console.log('tidak dapat mengambil data');
-          }
-        });
-      }
   });
 </script>
 </body>

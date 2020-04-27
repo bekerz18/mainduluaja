@@ -8,11 +8,10 @@ class Pengajuan_model extends CI_Model {
 	public function insert_pengajuan()
 	{
 		$data = array(
-			'nim'			=> $this->input->post('nim'),
-			'nama'			=> $this->input->post('nama'),
+			'id_mahasiswa'			=> $this->session->userdata('id'),
 			'prodi'			=> $this->input->post('prodi'),
-			'pembimbing1'	=> $this->input->post('pembimbing1'),
-			'pembimbing2'	=> $this->input->post('pembimbing2'),
+			'id_pembimbing1'	=> $this->input->post('pembimbing1'),
+			'id_pembimbing2'	=> $this->input->post('pembimbing2'),
 			'konsentrasi'	=> $this->input->post('konsentrasi'),
 			'judul'			=> $this->input->post('judul'),
 			'tglpengajuan'	=> $this->input->post('tglpengajuan'),
@@ -25,7 +24,7 @@ class Pengajuan_model extends CI_Model {
 
 	public function get_pengajuan()
 	{
-		return $this->db->query("SELECT * FROM pengajuan ORDER BY id DESC")->result();
+		return $this->db->query("SELECT pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa ORDER BY id_pengajuan DESC")->result();
 	}
 
 	public function delete_pengajuan($id)
@@ -35,13 +34,17 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function get_select_pengajuan($id)
 	{
-		$this->db->where('id',$id);
-		return $this->db->get($this->_tabel)->result_array();
+		return $this->db->query("SELECT prodi.nama as nama_prodi, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=pengajuan.prodi WHERE pengajuan.id=$id")->result_array();
 	}
 	public function update($id,$data)
 	{
 		$this->db->where('id',$id);
 		return $this->db->update($this->_tabel,$data);
+	}
+	public function get_dosen($id)
+	{
+		$this->db->where('id',$id);
+		return $this->db->get('dosen')->row_array();
 	}
 
 }

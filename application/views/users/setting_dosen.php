@@ -172,15 +172,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="form-group">
               <label for="prodi">PROGRAM STUDI</label>
-              <input type="text" name="prodi" id="prodi" class="form-control" value="<?php if($this->session->userdata('prodi') == 'adpend'){
-                  echo 'Administrasi Pendidikan';
-                }elseif($this->session->userdata('prodi') == 'manajemen'){
-                  echo 'Manajemen';
-                }elseif($this->session->userdata('prodi') == 'hukum'){
-                  echo 'Hukum';
-                }else{
-                  echo '';
-                }?>" disabled>
+              <input type="text" name="prodi" id="prodi" class="form-control" value="<?php
+              $prodis = $model->get_prodi_dosen($this->session->userdata('id'));
+              foreach($prodis as $prodi) echo $prodi->nama_prodi.' , ';
+              ?>" disabled>
             </div>
             <div class="form-group">
               <label for="kode_alternatif">KODE ALTERNATIF</label>

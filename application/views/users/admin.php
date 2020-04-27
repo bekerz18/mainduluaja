@@ -462,7 +462,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
     });
 
-    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
     $(".ubah-user").click(function(){
 
       var id = $(this).data('id');

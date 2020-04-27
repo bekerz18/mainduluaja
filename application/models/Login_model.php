@@ -11,7 +11,7 @@ class Login_model extends CI_Model {
 	public $login_ip;
 	public $login_os_browser;
 
-	public function login_check($username,$password){
+	public function login_admin($username,$password){
 		$this->username = $username;
 		$this->password = md5($password);
 
@@ -19,6 +19,24 @@ class Login_model extends CI_Model {
 		$this->db->where('password',$this->password);
 
 		return $this->db->get('users')->row_array();
+	}
+	public function login_dosen($username,$password){
+		$this->username = $username;
+		$this->password = md5($password);
+
+		$this->db->where('username',$this->username);
+		$this->db->where('password',$this->password);
+
+		return $this->db->get('dosen')->row_array();
+	}
+	public function login_mahasiswa($username,$password){
+		$this->username = $username;
+		$this->password = md5($password);
+
+		$this->db->where('username',$this->username);
+		$this->db->where('password',$this->password);
+
+		return $this->db->get('mahasiswa')->row_array();
 	}
 
 }

@@ -289,7 +289,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>NAMA</th>
                     <th>NIK/NIDN</th>
                     <th>PROGRAM STUDI</th>
-                    <th>KODE ALTERNATIF</th>
                     <th>OPSI</th>
                   </tr>
                   <tbody>
@@ -300,19 +299,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td><?php echo $user->username;?></td>
                         <td>
                           <?php
-                          if($user->prodi == "adpend"){
-                            echo "Adm Pend";
-                          }elseif($user->prodi == "manajemen"){
-                            echo "Manajemen";
-                          }elseif($user->prodi == "hukum"){
-                            echo "Hukum";
-                          }else{
-                            echo "<em>Tidak Ditemukan</em>";
-                          }
+                            $prodis = $model->get_prodi_dosen($user->id);
+                            foreach($prodis as $prodi) echo $prodi->nama_prodi.' , ';
                           ?>
-                        </td>
-                        <td class="text-center">
-                          <?php echo $user->kode_alternatif;?>
                         </td>
                         <td class="text-center"><a class="ubah-user text-info" data-id="<?php echo $user->id;?>">Ubah</a> <a class="text-danger" href="<?php echo base_url('users/hapus/dosen/').$user->id;?>">Hapus</a></td>
                       </tr>
@@ -333,11 +322,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="nama">Nama Lengkap :</label>
-                      <input type="text" class="form-control" id="nama" placeholder="Silahkan isi dengan nama" required>
+                      <input type="text" class="form-control" name="nama" id="nama" placeholder="Silahkan isi dengan nama" required>
                     </div>
                     <div class="form-group">
                       <label for="nik">NIK :</label>
-                      <input type="text" class="form-control" id="nik" placeholder="Silahkan isi NIK/NIDN" required>
+                      <input type="text" class="form-control" name="nik" id="nik" placeholder="Silahkan isi NIK/NIDN" required>
                     </div>
                     <div class="form-group">
                       <label for="prodi">Program Studi :</label>
@@ -503,7 +492,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
     });
 
-    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
     $(".ubah-user").click(function(){
 
       var id = $(this).data('id');
@@ -518,7 +507,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $.ajax({
         type : 'GET',
         dataType : 'json',
-        url: '<?php echo base_url('users/info_user/');?>'+id,
+        url: '<?php echo base_url('users/info_dosen/');?>'+id,
         success : function(data){
           $("#nama-ubah").val(data.nama);
           $("#nik-ubah").val(data.username);

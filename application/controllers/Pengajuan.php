@@ -41,6 +41,7 @@ class Pengajuan extends CI_Controller{
 	{
 		$model = $this->Pengajuan_model;
 		$data['pengajuans'] = $model->get_pengajuan();
+		$data['model'] = $model; 
 		$data['nama'] = $this->session->userdata('nama');
 		$this->load->view('pengajuan/list',$data);
 	}
@@ -78,14 +79,8 @@ class Pengajuan extends CI_Controller{
 				$model = $this->Pengajuan_model;
 				$id = $this->input->post('id');
 				$data = array(
-					'nim'			=> $this->input->post('nim'),
-					'nama'			=> $this->input->post('nama'),
-					'prodi'			=> $this->input->post('prodi'),
-					'pembimbing1'	=> $this->input->post('pembimbing1'),
-					'pembimbing2'	=> $this->input->post('pembimbing2'),
-					'konsentrasi'	=> $this->input->post('konsentrasi'),
-					'judul'			=> $this->input->post('judul'),
-					'tglpengajuan'	=> $this->input->post('tglpengajuan'),	
+					'id_pembimbing1'	=> $this->input->post('pembimbing1'),
+					'id_pembimbing2'	=> $this->input->post('pembimbing2'),
 					'tglditerima'	=> $this->input->post('tglditerima')
 				);
 				$update = $model->update($id,$data);

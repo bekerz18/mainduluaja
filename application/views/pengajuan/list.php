@@ -244,9 +244,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <a href="<?php echo base_url('pengajuan-judul');?>">
-                  <button type="button" class="btn btn-success">Ajukan Judul</button>
-                </a>
+                <?php if($this->session->userdata('level') == 2){?>
+                  <div class="row">
+                    <a href="<?php echo base_url('pengajuan-judul');?>">
+                      <button type="button" class="btn btn-info">Ajukan Judul</button>
+                    </a>
+                  </div>
+                <?php }?>
                 <?php if($this->session->userdata('success_delete')) {?>
                     <div class="alert alert-success alert-dismissible">
                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -293,9 +297,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </thead>
                   <tbody>
                     <?php $no = 1; foreach ($pengajuans as $pengajuan):  ?>
-                      <tr  <?php if($this->session->userdata('username') == $pengajuan->nim) echo 'class="bg-info"';?>>
+                    <?php if($pengajuan->id_mahasiswa == $this->session->userdata('id') || $this->session->userdata('level')==0 || $this->session->userdata('id')== $pengajuan->id_pembimbing1 || $this->session->userdata('id')==$pengajuan->id_pembimbing2){?>
+                      <tr>
                         <td class="text-center"><?php echo $no++;?></td>
-                        <td><?php echo $pengajuan->nim;?></td>
+                        <td><?php echo $pengajuan->username;?></td>
                         <td><?php echo $pengajuan->nama;?></td>
                         <td>
                           <?php
@@ -322,29 +327,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </td>
                         <td>
                           <?php
-                            if($pengajuan->pembimbing1 == NULL){
+                            if($pengajuan->id_pembimbing1 == NULL){
                               echo "Belum";
                             }else{
-                              echo $pengajuan->pembimbing1;
+                              $dosbing1 = $model->get_dosen($pengajuan->id_pembimbing1);
+                              echo $dosbing1['nama'];
                             }
                           ?> 
                         </td>
                         <td>
                           <?php
-                            if($pengajuan->pembimbing2 == NULL){
+                            if($pengajuan->id_pembimbing2 == NULL){
                               echo "Belum";
                             }else{
-                              echo $pengajuan->pembimbing2;
+                              $dosbing2 = $model->get_dosen($pengajuan->id_pembimbing2);
+                              echo $dosbing2['nama'];
                             }
                           ?> 
                         </td>
                         <?php if($this->session->userdata('level') == 0) :?>
                           <td class="text-center">
-                            <a class="<?php if($this->session->userdata('level') == 0) echo 'ubah-pengajuan';?> text-info text-sm" data-id="<?php echo $pengajuan->id;?>">Ubah</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id;?>">Hapus</a>
+                            <a class="<?php if($this->session->userdata('level') == 0) echo 'ubah-pengajuan';?> text-info text-sm" data-id="<?php echo $pengajuan->id_pengajuan;?>">Ubah</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id_pengajuan;?>">Hapus</a>
                           </td>
                         <?php endif;?>
 
                       </tr>
+                    <?php }?>
                     <?php endforeach;?>
                   </tbody>
                 </table>
@@ -364,24 +372,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <input type="hidden"id="idubah" value="">
                         <div class="form-group">
                           <label for="nim">NIM :</label>
-                          <input type="text" class="form-control" id="nim" required>
+                          <input type="text" class="form-control" id="nim" readonly>
                         </div>
                         <div class="form-group">
                           <label for="username-ubah">NAMA :</label>
-                          <input type="text" class="form-control" id="nama">
+                          <input type="text" class="form-control" id="nama" readonly>
                         </div>
                         <div class="form-group">
                           <label for="prodi">PROGRAM STUDI :</label>
-                          <select id="prodi" class="form-control">
-                          </select>
+                          <input type="text" id="prodi" class="form-control" readonly>
                         </div>
                         <div class="form-group">
                           <label for="konsentrasi">KONSENTRASI :</label>
-                          <input type="text" class="form-control" id="konsentrasi" required>
+                          <input type="text" class="form-control" id="konsentrasi" readonly>
                         </div>
                         <div class="form-group">
                           <label for="judul">JUDUL :</label>
-                          <input type="text" class="form-control" id="judul"  required>
+                          <input type="text" class="form-control" id="judul"  readonly>
                         </div>
                         <div class="form-group">
                           <label for="tglpengajuan">Tanggal Pengajuan</label>
@@ -390,7 +397,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i>
                               </span>
                             </div>
-                            <input type="date" class="form-control" id="tglpengajuan">
+                            <input type="date" class="form-control" id="tglpengajuan" readonly>
                           </div>
                         </div>
                         <div class="form-group">
@@ -400,7 +407,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i>
                               </span>
                             </div>
-                            <input type="date" class="form-control" id="tglditerima" in="<?php echo date('Y-m-d');?>">
+                            <input type="date" class="form-control" id="tglditerima" min="<?php echo date('Y-m-d');?>">
                           </div>
                         </div>
                         <div class="form-group">
@@ -467,7 +474,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
   $(function () {
 
-    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": false, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
     <?php if($this->session->userdata('level') == 0) :?>
       const Toast = Swal.mixin({
       toast: true,
@@ -485,17 +492,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           dataType : 'json',
           success:function(data){
             $("#idubah").val(id);
-            $("#nim").val(data[0].nim);
+            $("#nim").val(data[0].username);
             $("#nama").val(data[0].nama);
-            if(data[0].prodi=="adpend"){
-              $("#prodi").html('<option value="adpend" selected>Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen">Manajemen</option>');
-            }else if(data[0].prodi=="hukum"){
-              $("#prodi").html('<option value="adpend">Administrasi Pendidikan</option><option value="hukum" selected>Hukum</option><option value="manajemen">Manajemen</option>');
-            }else if(data[0].prodi=="manajemen"){
-              $("#prodi").html('<option value="adpend">Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen"selected>Manajemen</option>');
-            }else{
-              $("#prodi-ubah").html('<option>Silahkan Pilih</option><option value="adpend">Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen">Manajemen</option>');
-            }
+            $("#prodi").val(data[0].nama_prodi);
             $("#tglpengajuan").val(data[0].tglpengajuan);
             $("#tglditerima").val(data[0].tglditerima);
             $("#judul").val(data[0].judul);
@@ -525,7 +524,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           success:function(data){
             var posts = JSON.parse(data);
             $.each(posts, function() {
-              datas += '<option value="'+ this.kode_dosen + '">' + this.nama_dosen + '</li>' ;
+              datas += '<option value="'+ this.id + '">' + this.nama_dosen + '</li>' ;
             });
             $("#pembimbing1").html('<option></option>'+datas);
           },error:function(data){
@@ -545,7 +544,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           success:function(data){
             var posts = JSON.parse(data);
             $.each(posts, function() {
-              datas += '<option value="'+ this.kode_dosen + '">' + this.nama_dosen + '</li>' ;
+              datas += '<option value="'+ this.id+ '">' + this.nama_dosen + '</li>' ;
             });
             $("#pembimbing2").html('<option></option>'+datas);
           },error:function(data){
@@ -556,28 +555,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
       $("#ubah").on('click',function(){
         var id = $("#idubah").val();
-        var nim = $("#nim").val();
-        var nama = $("#nama").val();
-        var prodi = $("#prodi").val();
         var pembimbing1 = $("#pembimbing1").val();
         var pembimbing2 = $("#pembimbing2").val();
-        var konsentrasi = $("#konsentrasi").val();
-        var judul = $("#judul").val();
         var tglditerima = $("#tglditerima").val();
-        var tglpengajuan = $("#tglpengajuan").val();
 
-        if(id == '' || nama == '' || nim =='' || prodi =='' || pembimbing1 =='' || pembimbing2 == '' || konsentrasi == '' || judul =='' || tglditerima == '' || tglpengajuan == ''){
+        if(id == '' || pembimbing1 =='' || pembimbing2 == '' || tglditerima == '' ){
           Swal.fire(
               'Perhatian!',
               'Silahkan lengkapi data!',
               'warning'
             )
         }else{
-
           $.ajax({
             type : 'POST',
             url : '<?php echo base_url('pengajuan/update');?>',
-            data: {id:id,nim:nim,nama:nama,prodi:prodi,pembimbing1:pembimbing1,pembimbing2:pembimbing2,konsentrasi:konsentrasi,judul:judul,tglditerima:tglditerima,tglpengajuan:tglpengajuan},
+            data: {id:id,pembimbing1:pembimbing1,pembimbing2:pembimbing2,tglditerima:tglditerima},
             success: function(data){
               location.reload();
             },error: function(data){
