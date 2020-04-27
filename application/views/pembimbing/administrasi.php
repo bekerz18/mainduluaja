@@ -269,7 +269,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       dataType : 'json',
       success:function(data){
         for(var i = 0; i < data.length; i++){
-          if(i < 5){
+          if(i < 10){
             $status = "Dosen Pembimbing";
           }else{
             $status = "Bukan Dosen Pembimbing";
