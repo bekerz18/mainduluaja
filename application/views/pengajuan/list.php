@@ -245,7 +245,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- /.card-header -->
               <div class="card-body">
                 <a href="<?php echo base_url('pengajuan-judul');?>">
-                  <button type="button" class="btn btn-primary">Ajukan Judul</button>
+                  <button type="button" class="btn btn-success">Ajukan Judul</button>
                 </a>
                 <?php if($this->session->userdata('success_delete')) {?>
                     <div class="alert alert-success alert-dismissible">
@@ -352,7 +352,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <?php if($this->session->userdata('level') == 0) :?>
                 <div class="modal fade" id="modal-ubah">
-                  <div class="modal-dialog modal-xs">
+                  <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title">Ubah Pengajuan</h4>

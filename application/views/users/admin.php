@@ -228,8 +228,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
       </div><!-- /.container-fluid -->
-      <div class="modal fade" id="modal-lg">
-        <div class="modal-dialog modal-lg">
+      <div class="modal fade" id="modal-tambah">
+        <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Tambah Admin</h4>
@@ -264,7 +264,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- /.modal-dialog -->
       </div>
       <div class="modal fade" id="modal-ubah">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Ubah Admin</h4>
@@ -350,7 +350,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       Gagal mengubah data.
                     </div>
                   <?php }?>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-tambah">
                   Tambah Admin
                 </button>
                 <table id="data-pengajuan" class="table table-bordered table-striped">

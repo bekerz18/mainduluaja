@@ -205,6 +205,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- form start -->
               <?php echo form_open();?>
                 <div class="card-body">
+                  <a href="<?php echo base_url('pengajuan');?>">
+                    <button type="button" class="btn btn-success">Lihat Daftar Pengajuan</button>
+                  </a>
                   <?php if($this->session->userdata('Success')) {?>
                     <div class="alert alert-success alert-dismissible">
                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
