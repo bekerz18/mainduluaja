@@ -122,11 +122,9 @@ class Users extends CI_Controller{
 			if($this->input->method()=="post"){
 				$model = $this->Users_model;
 				$insert = $model->create_user(array(
-				'id'				=> uniqid(),
 				'username'			=> $this->input->post('username'),
 				'nama'				=> $this->input->post('nama'),
 				'gender'			=> $this->input->post('gender'),
-				'level'				=> '0',
 				'password'			=> md5($this->input->post('username'))	
 			));
 				if($insert){
@@ -187,7 +185,7 @@ class Users extends CI_Controller{
 				$update = $model->update_user($id,array(
 					'nama'				=> $this->input->post('nama'),
 					'gender'			=> $this->input->post('gender'),
-					'password'			=> md5($this->input->post('nik'))	
+					'password'			=> md5($this->input->post('password'))	
 				));
 				if($update){
 					$this->session->set_flashdata('success_upd','Berhasil Mengubah Data!');

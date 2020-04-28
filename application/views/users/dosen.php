@@ -303,7 +303,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             foreach($prodis as $prodi) echo $prodi->nama_prodi.' , ';
                           ?>
                         </td>
-                        <td class="text-center"><a class="add-prodi text-warning" data-id="<?php echo $user->id;?>">Prodi</a> <a class="ubah-user text-info" data-id="<?php echo $user->id;?>">Ubah</a> <a class="text-danger" href="<?php echo base_url('users/hapus/dosen/').$user->id;?>">Hapus</a></td>
+                        <td class="text-center"><a class="add-prodi text-warning" data-nama="<?php echo $user->nama;?>" data-id="<?php echo $user->id;?>">Prodi</a> <a class="ubah-user text-info" data-id="<?php echo $user->id;?>">Ubah</a> <a class="text-danger" href="<?php echo base_url('users/hapus/dosen/').$user->id;?>">Hapus</a></td>
                       </tr>
                     <?php endforeach;?>
                   </tbody>
@@ -394,6 +394,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </button>
                   </div>
                   <div class="modal-body">
+                    <input type="hidden"id="nmdosenprodi" value="">
                     <input type="hidden"id="iddosenprodi" value="">
                     <div class="form-group">
                       <label for="nmdosen-prodi">Nama Lengkap :</label>
@@ -480,6 +481,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
     $("#table-dosen").on("click",".add-prodi",function(){
       var id = $(this).data("id");
+
       get_dosprd(id);
     });
     $(".closed-modal").click(function(){
@@ -521,22 +523,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
     function get_dosprd(id){
+      $("#iddosenprodi").val(id);
       var datas='';
       $.ajax({
         type : 'GET',
         url : '<?php echo base_url('users/dosenAtprodi/');?>'+id,
         success:function(data){
+          if(data.length > 0){
           var prodis = JSON.parse(data);
             $.each(prodis, function() {
+
               
               datas += '<tr><td>'+this.nama_prodi+'</td><td><a class="hapus-prod text-danger" data-prodid="'+this.id_prodi_detail+'" data-dosen="'+this.id_dosen+'">Hapus</a></td></tr>';
               $("#nmdosen-prodi").val(this.nama_dosen);
             });
-            $("#iddosenprodi").val(id);
-            $("#list-prodi").html(datas);
-            $("#modal-prodi").modal();
+          }else{
+            datas='<tr><td colspan="2">Belum ada data</td></tr>';
+          }
+           $("#list-prodi").html(datas);
+        },error:function(data){
+
         }
       });
+      
+      $("#modal-prodi").modal();
     }
 
     $("#table-dosen").on("click",".ubah-user", function(){
