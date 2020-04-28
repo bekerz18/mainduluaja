@@ -152,19 +152,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <?php echo form_open();?>
             <div class="form-group">
               <label for="nim">NIM</label>
-              <input type="text" name="nim" id="nim" class="form-control" value="<?php echo $this->session->userdata('username');?>" disabled>
+              <input type="text" name="nim" id="nim" class="form-control form-control-lg" value="<?php echo $this->session->userdata('username');?>" disabled>
             </div>
             <div class="form-group">
               <label for="nama">NAMA</label>
-              <input type="text" name="nama" id="nama" class="form-control" value="<?php echo $this->session->userdata('nama');?>" disabled>
+              <input type="text" name="nama" id="nama" class="form-control form-control-lg" value="<?php echo $this->session->userdata('nama');?>" disabled>
             </div>
             <div class="form-group">
               <label for="gender">JENIS KELAMIN</label>
-              <input type="text" name="gender" id="gender" class="form-control" value="<?php echo $this->session->userdata('gender');?>" disabled>
+              <input type="text" name="gender" id="gender" class="form-control form-control-lg" value="<?php echo $this->session->userdata('gender');?>" disabled>
             </div>
             <div class="form-group">
               <label for="prodi">PROGRAM STUDI</label>
-              <input type="text" name="prodi" id="prodi" class="form-control" value="<?php if($this->session->userdata('prodi') == 'adpend'){
+              <input type="text" name="prodi" id="prodi" class="form-control form-control-lg" value="<?php if($this->session->userdata('prodi') == 'adpend'){
                   echo 'Administrasi Pendidikan';
                 }elseif($this->session->userdata('prodi') == 'manajemen'){
                   echo 'Manajemen';
@@ -176,15 +176,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="form-group">
               <label for="email">EMAIL</label>
-              <input type="email" name="email" id="email" class="form-control" value="<?php echo $this->session->userdata('email');?>" placeholder="Silahkan isi bilamana ingin diubah">
+              <input type="email" name="email" id="email" class="form-control form-control-lg" value="<?php echo $this->session->userdata('email');?>" placeholder="Silahkan isi bilamana ingin diubah">
             </div>
             <div class="form-group">
               <label for="handphone">NO HP/TELEPON</label>
-              <input type="text" name="handphone" id="handphone" class="form-control" value="<?php echo $this->session->userdata('handphone');?>" placeholder="Silahkan isi bilamana ingin diubah">
+              <input type="text" name="handphone" id="handphone" class="form-control form-control-lg" value="<?php echo $this->session->userdata('handphone');?>" placeholder="Silahkan isi bilamana ingin diubah">
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" name="password" id="password" class="form-control" placeholder="Silahkan isi bilamana ingin diubah">
+              <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Silahkan isi bilamana ingin diubah">
             </div>
             <div class="form-group text-center">
               <a href="<?php echo base_url('beranda');?>">

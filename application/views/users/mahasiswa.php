@@ -290,7 +290,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>PROGRAM STUDI</th>
                     <th>OPSI</th>
                   </tr>
-                  <tbody>
+                  <tbody id="table-mahasiswa">
                     <?php $no = 1; foreach ($users as $user) :?>
                       <tr>
                         <td class="text-center"><?php echo $no++;?></td>
@@ -326,16 +326,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="nama">Nama Lengkap :</label>
-                      <input type="text" class="form-control" id="nama" placeholder="Silahkan isi dengan nama" required>
+                      <input type="text" class="form-control form-control-lg" id="nama" placeholder="Silahkan isi dengan nama" required>
                     </div>
                     <div class="form-group">
                       <label for="nim">NIM/NPM :</label>
-                      <input type="text" class="form-control" id="nim" placeholder="Silahkan isi NIM/NPM" required>
+                      <input type="text" class="form-control form-control-lg" id="nim" placeholder="Silahkan isi NIM/NPM" required>
                     </div>
                     <div class="form-group">
                       <label for="prodi">Program Studi :</label>
-                      <select id="prodi" class="form-control" data-placeholder="Silahkan Pilih">
-                        <option selected>Silahkan Pilih</option>
+                      <select id="prodi" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
+                        <option value="0" selected>Silahkan Pilih</option>
                         <option value="adpend">Administrasi Pendidikan</option>
                         <option value="hukum">Hukum</option>
                         <option value="manajemen">Manajemen</option>
@@ -343,7 +343,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="form-group">
                       <label for="gender">Jenis Kelamin :</label>
-                      <select id="gender" class="form-control" data-placeholder="Silahkan Pilih">
+                      <select id="gender" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
                         <option value="Pria">Pria</option>
                         <option value="Wanita">Wanita</option>
                       </select>
@@ -371,24 +371,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <input type="hidden"id="idubah" value="">
                     <div class="form-group">
                       <label for="nama-ubah">Nama Lengkap :</label>
-                      <input type="text" class="form-control" id="nama-ubah" placeholder="Silahkan isi dengan nama" required>
+                      <input type="text" class="form-control form-control-lg" id="nama-ubah" placeholder="Silahkan isi dengan nama" required>
                     </div>
                     <div class="form-group">
                       <label for="nim-ubah">NIM/NPM :</label>
-                      <input type="text" class="form-control" id="nim-ubah" placeholder="Silahkan isi nim" readonly="">
+                      <input type="text" class="form-control form-control-lg" id="nim-ubah" placeholder="Silahkan isi nim" readonly="">
                     </div>
                     <div class="form-group">
                       <label for="password">Password :</label>
-                      <input type="password" class="form-control" id="password" placeholder="Silahkan isi password" required>
+                      <input type="password" class="form-control form-control-lg" id="password" placeholder="Silahkan isi password" required>
                     </div>
                     <div class="form-group">
                       <label for="prodi-ubah">Program Studi :</label>
-                      <select id="prodi-ubah" class="form-control" data-placeholder="Silahkan Pilih">
+                      <select id="prodi-ubah" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
                       </select>
                     </div>
                     <div class="form-group">
                       <label for="gender-ubah">Jenis Kelamin :</label>
-                      <select id="gender-ubah" class="form-control" data-placeholder="Silahkan Pilih">
+                      <select id="gender-ubah" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
                       </select>
                     </div>
                   </div>
@@ -490,8 +490,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
-    $(".ubah-user").click(function(){
-
+    $("#table-mahasiswa").on("click",".ubah-user",function(){
       var id = $(this).data('id');
       console.log(id);
       $("#idubah").val(id);
@@ -542,8 +541,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       var nama = $("#nama").val();
       var gender = $("#gender").val();
       var prodi = $("#prodi").val();
-      var kode = $("#kode_alternatif").val();
-      if(nim == '' || nama == '' || kode == ''){
+      if(nim == '' || nama == '' || prodi == '0'){
         Swal.fire(
               'Hei!',
               'Silahkan lengkapi terlebih dahulu',
@@ -553,11 +551,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $.ajax({
           type: 'POST',
           url: '<?php echo base_url('users/insert_mahasiswa');?>',
-          data: {kode:kode,nim:nim,prodi:prodi,nama:nama,gender:gender},
+          data: {nim:nim,prodi:prodi,nama:nama,gender:gender},
           success: function(data){
-            $("#kode_alternatif").val('');
             $("#nim").val('');
             $("#nama").val('');
+            $("#prodi").val('0');
             location.reload();
           },error: function(data){
             Swal.fire(

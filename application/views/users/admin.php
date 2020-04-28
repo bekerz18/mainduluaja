@@ -240,15 +240,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="modal-body">
               <div class="form-group">
                 <label for="nama">Nama Lengkap :</label>
-                <input type="text" class="form-control" id="nama" placeholder="Silahkan isi dengan nama" required>
+                <input type="text" class="form-control form-control-lg" id="nama" placeholder="Silahkan isi dengan nama" required>
               </div>
               <div class="form-group">
                 <label for="username">Username :</label>
-                <input type="text" class="form-control" id="username" placeholder="Silahkan isi username" required>
+                <input type="text" class="form-control form-control-lg" id="username" placeholder="Silahkan isi username" required>
               </div>
               <div class="form-group">
                 <label for="gender">Jenis Kelamin :</label>
-                <select id="gender" class="form-control" data-placeholder="Silahkan Pilih">
+                <select id="gender" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
                   <option value="Pria">Pria</option>
                   <option value="Wanita">Wanita</option>
                 </select>
@@ -276,19 +276,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <input type="hidden"id="idubah" value="">
               <div class="form-group">
                 <label for="nama-ubah">Nama Lengkap :</label>
-                <input type="text" class="form-control" id="nama-ubah" placeholder="Silahkan isi dengan nama" required>
+                <input type="text" class="form-control form-control-lg" id="nama-ubah" placeholder="Silahkan isi dengan nama" required>
               </div>
               <div class="form-group">
                 <label for="username-ubah">Username :</label>
-                <input type="text" class="form-control" id="username-ubah" placeholder="Silahkan isi username" readonly="">
+                <input type="text" class="form-control form-control-lg" id="username-ubah" placeholder="Silahkan isi username" readonly="">
               </div>
               <div class="form-group">
                 <label for="password">Password :</label>
-                <input type="password" class="form-control" id="password" placeholder="Silahkan isi password" required>
+                <input type="password" class="form-control form-control-lg" id="password" placeholder="Silahkan isi password" required>
               </div>
               <div class="form-group">
                 <label for="gender-ubah">Jenis Kelamin :</label>
-                <select id="gender-ubah" class="form-control" data-placeholder="Silahkan Pilih">
+                <select id="gender-ubah" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
                 </select>
               </div>
             </div>
@@ -361,7 +361,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>USERNAME</th>
                     <th>OPSI</th>
                   </tr>
-                  <tbody>
+                  <tbody id="table-admin">
                     <?php $no = 1; foreach ($users as $user) :?>
                       <tr>
                         <td class="text-center"><?php echo $no++;?></td>
@@ -463,7 +463,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 
     $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
-    $(".ubah-user").click(function(){
+    
+    $("#table-admin").on("click",".ubah-user",function(){
 
       var id = $(this).data('id');
       $("#idubah").val(id);

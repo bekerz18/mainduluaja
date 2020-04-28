@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <?php echo form_open();?>
       <span class="text-danger"><?php echo form_error('username');?></span>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="username" placeholder="Username" required>
+          <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <span class="text-danger"><?php echo form_error('nama');?></span>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap" required>
+          <input type="text" class="form-control form-control-lg" name="nama" placeholder="Nama Lengkap" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>

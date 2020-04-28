@@ -145,8 +145,6 @@ class Users extends CI_Controller{
 			$insert = $model->create_dosen(array(
 				'username'			=> $this->input->post('nik'),
 				'nama'				=> $this->input->post('nama'),
-				'prodi'				=> $this->input->post('prodi'),
-				'kode_alternatif'	=> $this->input->post('kode'),
 				'gender'			=> $this->input->post('gender'),
 				'password'			=> md5($this->input->post('nik'))	
 			));
@@ -212,8 +210,6 @@ class Users extends CI_Controller{
 				$update = $model->update_dosen($id,array(
 					'nama'				=> $this->input->post('nama'),
 					'gender'			=> $this->input->post('gender'),
-					'prodi'				=> $this->input->post('prodi'),
-					'kode_alternatif'	=> $this->input->post('kode'),
 					'password'			=> md5($this->input->post('password'))	
 				));
 				if($update){
@@ -275,6 +271,40 @@ class Users extends CI_Controller{
 				$this->session->set_flashdata('failed','Gagal menghapus data');
 				redirect('users/'.$from);
 			}
+		}
+	}
+
+	public function dosenAtprodi($id){
+		$model = $this->Users_model;
+		$datas = $model->dosen_in_prodi($id);
+		if(!empty($datas)){
+			echo json_encode($datas);
+		}
+
+		
+	}
+	public function check_dosprod($dosen,$prodi){
+		$model = $this->Users_model;
+		$datas = $model->check_prod_detail($dosen,$prodi);
+
+			echo json_encode($datas);
+	
+	}
+	public function insert_prod_detail()
+	{
+		if($this->input->method()=="post"){
+			$model = $this->Users_model;
+			$insert = $model->insert_prod_detail(array(
+				'id_dosen'		=> $this->input->post('dosen'),
+				'id_prodi'		=> $this->input->post('prodi')
+
+			));
+		}
+	}
+	public function delete_prod_detail(){
+		if($this->input->method()=="post"){
+			$id = $this->input->post('id');
+			$this->Users_model->delete_prod_detail($id);
 		}
 	}
 }

@@ -291,7 +291,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>PROGRAM STUDI</th>
                     <th>OPSI</th>
                   </tr>
-                  <tbody>
+                  <tbody id="table-dosen">
                     <?php $no = 1; foreach ($users as $user) :?>
                       <tr>
                         <td class="text-center"><?php echo $no++;?></td>
@@ -303,14 +303,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             foreach($prodis as $prodi) echo $prodi->nama_prodi.' , ';
                           ?>
                         </td>
-                        <td class="text-center"><a class="ubah-user text-info" data-id="<?php echo $user->id;?>">Ubah</a> <a class="text-danger" href="<?php echo base_url('users/hapus/dosen/').$user->id;?>">Hapus</a></td>
+                        <td class="text-center"><a class="add-prodi text-warning" data-id="<?php echo $user->id;?>">Prodi</a> <a class="ubah-user text-info" data-id="<?php echo $user->id;?>">Ubah</a> <a class="text-danger" href="<?php echo base_url('users/hapus/dosen/').$user->id;?>">Hapus</a></td>
                       </tr>
                     <?php endforeach;?>
                   </tbody>
                 </table>
 
               </div>
-              <div class="modal fade" id="modal-tambah">
+              
+            <div class="modal fade" id="modal-ubah">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Ubah Dosen</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden"id="idubah" value="">
+                    <div class="form-group">
+                      <label for="nama-ubah">Nama Lengkap :</label>
+                      <input type="text" class="form-control form-control-lg" id="nama-ubah" placeholder="Silahkan isi dengan nama" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="nik-ubah">NIK/NIDN :</label>
+                      <input type="text" class="form-control form-control-lg" id="nik-ubah" placeholder="Silahkan isi nik" readonly="">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password :</label>
+                      <input type="password" class="form-control form-control-lg" id="password" placeholder="Silahkan isi password" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="gender-ubah">Jenis Kelamin :</label>
+                      <select id="gender-ubah" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="button" id="ubah-user" class="btn btn-primary">Simpan</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <div class="modal fade" id="modal-tambah">
               <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -322,28 +361,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="nama">Nama Lengkap :</label>
-                      <input type="text" class="form-control" name="nama" id="nama" placeholder="Silahkan isi dengan nama" required>
+                      <input type="text" class="form-control form-control-lg" name="nama" id="nama" placeholder="Silahkan isi dengan nama" required>
                     </div>
                     <div class="form-group">
                       <label for="nik">NIK :</label>
-                      <input type="text" class="form-control" name="nik" id="nik" placeholder="Silahkan isi NIK/NIDN" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="prodi">Program Studi :</label>
-                      <select id="prodi" class="form-control" data-placeholder="Silahkan Pilih">
-                        <option selected>Silahkan Pilih</option>
-                        <option value="adpend">Administrasi Pendidikan</option>
-                        <option value="hukum">Hukum</option>
-                        <option value="manajemen">Manajemen</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="kode_alternatif">Kode Alternatif :</label>
-                      <input type="text" class="form-control" id="kode_alternatif" placeholder="Silahkan isi Kode Alternatif" required>
+                      <input type="text" class="form-control form-control-lg" name="nik" id="nik" placeholder="Silahkan isi NIK/NIDN" required>
                     </div>
                     <div class="form-group">
                       <label for="gender">Jenis Kelamin :</label>
-                      <select id="gender" class="form-control" data-placeholder="Silahkan Pilih">
+                      <select id="gender" class="form-control form-control-lg" data-placeholder="Silahkan Pilih">
                         <option value="Pria">Pria</option>
                         <option value="Wanita">Wanita</option>
                       </select>
@@ -358,47 +384,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <!-- /.modal-dialog -->
             </div>
-            <div class="modal fade" id="modal-ubah">
+            <div class="modal fade" id="modal-prodi">
               <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title">Ubah Dosen</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title">Tambah ke Prodi</h4>
+                    <button type="button" class="closed-modal close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <input type="hidden"id="idubah" value="">
+                    <input type="hidden"id="iddosenprodi" value="">
                     <div class="form-group">
-                      <label for="nama-ubah">Nama Lengkap :</label>
-                      <input type="text" class="form-control" id="nama-ubah" placeholder="Silahkan isi dengan nama" required>
+                      <label for="nmdosen-prodi">Nama Lengkap :</label>
+                      <input type="text" class="form-control form-control-lg" id="nmdosen-prodi" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="nik-ubah">NIK/NIDN :</label>
-                      <input type="text" class="form-control" id="nik-ubah" placeholder="Silahkan isi nik" readonly="">
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password :</label>
-                      <input type="password" class="form-control" id="password" placeholder="Silahkan isi password" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="prodi-ubah">Program Studi :</label>
-                      <select id="prodi-ubah" class="form-control" data-placeholder="Silahkan Pilih">
+                      <label for="prodi">Prodi</label>
+                      <select id="daftarprodi" class="form-control form-control-lg">
+                        <option value="0">Silahkan Pilih</option>
+                        <option value="1">Administrasi Pendidikan</option>
+                        <option value="2">Manajemen</option>
+                        <option value="3">Hukum</option>
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label for="kode_alternatif_ubah">Kode Alternatif :</label>
-                      <input type="text" class="form-control" id="kode_alternatif_ubah" placeholder="Silahkan isi Kode Alternatif" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="gender-ubah">Jenis Kelamin :</label>
-                      <select id="gender-ubah" class="form-control" data-placeholder="Silahkan Pilih">
-                      </select>
-                    </div>
-                  </div>
+                    <table id="data-prodi" class="table table-bordered table-striped">
+                      <thead>
+                        <tr class="text-center">
+                          <th>PROGRAM STUDI</th>
+                          <th>OPSI</th>
+                        </tr>
+                      </thead>
+                      <tbody id="list-prodi">
+                        
+                      </tbody>
+                    </table>
                   <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                    <button type="button" id="ubah-user" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="closed-modal btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="button" id="tambah-dosen-prodi" class="btn btn-primary">Tambah</button>
                   </div>
                 </div>
                 <!-- /.modal-content -->
@@ -455,15 +478,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       showConfirmButton: false,
       timer: 3000
     });
+    $("#table-dosen").on("click",".add-prodi",function(){
+      var id = $(this).data("id");
+      get_dosprd(id);
+    });
+    $(".closed-modal").click(function(){
+      location.reload();
+    });
     $("#ubah-user").click(function(){
       var id = $("#nik-ubah").val();
       var gender = $("#gender-ubah").val();
       var nama = $("#nama-ubah").val();
       var password = $("#password").val();
-      var kode = $("#kode_alternatif_ubah").val();
-      var prodi = $("#prodi-ubah").val();
 
-      if(nama == '' || password== '' || kode == ''){
+      if(nama == '' || password== '' ){
         Swal.fire(
               'Hei!',
               'Silahkan lengkapi terlebih dahulu',
@@ -473,9 +501,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $.ajax({
           type: 'POST',
           url : '<?php echo base_url('users/update_dosen/');?>'+id,
-          data : {nama:nama,gender:gender,password:password,kode:kode,prodi:prodi},
+          data : {nama:nama,gender:gender,password:password},
           success: function(data){
-              $("#kode_alternatif_ubah").val('');
               $("#nik-ubah").val('');
               $("#nama-ubah").val('');
               $("#password").val('');
@@ -493,11 +520,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 
     $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
-    $(".ubah-user").click(function(){
+    function get_dosprd(id){
+      var datas='';
+      $.ajax({
+        type : 'GET',
+        url : '<?php echo base_url('users/dosenAtprodi/');?>'+id,
+        success:function(data){
+          var prodis = JSON.parse(data);
+            $.each(prodis, function() {
+              
+              datas += '<tr><td>'+this.nama_prodi+'</td><td><a class="hapus-prod text-danger" data-prodid="'+this.id_prodi_detail+'" data-dosen="'+this.id_dosen+'">Hapus</a></td></tr>';
+              $("#nmdosen-prodi").val(this.nama_dosen);
+            });
+            $("#iddosenprodi").val(id);
+            $("#list-prodi").html(datas);
+            $("#modal-prodi").modal();
+        }
+      });
+    }
 
+    $("#table-dosen").on("click",".ubah-user", function(){
       var id = $(this).data('id');
       $("#idubah").val(id);
       getuser(id);
+     
 
     });
    
@@ -511,21 +557,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         success : function(data){
           $("#nama-ubah").val(data.nama);
           $("#nik-ubah").val(data.username);
-          $("#kode_alternatif_ubah").val(data.kode_alternatif);
           if(data.gender=="Pria"){
             $("#gender-ubah").html('<option value="Pria" selected>Pria</option><option value="Wanita">Wanita</option>');
           }else{
             $("#gender-ubah").html('<option value="Pria">Pria</option><option value="Wanita" selected>Wanita</option>');
           }
-          if(data.prodi=="adpend"){
-            $("#prodi-ubah").html('<option value="adpend" selected>Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen">Manajemen</option>');
-          }else if(data.prodi=="hukum"){
-            $("#prodi-ubah").html('<option value="adpend" >Administrasi Pendidikan</option><option value="hukum" selected>Hukum</option><option value="manajemen">Manajemen</option>');
-          }else if(data.prodi=="manajemen"){
-            $("#prodi-ubah").html('<option value="adpend">Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen"selected>Manajemen</option>');
-          }else{
-            $("#prodi-ubah").html('<option selected>Silahkan Pilih</option><option value="adpend">Administrasi Pendidikan</option><option value="hukum">Hukum</option><option value="manajemen">Manajemen</option>');
-          }
+          
           
           $("#modal-ubah").modal();
         },error:function(data){
@@ -543,9 +580,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       var nik = $("#nik").val();
       var nama = $("#nama").val();
       var gender = $("#gender").val();
-      var prodi = $("#prodi").val();
-      var kode = $("#kode_alternatif").val();
-      if(nik == '' || nama == '' || kode == ''){
+      if(nik == '' || nama == ''){
         Swal.fire(
               'Hei!',
               'Silahkan lengkapi terlebih dahulu',
@@ -553,11 +588,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             )
       }else{
         $.ajax({
+
           type: 'POST',
           url: '<?php echo base_url('users/insert_dosen');?>',
-          data: {kode:kode,nik:nik,prodi:prodi,nama:nama,gender:gender},
+          data: {nik:nik,nama:nama,gender:gender},
           success: function(data){
-            $("#kode_alternatif").val('');
             $("#nik").val('');
             $("#nama").val('');
             location.reload();
@@ -572,6 +607,95 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       }
 
     });
+
+    $("#tambah-dosen-prodi").click(function(){
+      var dosen = $("#iddosenprodi").val();
+      var prodi = $("#daftarprodi").val();
+      tambah_prodi(dosen,prodi);
+
+
+    });
+
+    function tambah_prodi(dosen,prodi){
+
+      
+      if(prodi == "0"){
+        console.log('silahkan pilih');
+      }else{
+        if(check_prodi(prodi,dosen) === true){
+          console.log('sudah ada');
+        }else{
+          insert_prd(prodi,dosen);
+        }
+      }
+    }
+    function insert_prd(prodi,dosen){
+
+      $.ajax({
+        type : 'POST',
+        url : '<?php echo base_url('users/insert_prod_detail/');?>',
+        data : {prodi:prodi,dosen:dosen},
+        success:function(data){
+          Swal.fire(
+              'Berhasil!',
+              'Data berhasil ditambahkan',
+              'success'
+            );
+          get_dosprd(dosen);
+        },error: function(data){
+            Swal.fire(
+              'Gagal',
+              'Gagal menambahkan dosen :(',
+              'error'
+            )
+          }
+      });
+    }
+    function check_prodi(prodi,dosen){
+      
+      $.ajax({
+        type : 'GET',
+        url : '<?php echo base_url('users/check_dosprod/');?>'+dosen+'/'+prodi,
+        dataType: 'json',
+        success:function(data){
+          if(data.length > 0){
+            console.log('ada');
+            return true;
+          }
+         
+        
+        },error:function(data){
+          alert('tidak bisa mengcek :(, silahkan reload');
+        }
+      });
+
+      
+    }
+
+    $("#data-prodi").on("click",".hapus-prod",function(){
+      var id = $(this).data('prodid');
+      var dosen =$(this).data('dosen');
+      $.ajax({
+        type : 'post',
+        url : '<?php echo base_url('users/delete_prod_detail');?>',
+        data:{id:id},
+        success:function(data){
+          Swal.fire(
+              'Berhasil!',
+              'Data berhasil dihapus',
+              'success'
+            );
+          get_dosprd(dosen);
+        },error: function(data){
+            Swal.fire(
+              'Gagal',
+              'Gagal menghapus :(',
+              'error'
+            )
+          }
+      })
+    });
+
 
   });
 </script>

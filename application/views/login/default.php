@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
       <form action="<?php echo base_url('login/login');?>" method="post">
         <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="Masukan username" autofocus="">
+          <input type="text" name="username" class="form-control form-control-lg" placeholder="Masukan username" autofocus="">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Masukan password">
+          <input type="password" name="password" class="form-control form-control-lg" placeholder="Masukan password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

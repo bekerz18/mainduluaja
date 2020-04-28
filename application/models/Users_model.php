@@ -100,5 +100,24 @@ class Users_model extends CI_Model {
 		return $this->db->update('mahasiswa',$data);
 	}
 
+	public function dosen_in_prodi($id)
+	{
+		return $this->db->query("SELECT dosen.id as id_dosen, dosen.nama as nama_dosen, prodi.nama as nama_prodi, prodi_detail.id as id_prodi_detail FROM dosen INNER JOIN prodi_detail ON prodi_detail.id_dosen=dosen.id INNER JOIN prodi ON prodi.id=prodi_detail.id_prodi WHERE dosen.id=$id")->result_array();
+	}
+
+	public function check_prod_detail($dosen,$prodi)
+	{
+		return $this->db->query("SELECT * FROM prodi_detail WHERE id_prodi=$prodi AND id_dosen=$dosen")->result_array();
+	}
+	public function insert_prod_detail($data)
+	{
+		return $this->db->insert('prodi_detail',$data);
+	}
+	public function delete_prod_detail($id)
+	{
+		$this->db->where('id',$id);
+		return $this->db->delete('prodi_detail');
+	}
+
 
 }

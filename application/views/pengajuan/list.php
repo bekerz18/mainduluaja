@@ -362,23 +362,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <input type="hidden"id="idubah" value="">
                         <div class="form-group">
                           <label for="nim">NIM :</label>
-                          <input type="text" class="form-control" id="nim" readonly>
+                          <input type="text" class="form-control form-control-lg" id="nim" readonly>
                         </div>
                         <div class="form-group">
                           <label for="username-ubah">NAMA :</label>
-                          <input type="text" class="form-control" id="nama" readonly>
+                          <input type="text" class="form-control form-control-lg" id="nama" readonly>
                         </div>
                         <div class="form-group">
                           <label for="prodi">PROGRAM STUDI :</label>
-                          <input type="text" id="prodi" class="form-control" readonly>
+                          <input type="text" id="prodi" class="form-control form-control-lg" readonly>
                         </div>
                         <div class="form-group">
                           <label for="konsentrasi">KONSENTRASI :</label>
-                          <input type="text" class="form-control" id="konsentrasi" readonly>
+                          <input type="text" class="form-control form-control-lg" id="konsentrasi" readonly>
                         </div>
                         <div class="form-group">
                           <label for="judul">JUDUL :</label>
-                          <input type="text" class="form-control" id="judul"  readonly>
+                          <input type="text" class="form-control form-control-lg" id="judul"  readonly>
                         </div>
                         <div class="form-group">
                           <label for="tglpengajuan">Tanggal Pengajuan</label>
@@ -387,7 +387,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i>
                               </span>
                             </div>
-                            <input type="date" class="form-control" id="tglpengajuan" readonly>
+                            <input type="date" class="form-control form-control-lg" id="tglpengajuan" readonly>
                           </div>
                         </div>
                         <div class="form-group">
@@ -397,17 +397,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i>
                               </span>
                             </div>
-                            <input type="date" class="form-control" id="tglditerima" min="<?php echo date('Y-m-d');?>">
+                            <input type="date" class="form-control form-control-lg" id="tglditerima" min="<?php echo date('Y-m-d');?>">
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="pembimbing1">Pembimbing 1</label>
-                          <select class="form-control select2" data-placeholder="Silahkan pilih Pembimbing 1" id="pembimbing1"style="width: 100%;" required>
+                          <select class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Pembimbing 1" id="pembimbing1"style="width: 100%;" required>
                           </select>
                         </div>
                         <div class="form-group">
                           <label for="pembimbing2">Pembimbing 2</label>
-                          <select class="form-control select2" data-placeholder="Silahkan pilih Pembimbing 2" id="pembimbing2" name="pembimbing2" style="width: 100%;" required>
+                          <select class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Pembimbing 2" id="pembimbing2" name="pembimbing2" style="width: 100%;" required>
                           </select>
                         </div>
                         <div class="modal-footer justify-content-between">

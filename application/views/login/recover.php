@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <?php endif; ?>
       <span class="text-danger"><?php echo form_error('password');?></span>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Silahkan isi dengan password baru" required>
+          <input type="password" class="form-control form-control-lg" name="password" placeholder="Silahkan isi dengan password baru" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

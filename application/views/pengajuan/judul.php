@@ -164,15 +164,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                   <div class="form-group">
                     <label for="nim">NIM<?php echo form_error('nim',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control" id="nim"  name="nim" placeholder="Silahkan masukan NIM" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('username');?>"required autofocus>
+                    <input type="text" class="form-control form-control-lg" id="nim"  name="nim" placeholder="Silahkan masukan NIM" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('username');?>"required autofocus>
                   </div>
                   <div class="form-group">
                     <label for="nama">Nama Lengkap<?php echo form_error('nama',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Silahkan Masukan Nama" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('nama');?>" required>
+                    <input type="text" class="form-control form-control-lg" id="nama" name="nama" placeholder="Silahkan Masukan Nama" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('nama');?>" required>
                   </div>
                   <div class="form-group">
                     <label for="prodi">Program Studi<?php echo form_error('prodi',' <span class="text-danger">');?></label>
-                    <select class="form-control select2" data-placeholder="Silahkan pilih Program Studi" id="prodi" name="prodi" style="width: 100%;" required>
+                    <select class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Program Studi" id="prodi" name="prodi" style="width: 100%;" required>
                       <option></option>
                       <option value="adpend">Administrasi Pendidikan</option>
                       <option value="manajemen">Manajemen</option>
@@ -181,11 +181,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </div>
                   <div class="form-group">
                     <label for="konsentrasi">Konsentrasi<?php echo form_error('konsentrasi',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control" id="konsentrasi" name="konsentrasi" placeholder="Silahkan Masukan Konsentrasi" required>
+                    <input type="text" class="form-control form-control-lg" id="konsentrasi" name="konsentrasi" placeholder="Silahkan Masukan Konsentrasi" required>
                   </div>
                   <div class="form-group">
                     <label for="judul">Judul Tugas Akhir<?php echo form_error('judul',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control" id="judul" name="judul" placeholder="Silahkan Masukan Judul Tugas Akhir" required>
+                    <input type="text" class="form-control form-control-lg" id="judul" name="judul" placeholder="Silahkan Masukan Judul Tugas Akhir" required>
                   </div>
                   <div class="form-group">
                     <label for="tglpengajuan">Tanggal Pengajuan<?php echo form_error('tglpengajuan',' <span class="text-danger">');?></label>
@@ -193,7 +193,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
-                      <input type="date" class="form-control" id="tglpengajuan" name="tglpengajuan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal pengajuan (tanggal/bulan/tahun)" min="<?=date('Y-m-d');?>"required>
+                      <input type="date" class="form-control form-control-lg" id="tglpengajuan" name="tglpengajuan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal pengajuan (tanggal/bulan/tahun)" min="<?=date('Y-m-d');?>"required>
                     </div>
                   </div>
 
