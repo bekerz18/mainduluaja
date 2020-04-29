@@ -23,7 +23,6 @@ class Pengajuan extends CI_Controller{
 		$validasi->set_rules('prodi','Program Studi','required|trim');
 		$validasi->set_rules('judul','Judul','required|trim');
 		$validasi->set_rules('konsentrasi','konsentrasi','required|trim');
-		$validasi->set_rules('tglpengajuan','Tanggal Pengajuan','required|date');
 
 		if($this->session->userdata('level') == 0){
 			$validasi->set_rules('pembimbing1','Pembimbing 1','required|trim');
@@ -81,7 +80,7 @@ class Pengajuan extends CI_Controller{
 				$data = array(
 					'id_pembimbing1'	=> $this->input->post('pembimbing1'),
 					'id_pembimbing2'	=> $this->input->post('pembimbing2'),
-					'tglditerima'	=> $this->input->post('tglditerima')
+					'tglditerima'	=> date("Y-m-d H:i:s")
 				);
 				$update = $model->update($id,$data);
 				if($update){

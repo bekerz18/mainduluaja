@@ -187,15 +187,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <label for="judul">Judul Tugas Akhir<?php echo form_error('judul',' <span class="text-danger">');?></label>
                     <input type="text" class="form-control form-control-lg" id="judul" name="judul" placeholder="Silahkan Masukan Judul Tugas Akhir" required>
                   </div>
-                  <div class="form-group">
-                    <label for="tglpengajuan">Tanggal Pengajuan<?php echo form_error('tglpengajuan',' <span class="text-danger">');?></label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                      </div>
-                      <input type="date" class="form-control form-control-lg" id="tglpengajuan" name="tglpengajuan" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Silahkan masukan tanggal pengajuan (tanggal/bulan/tahun)" min="<?=date('Y-m-d');?>"required>
-                    </div>
-                  </div>
 
 
                 </div>

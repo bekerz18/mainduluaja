@@ -14,8 +14,7 @@ class Pengajuan_model extends CI_Model {
 			'id_pembimbing2'	=> $this->input->post('pembimbing2'),
 			'konsentrasi'	=> $this->input->post('konsentrasi'),
 			'judul'			=> $this->input->post('judul'),
-			'tglpengajuan'	=> $this->input->post('tglpengajuan'),
-			'tglditerima'	=> $this->input->post('tglditerima')
+			'tglpengajuan'	=> date("Y-m-d H:i:s")
 			);
 
 		return $this->db->insert($this->_tabel,$data);

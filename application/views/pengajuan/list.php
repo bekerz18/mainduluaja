@@ -305,13 +305,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </td>
                         <td><?php echo $pengajuan->konsentrasi;?></td>
                         <td><?php echo $pengajuan->judul;?></td>
-                        <td><?php echo date("d-m-Y", strtotime($pengajuan->tglpengajuan));?></td>
+                        <td><?php echo date("d-m-Y H:i:s", strtotime($pengajuan->tglpengajuan));?></td>
                         <td>
                           <?php
                             if($pengajuan->tglditerima == NULL){
                               echo "Belum";
                             }else{
-                              echo date("d-m-Y", strtotime($pengajuan->tglditerima));
+                              echo date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
                             }
                           ?> 
                         </td>
@@ -382,23 +382,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="form-group">
                           <label for="tglpengajuan">Tanggal Pengajuan</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-calendar-alt"></i>
-                              </span>
-                            </div>
-                            <input type="date" class="form-control form-control-lg" id="tglpengajuan" readonly>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="tglditerima">Tanggal Diterima</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-calendar-alt"></i>
-                              </span>
-                            </div>
-                            <input type="date" class="form-control form-control-lg" id="tglditerima" min="<?php echo date('Y-m-d');?>">
-                          </div>
+                            <input type="text" class="form-control form-control-lg" id="tglpengajuan" readonly>
                         </div>
                         <div class="form-group">
                           <label for="pembimbing1">Pembimbing 1</label>
@@ -547,9 +531,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         var id = $("#idubah").val();
         var pembimbing1 = $("#pembimbing1").val();
         var pembimbing2 = $("#pembimbing2").val();
-        var tglditerima = $("#tglditerima").val();
+       
 
-        if(id == '' || pembimbing1 =='' || pembimbing2 == '' || tglditerima == '' ){
+        if(id == '' || pembimbing1 =='' || pembimbing2 == ''){
           Swal.fire(
               'Perhatian!',
               'Silahkan lengkapi data!',
@@ -559,7 +543,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           $.ajax({
             type : 'POST',
             url : '<?php echo base_url('pengajuan/update');?>',
-            data: {id:id,pembimbing1:pembimbing1,pembimbing2:pembimbing2,tglditerima:tglditerima},
+            data: {id:id,pembimbing1:pembimbing1,pembimbing2:pembimbing2},
             success: function(data){
               location.reload();
             },error: function(data){
