@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.9.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 27, 2020 at 06:43 PM
--- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
--- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
+-- Host: localhost:3306
+-- Generation Time: Apr 29, 2020 at 08:34 PM
+-- Server version: 10.3.22-MariaDB-cll-lve
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ahptophkm`
+-- Database: `kawaluk1_ahptophkm`
 --
 
 -- --------------------------------------------------------
@@ -73,24 +75,24 @@ CREATE TABLE `hasil_rank` (
 --
 
 INSERT INTO `hasil_rank` (`hr_id`, `alternatif_kode`, `hr_value`) VALUES
-(50, 'A01', 0.515),
-(51, 'A02', 0.387),
-(52, 'A03', 0.311),
-(53, 'A04', 0.707),
-(54, 'A05', 0.441),
-(55, 'A06', 0.161),
-(56, 'A07', 0.436),
-(57, 'A08', 0.535),
-(58, 'A09', 0.567),
-(59, 'A10', 0.423),
-(60, 'A11', 0.237),
-(61, 'A12', 0.394),
-(62, 'A13', 0.37),
-(63, 'A14', 0.518),
-(64, 'A15', 0.542),
-(65, 'A16', 0.605),
-(66, 'A17', 0.372),
-(67, 'A18', 0.578);
+(50, 'A01', 0.404),
+(51, 'A02', 0.391),
+(52, 'A03', 0.316),
+(53, 'A04', 0.62),
+(54, 'A05', 0.452),
+(55, 'A06', 0.133),
+(56, 'A07', 0.459),
+(57, 'A08', 0.425),
+(58, 'A09', 0.522),
+(59, 'A10', 0.443),
+(60, 'A11', 0.214),
+(61, 'A12', 0.506),
+(62, 'A13', 0.488),
+(63, 'A14', 0.58),
+(64, 'A15', 0.466),
+(65, 'A16', 0.563),
+(66, 'A17', 0.33),
+(67, 'A18', 0.466);
 
 -- --------------------------------------------------------
 
@@ -400,21 +402,25 @@ ALTER TABLE `user`
 --
 ALTER TABLE `hasil_rank`
   MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
 --
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
   MODIFY `nilai_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+
 --
 -- AUTO_INCREMENT for table `parameter`
 --
 ALTER TABLE `parameter`
   MODIFY `parameter_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- Constraints for dumped tables
 --
@@ -443,6 +449,7 @@ ALTER TABLE `parameter`
 --
 ALTER TABLE `sub_kriteria`
   ADD CONSTRAINT `sub_kriteria_ibfk_1` FOREIGN KEY (`kriteria_kode`) REFERENCES `kriteria` (`kriteria_kode`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

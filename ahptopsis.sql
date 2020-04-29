@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.9.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 27, 2020 at 06:44 PM
--- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
--- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
+-- Host: localhost:3306
+-- Generation Time: Apr 29, 2020 at 08:33 PM
+-- Server version: 10.3.22-MariaDB-cll-lve
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ahptopsis`
+-- Database: `kawaluk1_ahptopsis`
 --
 
 -- --------------------------------------------------------
@@ -89,14 +91,15 @@ INSERT INTO `dosen` (`id`, `nama`, `gender`, `username`, `password`, `kode_alter
 (54, 'Dr. H. A. A. Anwar Prabu Mangkunegara, MS., Psi.', 'Pria', '405144356', '944029cd2551f58be721918f1566681e', '', '', ''),
 (55, 'Dr. H. Yat Rospia Brata, M.Si', 'Pria', '3112770003', '27120865f439d85e88ca6868c674f1e5', '', '', ''),
 (56, 'Dr. H. Oyon Saryono, MM', 'Pria', '195701131980021000', '063a0a5407129982d0742cc692630903', '', '', ''),
-(57, 'Dr. Hj. Dyah Kusumastuti, MS', 'Wanita', '131472257', 'e7a97658031e42366495dff1c41048ba', '', '', ''),
+(57, 'Dr. Dyah Indriana Kusumastuti,S.T.,M.Sc', 'Wanita', '196912191995122001', '2c10b0f66cec37958da6beb592c474cb', '', '', ''),
 (58, 'Dr. H. Kusnendi, M.Si', 'Pria', '132387529', '1d13861e3e6670cd64bb73ddf1459113', '', '', ''),
 (59, 'Ir. H. Ridwan Sutriadi, MT., Ph.D', 'Pria', '131472257', 'e7a97658031e42366495dff1c41048ba', '', '', ''),
 (60, 'Dr. Hj. Aini Kusniawati, MM', 'Wanita', '131457257', '44a7fc7b48462b6c61fc1afba908c221', '', '', ''),
 (61, 'Dr. Hj. Irma Bastaman Darmawati, MM', 'Wanita', '3112334223', '8726e2c82d85859d44de0296820c2f3b', '', '', ''),
 (62, 'Dr. H. Hariswan, SE., SH., MM., MH', 'Pria', '3132770223', '631ff973f255a1c2d9dae1a078b156db', '', '', ''),
 (63, 'Dr. Ferey Herman, SE., MM', 'Pria', '3112770223', 'b5e211ed1a2d23bf79c6426844f7291e', '', '', ''),
-(65, 'Dr. Apri Budianto, MM', 'Pria', '405106201', '7104e96f6854d58aa0f9f5a155e2764b', '', '', '');
+(65, 'Dr. Apri Budianto, MM', 'Pria', '405106201', '7104e96f6854d58aa0f9f5a155e2764b', '', '', ''),
+(67, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', 'z', 'fbade9e36a3f36d3d676c1b808451dd7', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -120,8 +123,22 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `prodi`, `email`, `handphone`) VALUES
-(3, 'Arif', 'Pria', '04234', '0cd8015b3655ecf820107632cb41f3ae', 'hukum', 'bekerz18@gmail.com', '082219583274'),
-(4, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'adpend', '', '');
+(7, 'Dede Sujana', 'Pria', '823514150413', 'e8f3d63f0714cf25adf55ae686713626', 'adpend', '', ''),
+(8, 'Cecep Kusnandar', 'Pria', '823214150913', 'ec5271af1f558615a00bcb877b1083e0', 'adpend', '', ''),
+(9, 'Ganda Sukmana', 'Pria', '823214150153', '0be1a9000f57446a1f389ec0eff91e1c', 'adpend', '', ''),
+(12, 'Triani Widyanti', 'Wanita', '1311476165', 'b3199fad6fe4350bf013e67371a4c01b', 'adpend', '', ''),
+(14, ' Heri Siswanto', 'Pria', '3300070140', '7c6ebedefc0e9c13a4be8a04247748ec', 'manajemen', '', ''),
+(15, 'Riadhi Sanjaya', 'Pria', '3403130079', '47b3acb2f8aae2f14c4ee4ee86c93db2', 'manajemen', '', ''),
+(16, 'Sri Wulandari', 'Wanita', '2109140006', '6eb38c768a1c0f07c91ea47f8fba058d', 'manajemen', '', ''),
+(17, 'Erwin Yulianto', 'Wanita', '0425068404', 'c163eb78eabc004432495969c7f09ab0', 'manajemen', '', ''),
+(18, 'Alwi Patoni', 'Pria', '82337190001', 'b91dd74e8a9c10f60a995d0aec9be94f', 'hukum', '', ''),
+(19, 'Dewi Setiawati', 'Wanita', '82337190004', 'f9d7b93dcbce9337e9b752de1ae236ea', 'hukum', '', ''),
+(20, 'Muhammad Indanus', 'Pria', '82337190007', '5cb90b6120bedbc8e64cba4fdbe86cd7', 'hukum', '', ''),
+(21, 'Yoga Noviyanto', 'Pria', '82337190012', '29e1cc1cae6f36ea3b35bd6d404613dd', 'hukum', '', ''),
+(22, 'Nurhayati', 'Wanita', '82337190009', '6808cad98a975c6045d8d8ed4f454e01', 'hukum', '', ''),
+(23, 'Harin Sanditha Rahmawati', 'Wanita', '6160138', '34110146d443256a1325aa0c1105ec0b', 'hukum', '', ''),
+(24, 'Eldi Mulyana', 'Pria', '12000965', '82f7f280c2ce8fd0cd82461946dcd148', 'adpend', '', ''),
+(25, 'Emay Irmayanti', 'Wanita', '82341718029', '40054172a67c8188916c637b9e1d5929', 'manajemen', '', '');
 
 -- --------------------------------------------------------
 
@@ -137,22 +154,19 @@ CREATE TABLE `pengajuan` (
   `id_pembimbing2` int(11) DEFAULT NULL,
   `konsentrasi` varchar(100) NOT NULL,
   `judul` varchar(100) NOT NULL,
-  `tglpengajuan` date DEFAULT NULL,
-  `tglditerima` date DEFAULT NULL
+  `tglpengajuan` timestamp NULL DEFAULT NULL,
+  `tglditerima` timestamp NULL DEFAULT NULL,
+  `status` enum('tolak','terima','belum') NOT NULL DEFAULT 'belum'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengajuan`
 --
 
-INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `prodi`, `id_pembimbing1`, `id_pembimbing2`, `konsentrasi`, `judul`, `tglpengajuan`, `tglditerima`) VALUES
-(2, 4, 'adpend', 22, 12, '123', '123', '2020-04-27', '2020-04-28'),
-(3, 3, 'adpend', NULL, NULL, '123', 'Safira', '2020-04-30', NULL),
-(4, 4, 'adpend', NULL, NULL, 'Fisika', 'Galeri Foto', '2020-04-27', NULL),
-(5, 4, 'hukum', NULL, NULL, 'Hukum', 'dd', '2020-04-28', NULL),
-(6, 4, 'hukum', 33, 37, '123', 'ff', '2020-04-27', '2020-04-27'),
-(7, 4, 'manajemen', NULL, NULL, '22', '3', '2020-04-27', NULL),
-(8, 4, 'manajemen', 61, 51, '44', '24', '2020-04-27', '2020-04-27');
+INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `prodi`, `id_pembimbing1`, `id_pembimbing2`, `konsentrasi`, `judul`, `tglpengajuan`, `tglditerima`, `status`) VALUES
+(13, 23, 'manajemen', NULL, NULL, 'Hukum Perdata', 'Sistem Informasi Hukum Perdata', '2020-04-29 05:50:27', NULL, 'belum'),
+(14, 17, 'manajemen', NULL, NULL, 'Manajemen Sumberdaya Manusia', 'Pengaruh Kompetensi Dan Program Merchant Day Terhadap Customer Relationship Management Serta Dampakn', '2020-04-29 09:37:45', NULL, 'belum'),
+(15, 17, 'adpend', NULL, NULL, 'Bala Bala Haneut', 'Gorengan', '2020-04-29 11:57:45', NULL, 'belum');
 
 -- --------------------------------------------------------
 
@@ -213,7 +227,6 @@ INSERT INTO `prodi_detail` (`id`, `id_prodi`, `id_dosen`) VALUES
 (19, 1, 27),
 (20, 1, 28),
 (21, 1, 29),
-(22, 3, 30),
 (23, 3, 31),
 (24, 3, 32),
 (25, 3, 33),
@@ -248,7 +261,8 @@ INSERT INTO `prodi_detail` (`id`, `id_prodi`, `id_dosen`) VALUES
 (54, 2, 63),
 (55, 2, 65),
 (56, 2, 29),
-(57, 2, 10);
+(57, 2, 10),
+(60, 3, 30);
 
 -- --------------------------------------------------------
 
@@ -271,7 +285,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama`, `gender`, `username`, `password`, `email`, `handphone`) VALUES
-(1, 'Harin Sanditha', 'Wanita', 'harin', 'fa18d54cb9b90baac79ce2bbbf028aec', '', '');
+(1, 'Harin Sanditha', 'Wanita', 'harin', 'fa18d54cb9b90baac79ce2bbbf028aec', '', ''),
+(2, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', 'zamzam', 'd0db05aabb991942a64e1b599ce379f9', '', '');
 
 --
 -- Indexes for dumped tables
@@ -281,13 +296,15 @@ INSERT INTO `users` (`id`, `nama`, `gender`, `username`, `password`, `email`, `h
 -- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `pengajuan`
@@ -330,32 +347,38 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `prodi_detail`
 --
 ALTER TABLE `prodi_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- Constraints for dumped tables
 --
@@ -375,6 +398,7 @@ ALTER TABLE `pengajuan`
 ALTER TABLE `prodi_detail`
   ADD CONSTRAINT `prodi_detail_ibfk_1` FOREIGN KEY (`id_prodi`) REFERENCES `prodi` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `prodi_detail_ibfk_2` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`) ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
