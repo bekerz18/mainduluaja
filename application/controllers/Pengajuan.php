@@ -39,10 +39,18 @@ class Pengajuan extends CI_Controller{
 	public function index()
 	{
 		$model = $this->Pengajuan_model;
-		$data['pengajuans'] = $model->get_pengajuan();
 		$data['model'] = $model; 
 		$data['nama'] = $this->session->userdata('nama');
-		$this->load->view('pengajuan/list',$data);
+		if($this->session->userdata('level')==0){
+			$data['pengajuans'] = $model->get_pengajuan();
+			$this->load->view('pengajuan/list',$data);
+		}elseif($this->session->userdata('level')==1){
+			$data['pengajuans'] = $model->get_pengajuandosen();
+			$this->load->view('pengajuan/list_dosen',$data);
+		}elseif($this->session->userdata('level')==2){
+			$data['pengajuans'] = $model->get_pengajuanmhs();
+			$this->load->view('pengajuan/list_mahasiswa',$data);
+		}
 	}
 	
 	public function hapus($id=null)

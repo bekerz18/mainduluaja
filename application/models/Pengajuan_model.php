@@ -20,6 +20,16 @@ class Pengajuan_model extends CI_Model {
 		return $this->db->insert($this->_tabel,$data);
 
 	}
+	public function get_pengajuanmhs()
+	{
+		$id = $this->session->userdata('id');
+		return $this->db->query("SELECT pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.id_mahasiswa=$id ORDER BY id_pengajuan DESC")->result();
+	}
+	public function get_pengajuandosen()
+	{
+		$id = $this->session->userdata('id');
+		return $this->db->query("SELECT pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.id_pembimbing1=$id OR pengajuan.id_pembimbing2=$id ORDER BY id_pengajuan DESC")->result();
+	}
 
 	public function get_pengajuan()
 	{
