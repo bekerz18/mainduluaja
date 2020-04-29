@@ -277,17 +277,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>KONSENTRASI</th>
                     <th>JUDUL</th>
                     <th>PENGAJUAN</th>
-                    <th>DITERIMA</th>
+                    <th>STATUS</th>
                     <th>PEMBIMBING 1</th>
                     <th>PEMBIMBING 2</th>
-                    <?php if($this->session->userdata('level') == 0) :?>
-                      <th>OPTIONS</th>
-                    <?php endif;?>
                   </tr>
                   </thead>
                   <tbody>
-                    <?php $no = 1; foreach ($pengajuans as $pengajuan):  ?>
-                    <?php if($pengajuan->id_mahasiswa == $this->session->userdata('id') || $this->session->userdata('level')==0 || $this->session->userdata('id')== $pengajuan->id_pembimbing1 || $this->session->userdata('id')==$pengajuan->id_pembimbing2){?>
+                      <?php $no = 1; foreach ($pengajuans as $pengajuan):  ?>
                       <tr>
                         <td class="text-center"><?php echo $no++;?></td>
                         <td><?php echo $pengajuan->username;?></td>
@@ -306,19 +302,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td><?php echo $pengajuan->konsentrasi;?></td>
                         <td><?php echo $pengajuan->judul;?></td>
                         <td><?php echo date("d-m-Y H:i:s", strtotime($pengajuan->tglpengajuan));?></td>
-                        <td>
+                        <td class="text-center">
                           <?php
-                            if($pengajuan->tglditerima == NULL){
-                              echo "Belum";
-                            }else{
-                              echo date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
+                            if($pengajuan->status == "belum"){
+                              echo "Sedang diproses";
+                            }elseif($pengajuan->status == "tolak"){
+                              echo "Ditolak Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
+                            }elseif($pengajuan->status == "terima"){
+                              echo "Diterima Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
                             }
                           ?> 
                         </td>
                         <td>
                           <?php
-                            if($pengajuan->id_pembimbing1 == NULL){
-                              echo "Belum";
+                            if($pengajuan->id_pembimbing1 == NULL || $pengajuan->status == "tolak"){
+                              echo "Tidak Ada";
                             }else{
                               $dosbing1 = $model->get_dosen($pengajuan->id_pembimbing1);
                               echo $dosbing1['nama'];
@@ -327,22 +325,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </td>
                         <td>
                           <?php
-                            if($pengajuan->id_pembimbing2 == NULL){
-                              echo "Belum";
+                            if($pengajuan->id_pembimbing2 == NULL || $pengajuan->status == "tolak"){
+                              echo "Tidak Ada";
                             }else{
                               $dosbing2 = $model->get_dosen($pengajuan->id_pembimbing2);
                               echo $dosbing2['nama'];
                             }
                           ?> 
                         </td>
-                        <?php if($this->session->userdata('level') == 0) :?>
-                          <td class="text-center">
-                            <a class="<?php if($this->session->userdata('level') == 0) echo 'ubah-pengajuan';?> text-info text-sm" data-id="<?php echo $pengajuan->id_pengajuan;?>">Ubah</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id_pengajuan;?>">Hapus</a>
-                          </td>
-                        <?php endif;?>
-
-                      </tr>
-                    <?php }?>
+                    </tr>
                     <?php endforeach;?>
                   </tbody>
                 </table>

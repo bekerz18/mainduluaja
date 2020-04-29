@@ -89,6 +89,7 @@ class Pengajuan extends CI_Controller{
 				$data = array(
 					'id_pembimbing1'	=> $this->input->post('pembimbing1'),
 					'id_pembimbing2'	=> $this->input->post('pembimbing2'),
+					'status'			=> 'terima',
 					'tglditerima'	=> date("Y-m-d H:i:s")
 				);
 				$update = $model->update($id,$data);
@@ -98,6 +99,21 @@ class Pengajuan extends CI_Controller{
 					$this->session->set_flashdata('failed_upd','Gagal Mengubah Data!');
 				}
 			}
+		}
+	}
+
+	public function tolak($id=null){
+		if(!isset($id)) redirect('../home');
+		if($this->session->userdata('level') == "0"){
+			$model = $this->Pengajuan_model;
+			$hapus = $model->tolak_pengajuan($id);
+			if($hapus){
+				$this->session->set_flashdata('success_upd','Pengajuan Ditolak!');
+				redirect('pengajuan');
+			}else{
+				$this->session->set_flashdata('failed_upd','Gagal Ditolak!');
+			}
+
 		}
 	}
 

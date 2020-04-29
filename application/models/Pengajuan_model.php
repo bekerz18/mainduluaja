@@ -19,6 +19,7 @@ class Pengajuan_model extends CI_Model {
 			'id_pembimbing2'	=> $this->input->post('pembimbing2'),
 			'konsentrasi'	=> $this->input->post('konsentrasi'),
 			'judul'			=> $this->input->post('judul'),
+			'status'		=> 'belum',
 			'tglpengajuan'	=> date("Y-m-d H:i:s")
 			);
 
@@ -28,17 +29,17 @@ class Pengajuan_model extends CI_Model {
 	public function get_pengajuanmhs()
 	{
 		$id = $this->session->userdata('id');
-		return $this->db->query("SELECT pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.id_mahasiswa=$id ORDER BY id_pengajuan DESC")->result();
+		return $this->db->query("SELECT pengajuan.status as status,pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.id_mahasiswa=$id ORDER BY id_pengajuan DESC")->result();
 	}
 	public function get_pengajuandosen()
 	{
 		$id = $this->session->userdata('id');
-		return $this->db->query("SELECT pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.id_pembimbing1=$id OR pengajuan.id_pembimbing2=$id ORDER BY id_pengajuan DESC")->result();
+		return $this->db->query("SELECT pengajuan.status as status, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.id_pembimbing1=$id OR pengajuan.id_pembimbing2=$id ORDER BY id_pengajuan DESC")->result();
 	}
 
 	public function get_pengajuan()
 	{
-		return $this->db->query("SELECT pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa ORDER BY id_pengajuan DESC")->result();
+		return $this->db->query("SELECT pengajuan.status as status,pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa,pengajuan.id_pembimbing1 as id_pembimbing1, pengajuan.id_pembimbing2 as id_pembimbing2, pengajuan.prodi as prodi,pengajuan.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa ORDER BY id_pengajuan DESC")->result();
 	}
 
 	public function delete_pengajuan($id)
@@ -59,6 +60,13 @@ class Pengajuan_model extends CI_Model {
 	{
 		$this->db->where('id',$id);
 		return $this->db->get('dosen')->row_array();
+	}
+	public function tolak_pengajuan($id)
+	{
+		$this->db->set('status','tolak');
+		$this->db->where('id',$id);
+		return $this->db->update('pengajuan');
+
 	}
 
 }
