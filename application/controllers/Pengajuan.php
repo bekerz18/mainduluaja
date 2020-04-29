@@ -10,6 +10,7 @@ class Pengajuan extends CI_Controller{
 		
 		$this->load->model('Pengajuan_model');
 		$this->load->library('form_validation');
+		date_default_timezone_set('Asia/Jakarta');
 	}
 
 	public function judul()
