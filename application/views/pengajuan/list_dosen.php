@@ -45,7 +45,7 @@
                         <th>OPSI</th>
                       </tr>
                       <tbody id="data-pengajuans">
-                         <?php $no = 1; foreach ($proposals as $pengajuan):?>
+                         <?php $no = 1; foreach ($proposals as $proposal):?>
                           <tr>
                             <td class="text-center"><?php echo $no++;?></td>
                             <td class="text-center"><?php echo $proposal['nama_mahasiswa'].'<br>'.$proposal['nim_mahasiswa'];?></td>
