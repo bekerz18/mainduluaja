@@ -32,5 +32,10 @@ class Proposal_model extends CI_Model {
 		$this->db->where('id', $id);
 		return $this->db->update('proposal');
 	}
+	public function deleteProposalby($id)
+	{
+		$this->db->where('id',$id);
+		return $this->db->delete('proposal');
+	}
 	
 }

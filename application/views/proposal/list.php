@@ -24,13 +24,6 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <?php if($this->session->userdata('level') == 2){?>
-              <div class="row">
-                <a href="<?php echo base_url('pengajuan-judul');?>">
-                  <button type="button" class="btn btn-info">Ajukan Judul</button>
-                </a>
-              </div>
-            <?php }?>
             <?php if($this->session->userdata('success_delete')) {?>
               <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -42,19 +35,6 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h5><i class="icon fas fa-check"></i> Informasi!</h5>
                 Gagal menghapus data.
-              </div>
-            <?php }?>
-            <?php if($this->session->flashdata('success_upd')){?>
-              <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                Berhasil mengubah data.
-              </div>
-            <?php }elseif($this->session->flashdata('failed_upd')){?>
-              <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                Gagal mengubah data.
               </div>
             <?php }?>
             <table id="table-proposal" class="table table-bordered table-striped">
@@ -86,7 +66,7 @@
                       }
                       ?>
                     </td>
-                    <td class="text-center"><a class="text-info detail-proposal" data-id="<?php echo $proposal["id_proposal"];?>" href="#">Detail</td>
+                    <td class="text-center"><a class="text-info detail-proposal" data-id="<?php echo $proposal["id_proposal"];?>" href="#">Detail</a>  <a class="text-danger" href="<?php echo base_url('proposal/delete/').$proposal["id_proposal"];?>">Hapus</a></td>
                   </tr>
                 <?php endforeach;?>
               </tbody>

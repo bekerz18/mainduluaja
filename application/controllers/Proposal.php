@@ -87,4 +87,22 @@ class Proposal extends CI_Controller{
 		}
 	}
 
+	public function delete($id)
+	{
+		$model = $this->Proposal_model;
+		if($this->session->userdata('level') == 0){
+			$delete = $model->deleteProposalby($id);
+			if($delete){
+				$this->session->set_flashdata('success_delete','berhasil menghapus proposal');
+				redirect('proposal');
+			}else{
+				$this->session->set_flashdata('failed_delete','gagal menghapus proposal');
+				redirect('proposal');
+			}
+
+		}else{
+			redirect('beranda');
+		}
+	}
+
 }
