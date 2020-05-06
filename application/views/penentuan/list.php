@@ -165,7 +165,7 @@
     function getPengajuan(id){
       $.ajax({
         type : 'GET',
-        url : 'http://localhost/SKRIPSIHARIN/PerhitunganHarin/pengajuan/get_penentuan/'+id,
+        url : '<?php echo base_url('pengajuan/get_penentuan/');?>'+id,
         dataType : 'json',
         success:function(data){
           var accseminar = new Date(data[0].acc_seminar).toLocaleString(['ban', 'id']);
