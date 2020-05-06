@@ -244,7 +244,7 @@
               if(data[0].nilai1 != null){
                 $("#nilai_1").append('<input type="number" id="nilai_penguji1" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai1+'" min="0" max="100">');
               }else{
-                $("#nilai_1").append('<input type="number" id="nilai_penguji3" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
+                $("#nilai_1").append('<input type="number" id="nilai_penguji1" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
               }
             }
             

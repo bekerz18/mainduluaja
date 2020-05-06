@@ -147,6 +147,7 @@ class Pengajuan extends CI_Controller{
 		if(!isset($id)){
 			redirect('pengajuan');
 		}elseif (isset($id) && $this->session->userdata('level') == '2') {
+			$data['pengajuans'] = $model->get_select_pengajuan2($id);
 			if($this->input->method() == "post" && $prop == null){
 				$model->insert_proposal($id);
 			}
@@ -167,7 +168,7 @@ class Pengajuan extends CI_Controller{
 					$data['penguji2'] = $model->searchDosenBy($ProposalCheck["id_penguji2"]);
 					$data['penguji3'] = $model->searchDosenBy($ProposalCheck["id_penguji3"]);
 					$data['nilai_total'] = $model->getNilaiProposal($id);
-					$data['pengajuans'] = $model->get_select_pengajuan2($id);
+					
 					$data['cariDosbing1'] = $model->get_dosen($data['pengajuans']['pembimbing1']);
 					$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
 				}
