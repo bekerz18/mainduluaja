@@ -71,6 +71,7 @@ class Login extends CI_Controller {
 					'username'			=> $mahasiswa["username"],
 					'gender'			=> $mahasiswa["gender"],
 					'password'			=> $mahasiswa["password"],
+					'konsentrasi'		=> $mahasiswa["konsentrasi"],
 					'prodi'				=> $mahasiswa["prodi"],
 					'handphone'			=> $mahasiswa["handphone"],
 					'email'				=> $mahasiswa["email"],

@@ -40,12 +40,17 @@ class Users extends CI_Controller{
 				}
 			}
 
+			
 			$data['nama'] = $this->session->userdata('nama');
+			$data['title'] = 'Pengaturan Akun';
+			$this->load->view('layout/mahasiswa/header',$data);
 			$this->load->view('users/setting_mahasiswa',$data);
 		}elseif($this->session->userdata('level') == 0){
 			$model = $this->Users_model;
+			$data['title'] = 'Daftar Mahasiswa';
 			$data['users'] = $model->get_mahasiswa();
 			$data['nama'] = $this->session->userdata('nama');
+			$this->load->view('layout/admin/header',$data);
 			$this->load->view('users/mahasiswa',$data);
 		}else{
 			redirect('beranda');
@@ -72,13 +77,16 @@ class Users extends CI_Controller{
 					$this->session->set_flashdata('failed_upd','Gagal diubah');
 				}
 			}
-			
+			$data['title'] = 'Pengaturan Akun';
 			$data['nama'] = $this->session->userdata('nama');
+			$this->load->view('layout/dosen/header',$data);
 			$this->load->view('users/setting_dosen',$data);
 		}elseif($this->session->userdata('level') == 0){
 			$model = $this->Users_model;
 			$data['users'] = $model->get_dosens();
 			$data['nama'] = $this->session->userdata('nama');
+			$data['title'] = 'Daftar Dosen';
+			$this->load->view('layout/admin/header',$data);
 			$this->load->view('users/dosen',$data);
 		}else{
 			redirect('beranda');
@@ -91,6 +99,8 @@ class Users extends CI_Controller{
 			$model = $this->Users_model;
 			$data['users'] = $model->get_admin();
 			$data['nama'] = $this->session->userdata('nama');
+			$data['title'] = 'Daftar Admin';
+			$this->load->view('layout/admin/header',$data);
 			$this->load->view('users/admin',$data);
 		}
 	}
@@ -103,6 +113,7 @@ class Users extends CI_Controller{
 			$insert = $model->create_mahasiswa(array(
 				'username'			=> $this->input->post('nim'),
 				'nama'				=> $this->input->post('nama'),
+				'konsentrasi'		=> $this->input->post('konsentrasi'),
 				'prodi'				=> $this->input->post('prodi'),
 				'gender'			=> $this->input->post('gender'),
 				'password'			=> md5($this->input->post('nim'))	
@@ -233,6 +244,7 @@ class Users extends CI_Controller{
 					'nama'				=> $this->input->post('nama'),
 					'gender'			=> $this->input->post('gender'),
 					'prodi'				=> $this->input->post('prodi'),
+					'konsentrasi'		=> $this->input->post('konsentrasi'),
 					'password'			=> md5($this->input->post('password'))	
 				));
 				if($update){

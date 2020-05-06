@@ -1,127 +1,3 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pengajuan Judul - Pascasarjana Universitas Galuh</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.css');?>">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2/css/select2.min.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css');?>">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
-  
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body class="hold-transition sidebar-mini sidebar-collapse">
-  <!-- Site wrapper -->
-<div class="wrapper">
-    <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-lg navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item">
-        <a href="<?php echo base_url('beranda');?>" class="nav-link">Beranda</a>
-      </li>
-      <!-- Pengajuan -->
-      <li class="nav-item dropdown">
-        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
-        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="<?php echo base_url('pengajuan-judul');?>" class="dropdown-item">Pengajuan Judul</a></li>
-          <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
-        </ul>
-      </li>
-      
-          <!-- Bimbingan -->
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Bimbingan</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <!-- Level two dropdown-->
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
-                  </li>
-                </ul>
-              </li>
-              <!-- End Level two -->
-            </ul>
-          </li>
-          <!-- Pengajuan -->
-
-        </ul>
-    
-  </nav>
-  <!-- /.navbar -->
-
-
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="<?php echo base_url('beranda');?>" class="brand-link">
-      <span class="brand-text font-weight-light">Program Pascasarjana</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-          <a href="#" class="d-block">Halo, <?php echo $nama;?></a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <!-- User -->
-          <li class="nav-header">Users</li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Mahasiswa</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo base_url('logout');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -149,11 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <!-- form start -->
               <?php echo form_open();?>
                 <div class="card-body">
-                  <div class="row">
-                    <a href="<?php echo base_url('pengajuan');?>">
-                      <button type="button" class="btn btn-info">Lihat Daftar Pengajuan</button>
-                    </a>
-                  </div>
+                  
                   <?php if($this->session->userdata('Success')) {?>
                     <div class="alert alert-success alert-dismissible">
                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -164,28 +36,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                   <div class="form-group">
                     <label for="nim">NIM<?php echo form_error('nim',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control form-control-lg" id="nim"  name="nim" placeholder="Silahkan masukan NIM" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('username');?>"required autofocus>
+                    <input type="text" class="form-control form-control-lg" id="nim"  name="nim" placeholder="Silahkan masukan NIM" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('username');?>" readonly>
                   </div>
                   <div class="form-group">
                     <label for="nama">Nama Lengkap<?php echo form_error('nama',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control form-control-lg" id="nama" name="nama" placeholder="Silahkan Masukan Nama" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('nama');?>" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="prodi">Program Studi<?php echo form_error('prodi',' <span class="text-danger">');?></label>
-                    <select class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Program Studi" id="prodi" name="prodi" style="width: 100%;" required>
-                      <option></option>
-                      <option value="adpend">Administrasi Pendidikan</option>
-                      <option value="manajemen">Manajemen</option>
-                      <option value="hukum">Hukum</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="konsentrasi">Konsentrasi<?php echo form_error('konsentrasi',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control form-control-lg" id="konsentrasi" name="konsentrasi" placeholder="Silahkan Masukan Konsentrasi" required>
+                    <input type="text" class="form-control form-control-lg" id="nama" name="nama" placeholder="Silahkan Masukan Nama" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('nama');?>" readonly>
                   </div>
                   <div class="form-group">
                     <label for="judul">Judul Tugas Akhir<?php echo form_error('judul',' <span class="text-danger">');?></label>
                     <input type="text" class="form-control form-control-lg" id="judul" name="judul" placeholder="Silahkan Masukan Judul Tugas Akhir" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="latarbelakang">Latar Belakang<?php echo form_error('latarbelakang',' <span class="text-danger">');?></label>
+                      <textarea class="form-control form-control-lg" id="latarbelakang" name="latarbelakang" placeholder="Silahkan Masukan Latar Belakang" required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="tujuan">Tujuan<?php echo form_error('tujuan',' <span class="text-danger">');?></label>
+                      <textarea class="form-control form-control-lg" id="tujuan" name="tujuan" placeholder="Silahkan Masukan Tujuan" required></textarea>
                   </div>
 
 
@@ -239,10 +106,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   $(function () {
+    $("#tujuan").val('');
+    $("#latarbelakang").val('');
     //Initialize Select2 Elements
       $('.select2').select2();
-      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'tanggal/bulan/tahun' });
-      $('[data-mask]').inputmask();
       $.widget.bridge('uibutton', $.ui.button);
 
   });

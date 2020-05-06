@@ -1,214 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Daftar Pengajuan - Pascasarjana Universitas Galuh</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2/css/select2.min.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css');?>">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
-  <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css');?>">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css');?>">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
-  
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <style type="text/css">
-    a:hover{
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body class="hold-transition sidebar-mini sidebar-collapse">
-  <!-- Site wrapper -->
-<div class="wrapper">
-    <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-lg navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item">
-        <a href="<?php echo base_url('beranda');?>" class="nav-link">Beranda</a>
-      </li>
-      <!-- Pengajuan -->
-      <li class="nav-item dropdown">
-        <a id="dropdownPengajuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengajuan</a>
-        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <?php if($this->session->userdata('level')==2){?>
-            <li><a href="<?php echo base_url('pengajuan-judul');?>" class="dropdown-item">Pengajuan Judul</a></li>
-          <?php }?>
-          <li><a href="<?php echo base_url('pengajuan');?>" class="dropdown-item">Data Mahasiswa</a></li>
 
-        </ul>
-      </li>
-      <?php if($this->session->userdata('level') == 0) :?>
-        <!-- Penentuan Pembimbing -->
-        <li class="nav-item dropdown">
-          <a id="dropdownPenentuan" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Penentuan Pembimbing</a>
-          <ul aria-labelledby="dropdownSubMenuPenentuan1" class="dropdown-menu border-0 shadow">
-            <!-- Level two dropdown-->
-            <li class="dropdown-submenu dropdown-hover">
-              <a id="dropdownSubMenuPenentuan2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Adm Pend</a>
-              <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                <li>
-                  <a tabindex="-1" href="<?php echo base_url('adpend');?>" class="dropdown-item">Perhitungan Adm Pend</a>
-                </li>
-                <li>
-                  <a tabindex="-1" href="<?php echo base_url('pembimbing-administrasi');?>" class="dropdown-item">Pembimbing Adm Pend</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu dropdown-hover">
-              <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Manajemen</a>
-              <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                <li>
-                  <a tabindex="-1" href="<?php echo base_url('manajemen');?>" class="dropdown-item">Perhitungan Manajemen</a>
-                </li>
-                <li>
-                  <a tabindex="-1" href="<?php echo base_url('pembimbing-manajemen');?>" class="dropdown-item">Pembimbing Manajemen</a>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu dropdown-hover">
-              <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hukum</a>
-              <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                <li>
-                  <a tabindex="-1" href="<?php echo base_url('hukum');?>" class="dropdown-item">Perhitungan Hukum</a>
-                </li>
-                <li>
-                  <a tabindex="-1" href="<?php echo base_url('pembimbing-hukum');?>" class="dropdown-item">Pembimbing Hukum</a>
-                </li>
-              </ul>
-            </li>
-            <!-- End Level two -->
-          </ul>
-        </li>
-      <?php endif;?>
-          <!-- Bimbingan -->
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Bimbingan</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <!-- Level two dropdown-->
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 1</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-1');?>" class="dropdown-item">Data Bimbingan</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembimbing 2</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="<?php echo base_url('data-bimbingan-2');?>" class="dropdown-item">Data Bimbingan</a>
-                  </li>
-                </ul>
-              </li>
-              <!-- End Level two -->
-            </ul>
-          </li>
-          <!-- Pengajuan -->
-         
-        </ul>
-    
-  </nav>
-  <!-- /.navbar -->
-
-
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="<?php echo base_url('beranda');?>" class="brand-link">
-      <span class="brand-text font-weight-light">Program Pascasarjana</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-          <a href="#" class="d-block">Halo, <?php echo $nama;?></a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-          <!-- User -->
-          <li class="nav-header">Users</li>
-          <?php if($this->session->userdata('level') == 0) :?>
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-admin');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Admin</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Dosen</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Mahasiswa</p>
-              </a>
-            </li>
-          <?php endif;?>
-           <?php if($this->session->userdata('level') == 1) :?>
-           
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-dosen');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Dosen</p>
-              </a>
-            </li>
-           
-          <?php endif;?>
-           <?php if($this->session->userdata('level') == 2) :?>
-            <li class="nav-item">
-              <a href="<?php echo base_url('users-mahasiswa');?>" class="nav-link">
-                <i class="nav-icon fas fa-circle"></i>
-                <p>Mahasiswa</p>
-              </a>
-            </li>
-          <?php endif;?>
-          <li class="nav-item">
-            <a href="<?php echo base_url('logout');?>" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>Logout</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -229,182 +19,156 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content">
       <div class="container-fluid">
         <div class="card card-secondary">
-              <div class="card-header">
-                <h3 class="card-title">Daftar Pengajuan</h3>
+          <div class="card-header">
+            <h3 class="card-title">Daftar Pengajuan</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <?php if($this->session->userdata('level') == 2){?>
+              <div class="row">
+                <a href="<?php echo base_url('pengajuan-judul');?>">
+                  <button type="button" class="btn btn-info">Ajukan Judul</button>
+                </a>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <?php if($this->session->userdata('level') == 2){?>
-                  <div class="row">
-                    <a href="<?php echo base_url('pengajuan-judul');?>">
-                      <button type="button" class="btn btn-info">Ajukan Judul</button>
-                    </a>
-                  </div>
-                <?php }?>
-                <?php if($this->session->userdata('success_delete')) {?>
-                    <div class="alert alert-success alert-dismissible">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                      Berhasil menghapus data.
-                    </div>
-                  <?php }elseif($this->session->userdata('failed_delete')){?>
-                    <div class="alert alert-danger alert-dismissible">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                      Gagal menghapus data.
-                    </div>
-                  <?php }?>
-                  <?php if($this->session->flashdata('success_upd')){?>
-                    <div class="alert alert-success alert-dismissible">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                      Berhasil mengubah data.
-                    </div>
-                  <?php }elseif($this->session->flashdata('failed_upd')){?>
-                    <div class="alert alert-danger alert-dismissible">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                      Gagal mengubah data.
-                    </div>
-                  <?php }?>
-                <table id="data-pengajuan" class="table table-bordered table-striped">
-                  <thead>
-                  <tr class="text-center">
-                    <th>NO</th>
-                    <th>NIM</th>
-                    <th>NAMA</th>
-                    <th>PRODI</th>
-                    <th>KONSENTRASI</th>
-                    <th>JUDUL</th>
-                    <th>PENGAJUAN</th>
-                    <th>STATUS</th>
-                    <th>PEMBIMBING 1</th>
-                    <th>PEMBIMBING 2</th>
-                    <th>OPTIONS</th>
+            <?php }?>
+            <?php if($this->session->userdata('success_delete')) {?>
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Berhasil menghapus data.
+              </div>
+            <?php }elseif($this->session->userdata('failed_delete')){?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Gagal menghapus data.
+              </div>
+            <?php }?>
+            <?php if($this->session->flashdata('success_upd')){?>
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Berhasil mengubah data.
+              </div>
+            <?php }elseif($this->session->flashdata('failed_upd')){?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Gagal mengubah data.
+              </div>
+            <?php }?>
+            <table id="data-pengajuan" class="table table-bordered table-striped">
+              <thead>
+                <tr class="text-center">
+                  <th>NO</th>
+                  <th>NAMA</th>
+                  <th>JUDUL</th>
+                  <th>DIAJUKAN</th>
+                  <th>STATUS</th>
+                  <th>OPSI</th>
+                </tr>
+              </thead>
+              <tbody id="pengajuan">
+                <?php $no = 1; foreach ($pengajuans as $pengajuan):  ?>
+                  <tr>
+                    <td class="text-center"><?php echo $no++;?></td>
+                    <td><?php echo $pengajuan->nama.'<br>'.$pengajuan->username;?></td>
+                    <td><?php echo $pengajuan->judul;?></td>
+                    <td><?php echo date("d-m-Y H:i:s", strtotime($pengajuan->tglpengajuan));?></td>
+                    <td class="text-center">
+                      <?php
+                        if($pengajuan->status == "belum"){
+                          echo "Sedang diproses";
+                        }elseif($pengajuan->status == "tolak"){
+                          echo "Ditolak Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
+                        }elseif($pengajuan->status == "terima"){
+                          echo "Diterima Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
+                        }
+                      ?> 
+                    </td>
+                    <td class="text-center">
+                      <a class="detail-pengajuan text-info text-md" data-id="<?php echo $pengajuan->id_pengajuan;?>">Detail</a>   <a class="text-success text-md" href="pengajuan/cetak/<?php echo $pengajuan->id_pengajuan;?>">Cetak</a>   <a class="text-danger text-md" href="pengajuan/hapus/<?php echo $pengajuan->id_pengajuan;?>">Hapus</a>
+                    </td>
                   </tr>
-                  </thead>
-                  <tbody>
-                     <?php $no = 1; foreach ($pengajuans as $pengajuan):  ?>
-                      <tr>
-                        <td class="text-center"><?php echo $no++;?></td>
-                        <td><?php echo $pengajuan->username;?></td>
-                        <td><?php echo $pengajuan->nama;?></td>
-                        <td>
-                          <?php
-                          if($pengajuan->prodi == "adpend"){
-                            echo "Adm Pend";
-                          }elseif($pengajuan->prodi == "manajemen"){
-                            echo "Manajemen";
-                          }else{
-                            echo "Hukum";
-                          }
-                          ?>
-                        </td>
-                        <td><?php echo $pengajuan->konsentrasi;?></td>
-                        <td><?php echo $pengajuan->judul;?></td>
-                        <td><?php echo date("d-m-Y H:i:s", strtotime($pengajuan->tglpengajuan));?></td>
-                        <td class="text-center">
-                          <?php
-                            if($pengajuan->status == "belum"){
-                              echo "Sedang diproses";
-                            }elseif($pengajuan->status == "tolak"){
-                              echo "Ditolak Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
-                            }elseif($pengajuan->status == "terima"){
-                              echo "Diterima Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
-                            }
-                          ?> 
-                        </td>
-                        <td>
-                          <?php
-                            if($pengajuan->id_pembimbing1 == NULL || $pengajuan->status == "tolak"){
-                              echo "Tidak Ada";
-                            }else{
-                              $dosbing1 = $model->get_dosen($pengajuan->id_pembimbing1);
-                              echo $dosbing1['nama'];
-                            }
-                          ?> 
-                        </td>
-                        <td>
-                          <?php
-                            if($pengajuan->id_pembimbing2 == NULL || $pengajuan->status == "tolak"){
-                              echo "Tidak Ada";
-                            }else{
-                              $dosbing2 = $model->get_dosen($pengajuan->id_pembimbing2);
-                              echo $dosbing2['nama'];
-                            }
-                          ?> 
-                        </td>
-                        
-                          <td class="text-center">
-                            <a class="ubah-pengajuan text-info text-sm" data-id="<?php echo $pengajuan->id_pengajuan;?>">Ubah</a> <a class="text-warning text-sm" href="pengajuan/tolak/<?php echo $pengajuan->id_pengajuan;?>">Tolak</a> <a class="text-danger text-sm" href="pengajuan/hapus/<?php echo $pengajuan->id_pengajuan;?>">Hapus</a>
-                          </td>
-                       
-
-                      </tr>
-                    <?php endforeach;?>
-                  </tbody>
-                </table>
-
+                <?php endforeach;?>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <!-- Modal Detail -->
+        <div class="modal fade" id="modal-detail">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Data Pengajuan</h4>
+                <button type="button" class="close closed" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <?php if($this->session->userdata('level') == 0) :?>
-                <div class="modal fade" id="modal-ubah">
-                  <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Ubah Pengajuan</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <input type="hidden"id="idubah" value="">
-                        <div class="form-group">
-                          <label for="nim">NIM :</label>
-                          <input type="text" class="form-control form-control-lg" id="nim" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="username-ubah">NAMA :</label>
-                          <input type="text" class="form-control form-control-lg" id="nama" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="prodi">PROGRAM STUDI :</label>
-                          <input type="text" id="prodi" class="form-control form-control-lg" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="konsentrasi">KONSENTRASI :</label>
-                          <input type="text" class="form-control form-control-lg" id="konsentrasi" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="judul">JUDUL :</label>
-                          <input type="text" class="form-control form-control-lg" id="judul"  readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="tglpengajuan">Tanggal Pengajuan</label>
-                            <input type="text" class="form-control form-control-lg" id="tglpengajuan" readonly>
-                        </div>
-                        <div class="form-group">
-                          <label for="pembimbing1">Pembimbing 1</label>
-                          <select class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Pembimbing 1" id="pembimbing1"style="width: 100%;" required>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="pembimbing2">Pembimbing 2</label>
-                          <select class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Pembimbing 2" id="pembimbing2" name="pembimbing2" style="width: 100%;" required>
-                          </select>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                          <button type="button" id="ubah" class="btn btn-primary">Simpan</button>
-                        </div>
+              <div class="modal-body">
+                <input type="hidden" id="id_pengajuan">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="nim">NIM :</label>
+                      <input type="text" id="nim" class="form-control form-control-lg" readonly>
                     </div>
-                    <!-- /.modal-content -->
+                    <div class="form-group">
+                      <label for="username-ubah">NAMA :</label>
+                      <input type="text" id="nama" class="form-control form-control-lg" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="prodi">PROGRAM STUDI :</label>
+                      <input type="text" id="prodi" class="form-control form-control-lg" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="konsentrasi">KONSENTRASI :</label>
+                      <input type="text" id="konsentrasi" class="form-control form-control-lg" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="tglpengajuan">TANGGAL PENGAJUAN :</label>
+                      <input type="text" id="tglpengajuan" class="form-control form-control-lg" readonly>
+                    </div>
+                    <div id="area-respon" class="form-group">
+                    </div>
                   </div>
-                  <!-- /.modal-dialog -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="judul">JUDUL :</label>
+                      <input type="text" id="judul" class="form-control form-control-lg" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="latarbelakang">LATAR BELAKANG :</label>
+                      <textarea id="latarbelakang" class="form-control form-control-lg" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="tujuan">TUJUAN :</label>
+                      <textarea id="tujuan" class="form-control form-control-lg" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="status">STATUS :</label>
+                      <select id="status" class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
+                      </select>
+                    </div>
+                  <div class="form-group">
+                    <label for="alasan">ALASAN DITOLAK :</label>
+                     <textarea id="alasan" class="form-control form-control-lg" placeholder="Cantumkan Alasan, Bilamana Pengajuan Ditolak"></textarea>
+                  </div> 
                 </div>
-              <?php endif;?>
-    </section>
-    <!-- /.content -->
-  </div>
+              </div> 
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="closed btn btn-default" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" id="simpan-detail">Simpan</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- End Modal Detail -->
+        <!-- /.content -->
+      </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
@@ -413,12 +177,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <b>Version</b> 3.0.3
     </div>
   </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -445,117 +203,157 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   $(function () {
+    const $btnSaveDetail = $("#simpan-detail");
+   
+    $('.select2').select2();
 
     $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
-    <?php if($this->session->userdata('level') == 0) :?>
-      const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000
-    });
-      const $ubahBtn = $(".ubah-pengajuan");
-      // if click ubah
-      $ubahBtn.click(function(){
-        var id = $(this).data('id');
-        $.ajax({
-          type : 'GET',
-          url :'<?php echo base_url('pengajuan/get_judul/');?>'+id,
-          dataType : 'json',
-          success:function(data){
-            $("#idubah").val(id);
-            $("#nim").val(data[0].username);
-            $("#nama").val(data[0].nama);
-            $("#prodi").val(data[0].nama_prodi);
-            $("#tglpengajuan").val(data[0].tglpengajuan);
-            $("#tglditerima").val(data[0].tglditerima);
-            $("#judul").val(data[0].judul);
-            $("#konsentrasi").val(data[0].konsentrasi);
-            $("#modal-ubah").modal();
-            GetPembimbing1(data[0].prodi);
-            GetPembimbing2(data[0].prodi);
-          },error:function(data){
-            Swal.fire(
-              'Gagal',
-              'Gagal mengambil data :(',
-              'error'
-            )
-          }
-        });
-        
-        
-      });
-      function GetPembimbing1(prodi){
-        var api = '<?php echo base_url();?>'+prodi+'/rank/1';
-        var datas='';
-        
-        $.ajax({
-          type : 'GET',
-          url : api,
-          datatype: 'json',
-          success:function(data){
-            var posts = JSON.parse(data);
-            $.each(posts, function() {
-              datas += '<option value="'+ this.id + '">' + this.nama_dosen + '</li>' ;
-            });
-            $("#pembimbing1").html('<option></option>'+datas);
-          },error:function(data){
-            alert('mohon maaf, data tidak bisa diambil'); 
-            console.log('tidak dapat mengambil data');
-          }
-        });
-      }
-      function GetPembimbing2(prodi){
-        var api = '<?php echo base_url();?>'+prodi+'/rank/2';
-        var datas='';
-        
-        $.ajax({
-          type : 'GET',
-          url : api,
-          datatype: 'json',
-          success:function(data){
-            var posts = JSON.parse(data);
-            $.each(posts, function() {
-              datas += '<option value="'+ this.id+ '">' + this.nama_dosen + '</li>' ;
-            });
-            $("#pembimbing2").html('<option></option>'+datas);
-          },error:function(data){
-            alert('mohon maaf, data tidak bisa diambil'); 
-            console.log('tidak dapat mengambil data');
-          }
-        });
-      }
-      $("#ubah").on('click',function(){
-        var id = $("#idubah").val();
-        var pembimbing1 = $("#pembimbing1").val();
-        var pembimbing2 = $("#pembimbing2").val();
-       
 
-        if(id == '' || pembimbing1 =='' || pembimbing2 == ''){
+
+    $("#pengajuan").on("click",".detail-pengajuan",function(){
+      var id = $(this).data('id');
+      getPengajuan(id);
+
+      $("#modal-detail").modal();
+    });
+
+    $(".closed").click(function(){
+      $("#tglditerima").remove();
+      $("#alasan").val('');
+    });
+
+    $btnSaveDetail.click(function(){
+      var status = $("#status").val();
+      var alasan = $("#alasan").val();
+      var id = $("#id_pengajuan").val();
+
+      if(status == 'terima'){
+        updatePengajuan(id,status)
+      }else if(status == 'tolak' && alasan == ''){
+        $("#alasan").focus();
+        Swal.fire(
+          'Perhatikan!',
+          'Silahkan Isi Alasan Ditolak',
+          'warning'
+          );
+      }else if(status == 'tolak' && alasan != ''){
+        updatePengajuan(id,status)
+      }else if(status == 'belum'){
+        updatePengajuan(id,status)
+      }
+
+    });
+
+    // function update pengajuan
+    function updatePengajuan(id,type){
+      if(type == 'tolak'){
+        desc = 'tolak!';
+      }else if(type == 'terima'){
+        desc = 'terima!';
+      }else if(type == 'belum'){
+        desc = 'kembalikan Ke Semula!';
+      }
+
+      var status = $("#status").val();
+      var alasan = $("#alasan").val();
+      var id = id;
+
+      $.ajax({
+        type : 'POST',
+        url : '<?php echo base_url('pengajuan/update/');?>',
+        data:{id:id,status:status,alasan:alasan},
+        success:function(data){
           Swal.fire(
-              'Perhatian!',
-              'Silahkan lengkapi data!',
-              'warning'
-            )
-        }else{
-          $.ajax({
-            type : 'POST',
-            url : '<?php echo base_url('pengajuan/update');?>',
-            data: {id:id,pembimbing1:pembimbing1,pembimbing2:pembimbing2},
-            success: function(data){
-              location.reload();
-            },error: function(data){
-              Swal.fire(
-                'Gagal',
-                'Gagal menyimpan data :(',
-                'error'
-              )
-            }
-          });
+            'Berhasil!',
+            'Pengajuan Telah Di'+desc,
+            'success'
+          );
+          if(type == 'terima' || type == 'belum'){
+            $("#alasan").val('');
+          }
+          getPengajuan(id);
+          getPengajuanAll();
+        },error:function(data){
+           Swal.fire(
+            'Gagal!',
+            'Mohon maaf, gagal menyimpan data',
+            'error'
+          );
         }
       });
-      $('.select2').select2();
-    <?php endif;?>
+    }
+
+    // function get pengajuan by id
+
+    function getPengajuan(id){
+      $.ajax({
+        type : 'GET',
+        url : '<?php echo base_url('pengajuan/get_judul/');?>'+id,
+        dataType : 'json',
+        success:function(data){
+          var tglpengajuan = new Date(data[0].tglpengajuan).toLocaleString(['ban', 'id']);
+          var tglrespon = new Date(data[0].tglditerima).toLocaleString(['ban', 'id']);
+          $("#id_pengajuan").val(data[0].id_pengajuan);
+          $("#nim").val(data[0].nim);
+          $("#nama").val(data[0].nama);
+          $("#prodi").val(data[0].nama_prodi);
+          $("#konsentrasi").val(data[0].konsentrasi);
+          $("#tglpengajuan").val(tglpengajuan);
+          $("#judul").val(data[0].judul);
+          $("#latarbelakang").val(data[0].latarbelakang);
+          $("#tujuan").val(data[0].tujuan);
+          if(data[0].status_pengajuan == 'belum'){
+            $("#tglditerima").remove();
+            $("#status").html('<option></option><option value="belum" selected>BELUM</option><option value="terima">TERIMA</option><option value="tolak">TOLAK</option>');
+          }else if(data[0].status_pengajuan == 'tolak'){
+            $("#tglditerima").remove();
+            $("#status").html('<option></option><option value="belum">BELUM</option><option value="terima">TERIMA</option><option value="tolak" selected>TOLAK</option>');
+            $("#area-respon").append('<div id="tglditerima"><label for="tglditerima">TANGGAL DITOLAK :</label><input type="text" class="form-control form-control-lg" value="'+tglrespon+'" readonly></div>');
+            $("#alasan").val(data[0].alasan);
+          }else if(data[0].status_pengajuan == 'terima'){
+            $("#tglditerima").remove();
+            $("#status").html('<option></option><option value="belum">BELUM</option><option value="terima" selected>TERIMA</option><option value="tolak">TOLAK</option>');
+            $("#area-respon").append('<div id="tglditerima"><label for="tglditerima">TANGGAL DITERIMA :</label><input type="text" class="form-control form-control-lg" value="'+tglrespon+'" readonly></div>');
+          }
+        },error:function(data){
+          alert('Gagal mengambil data');
+        }
+      });
+    }
+
+    // function get pengajuan all
+    function getPengajuanAll(){
+      var datas,tglDiajukan,tglStatus,status,opsi = '';
+      $.ajax({
+        type:'GET',
+        url:'<?php echo base_url('pengajuan/get_pengajuan/');?>',
+        dataType: 'json',
+        async:false,
+        success:function(data){
+          for(var i=0 ;i < data.length; i++){
+
+            if(data[i].status == "belum"){
+              status = "Sedang diproses";
+            }else if(data[i].status == "tolak"){
+              tglStatus = new Date(data[i].tglditerima).toLocaleString(['ban', 'id']);
+              status = "Ditolak Pada <br>"+tglStatus;
+            }else if(data[i].status =="terima"){
+              tglStatus = new Date(data[i].tglditerima).toLocaleString(['ban', 'id']);
+              status = "Diterima Pada <br>"+tglStatus;
+            }
+            opsi = '<td class="text-center"><a class="detail-pengajuan text-info text-md" data-id="'+data[i].id_pengajuan+'">Detail</a>   <a class="text-success text-md" href="pengajuan/cetak/'+data[i].id_pengajuan+'">Cetak</a>   <a class="text-danger text-md" href="pengajuan/hapus/'+data[i].id_pengajuan+'">Hapus</a></td>';
+
+            tglDiajukan = new Date(data[i].tglpengajuan).toLocaleString(['ban', 'id']);
+
+            datas+='<tr><td class="text-center">'+(i+1)+'</td><td>'+data[i].nama+'<br>'+data[i].username+'</td><td>'+data[i].judul+'</td><td>'+tglDiajukan+'</td><td class="text-center">'+status+'</td>'+opsi+'</tr>'
+          }
+          $('#data-pengajuan').dataTable().fnClearTable();
+          $('#data-pengajuan').dataTable().fnDestroy();
+          $("#pengajuan").html(datas);
+          $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+        }
+      });
+    }
 
   });
 </script>
