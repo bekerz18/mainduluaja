@@ -138,6 +138,11 @@
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-tambah">
                   Tambah Admin
                 </button>
+                <a href="<?php echo base_url('users/admin/cetak');?>">
+                  <button type="button" class="btn btn-info">
+                    <i class="fas fa-print"></i> Cetak
+                  </button>
+                </a>
                 <table id="data-pengajuan" class="table table-bordered table-striped">
                   <thead>
                   <tr class="text-center">

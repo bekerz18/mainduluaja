@@ -24,11 +24,17 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            <a href="<?php echo base_url('pengajuan/penentuan_pembimbing/cetak');?>">
+              <button type="button" class="btn btn-info">
+                <i class="fas fa-print"></i> Cetak
+              </button>
+            </a>
             <table id="table-pengajuan" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
                   <th>NO</th>
                   <th>NAMA</th>
+                  <th>PRODI</th>
                   <th>JUDUL</th>
                   <th>PEMBIMBING 1</th>
                   <th>PEMBIMBING 2</th>
@@ -40,7 +46,8 @@
                   <tr>
                     <td class="text-center"><?php echo $no;?></td>
                     <td class="text-center"><?php echo $pengajuan["nama"].'<br>'.$pengajuan["nim"];?></td>
-                    <td class="text-center"><?php echo $pengajuan["judul"].'<br>('.$pengajuan["nama_prodi"].')';?></td>
+                    <td class="text-center"><?php echo $pengajuan["judul"];?></td>
+                    <td class="text-center"><?php echo $pengajuan["nama_prodi"];?></td>
                     <td><?php if($pengajuan['pembimbing1'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing1'];}?></td>
                     <td><?php if($pengajuan['pembimbing2'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing2'];}?></td>
                     <td class="text-center"><a class="details-penentuan text-info" data-id="<?php echo $pengajuan["id_pengajuan"];?>">Details</a></td>

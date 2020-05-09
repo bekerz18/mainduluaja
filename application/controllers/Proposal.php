@@ -15,12 +15,16 @@ class Proposal extends CI_Controller{
 
 	public function index()
 	{
-		$model = $this->Proposal_model;
-		$data['title'] = 'Daftar Proposal';
-		$data['nama'] =  $this->session->userdata('nama');
-		$this->load->view('layout/admin/header',$data);
-		$data['proposals'] = $model->getAll();
-		$this->load->view('proposal/list',$data);
+		if($this->session->userdata('level') == 0){
+			$model = $this->Proposal_model;
+			$data['title'] = 'Daftar Proposal';
+			$data['nama'] =  $this->session->userdata('nama');
+			$this->load->view('layout/admin/header',$data);
+			$data['proposals'] = $model->getAll();
+			$this->load->view('proposal/list',$data);
+		}else{
+			redirect('beranda');
+		}
 	}
 	public function getproposal($id)
 	{
@@ -100,6 +104,27 @@ class Proposal extends CI_Controller{
 				redirect('proposal');
 			}
 
+		}else{
+			redirect('beranda');
+		}
+	}
+
+	public function cetak()
+	{
+		if($this->session->userdata('level') == 0){
+			$model = $this->Proposal_model;
+			$data['model'] = $model;
+			$data['title'] = 'Daftar Proposal';
+			$data['proposals'] = $model->getAll();
+			$cetak = $this->load->view('proposal/cetak',$data,TRUE);
+			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+        	$users->showImageErrors = true;
+        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+        	$users->Output($data['title'].'.pdf ', 'I');
 		}else{
 			redirect('beranda');
 		}

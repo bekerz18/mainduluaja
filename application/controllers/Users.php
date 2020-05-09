@@ -20,7 +20,7 @@ class Users extends CI_Controller{
 			return $this->session->userdata('password');
 		}
 	}
-	public function mahasiswa(){
+	public function mahasiswa($cetak=null){
 		if($this->session->userdata('level') == 2){
 			if($this->input->method()=="post"){
 				$model = $this->Users_model;
@@ -50,13 +50,26 @@ class Users extends CI_Controller{
 			$data['title'] = 'Daftar Mahasiswa';
 			$data['users'] = $model->get_mahasiswa();
 			$data['nama'] = $this->session->userdata('nama');
-			$this->load->view('layout/admin/header',$data);
-			$this->load->view('users/mahasiswa',$data);
+			if($cetak == 'cetak' ){
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$cetak = $this->load->view('users/cetak_mahasiswa',$data,TRUE);
+                $users= new \Mpdf\Mpdf(['format' => 'Legal']);
+                $users->showImageErrors = true;
+                $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+                $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+                $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+                $users->Output('Daftar Mahasiswa.pdf ', 'D');
+			}else{
+				$this->load->view('layout/admin/header',$data);
+				$this->load->view('users/mahasiswa',$data);
+			}
+			
 		}else{
 			redirect('beranda');
 		}
 	}
-	public function dosen(){
+	public function dosen($cetak=null){
 		$model = $this->Users_model;
 		$data['model'] = $model;
 		if($this->session->userdata('level') == 1){
@@ -82,26 +95,53 @@ class Users extends CI_Controller{
 			$this->load->view('layout/dosen/header',$data);
 			$this->load->view('users/setting_dosen',$data);
 		}elseif($this->session->userdata('level') == 0){
-			$model = $this->Users_model;
 			$data['users'] = $model->get_dosens();
 			$data['nama'] = $this->session->userdata('nama');
 			$data['title'] = 'Daftar Dosen';
-			$this->load->view('layout/admin/header',$data);
-			$this->load->view('users/dosen',$data);
+			if($cetak == 'cetak' ){
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$cetak = $this->load->view('users/cetak_dosen',$data,TRUE);
+                $users= new \Mpdf\Mpdf(['format' => 'Legal']);
+                $users->showImageErrors = true;
+                $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+                $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+                $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+                $users->Output('Daftar Dosen.pdf ', 'D');
+			}else{
+				$this->load->view('layout/admin/header',$data);
+				$this->load->view('users/dosen',$data);
+			}
+			
+			
 		}else{
 			redirect('beranda');
 		}
 	}
-	public function admin(){
+	public function admin($cetak=null){
 		if($this->session->userdata('level') != 0){
 			redirect('beranda');
 		}else{
 			$model = $this->Users_model;
 			$data['users'] = $model->get_admin();
-			$data['nama'] = $this->session->userdata('nama');
 			$data['title'] = 'Daftar Admin';
-			$this->load->view('layout/admin/header',$data);
-			$this->load->view('users/admin',$data);
+			if($cetak == 'cetak'){
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$cetak = $this->load->view('users/cetak_admin',$data,TRUE);
+                $users= new \Mpdf\Mpdf(['format' => 'Legal']);
+                $users->showImageErrors = true;
+                $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+                $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+                $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+                $users->Output('Daftar Admin.pdf ', 'D');
+				
+
+			}else{
+				$data['nama'] = $this->session->userdata('nama');
+				$this->load->view('layout/admin/header',$data);
+				$this->load->view('users/admin',$data);
+			}
 		}
 	}
 

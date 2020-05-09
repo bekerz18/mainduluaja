@@ -137,9 +137,7 @@ class BackendC extends CI_Controller{
 			redirect('../home');
 		}
 	}
-	public function get_rank_all(){
-        return $this->db->query("SELECT hasil_rank.alternatif_kode as kode_dosen, alternatif.alternatif_nama as nama_dosen, hasil_rank.hr_value as nilai FROM hasil_rank INNER JOIN alternatif ON alternatif.alternatif_kode=hasil_rank.alternatif_kode ORDER by nilai DESC")->result_array();
-    }
+	
     public function bala(){
 		$model = $this->Mymod;
 		$users = $model->get_all();
@@ -152,6 +150,21 @@ class BackendC extends CI_Controller{
 				echo 'gagal '.$user->alternatif_kode.'<br>';
 			}
 		}
+	}
+	public function cetak()
+	{
+		$data['title'] = 'Daftar Pembimbing Manajemen';
+		$data['dosens'] = $this->Mymod->get_rank_all();
+		$url = str_replace("manajemen/", "", base_url());
+		$data['url'] = $url;
+		$css = $url."assets/dist/css/cetak.css";
+		$style = file_get_contents($css);
+		$cetak = $this->load->view('cetak',$data,TRUE);
+        $users= new \Mpdf\Mpdf(['format' => 'Legal']);
+        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+        $users->Output($data['title'].'pdf ', 'D');
+		
 	}
 
 }

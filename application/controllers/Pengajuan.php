@@ -17,24 +17,31 @@ class Pengajuan extends CI_Controller{
 	public function judul()
 	{
 		if($this->session->userdata('level') == 1) redirect('../login');
+
 		$model = $this->Pengajuan_model;
-		$validasi = $this->form_validation;
+		$checkIsHave = $model->checkIsHave();
+		if(!$checkIsHave){
+			$validasi = $this->form_validation;
 		
-		$validasi->set_rules('nim','NIM','required|trim');
-		$validasi->set_rules('nama','Nama','required|trim');
-		$validasi->set_rules('judul','Judul','required|trim');
-		$validasi->set_rules('latarbelakang','latarbelakang','required|trim');
-		$validasi->set_rules('tujuan','tujuan','required|trim');
+			$validasi->set_rules('nim','NIM','required|trim');
+			$validasi->set_rules('nama','Nama','required|trim');
+			$validasi->set_rules('judul','Judul','required|trim');
+			$validasi->set_rules('latarbelakang','latarbelakang','required|trim');
+			$validasi->set_rules('tujuan','tujuan','required|trim');
 
-		if($validasi->run()){
-			$model->insert_pengajuan();
-			$this->session->set_flashdata('Success','Berhasil menyimpan data');
+			if($validasi->run()){
+				$model->insert_pengajuan();
+				$this->session->set_flashdata('Success','Berhasil menyimpan data');
+			}
+
+			$data['nama'] = $this->session->userdata('nama');
+			$data['title'] = 'Pengajuan Judul';
+			$this->load->view('layout/mahasiswa/header',$data);
+			$this->load->view('pengajuan/judul',$data);
+		}else{
+			redirect('pengajuan');
 		}
-
-		$data['nama'] = $this->session->userdata('nama');
-		$data['title'] = 'Pengajuan Judul';
-		$this->load->view('layout/mahasiswa/header',$data);
-		$this->load->view('pengajuan/judul',$data);
+		
 	}
 	public function index()
 	{
@@ -174,9 +181,21 @@ class Pengajuan extends CI_Controller{
 				}
 			}
 			$data['title'] = 'Detail Pengajuan';
+			$data['pengajuan'] = $model->get_select_pengajuan2($id);
+			if($prop =='cetak'){
+				$body = $this->load->view('pengajuan/cetak_detail_mahasiswa',$data,TRUE);
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$head = $this->load->view('layout/cetak',$data,TRUE);
+				$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+		        $users->showImageErrors = true;
+		        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+		        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
+		        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
+		        $users->Output($data['title'].'.pdf ', 'D');
+			}
+			
 			$data['nama'] = $this->session->userdata('nama');
 			$this->load->view('layout/mahasiswa/header',$data);
-			$data['pengajuan'] = $model->get_select_pengajuan2($id);
 			$this->load->view('pengajuan/detail_mahasiswa',$data);
 			if($data['pengajuan']['nim'] != $this->session->userdata('username')) redirect('pengajuan');
 		}
@@ -185,14 +204,26 @@ class Pengajuan extends CI_Controller{
 		}
 	}
 
-	public function penentuan_pembimbing()
+	public function penentuan_pembimbing($cetak = null)
 	{
 		
 		$data['pengajuans'] = $this->_ProposalComplete();
-		$data['nama'] = $this->session->userdata('nama');
 		$data['title'] = 'Penentuan Pembimbing';
-		$this->load->view('layout/admin/header',$data);
-		$this->load->view('penentuan/list',$data);
+		if($cetak == 'cetak'){
+			$body = $this->load->view('penentuan/cetak',$data,TRUE);
+			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+			$head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        $users->showImageErrors = true;
+	        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->Output($data['title'].'.pdf ', 'D');
+		}else{
+			$data['nama'] = $this->session->userdata('nama');
+			$this->load->view('layout/admin/header',$data);
+			$this->load->view('penentuan/list',$data);
+		}
 
 	}
 
@@ -237,6 +268,57 @@ class Pengajuan extends CI_Controller{
 
 	public function getpenentuan(){
 		echo json_encode($this->_ProposalComplete());
+	}
+	public function nyoba()
+	{
+		$html = '<bookmark content="Start of the Document" /><div>Section 1 text</div>';
+
+		$mpdf = new \Mpdf\Mpdf();
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
+	}
+	public function cetak($type = null)
+	{
+		$model = $this->Pengajuan_model;
+		$data['title'] = 'Daftar Pengajuan';
+		if($this->session->userdata('level')==0){
+			$data['pengajuans'] = $model->get_pengajuan();
+			$cetak  = $this->load->view('pengajuan/cetak_list_admin',$data,TRUE);
+		}elseif($this->session->userdata('level')==1){
+			$dosen = $this->session->userdata('id');
+			if($type == 'proposal'){
+				$data['title'] = 'Daftar Proposal';
+				$data['model'] = $model;
+				$data['proposals'] = $model->getProposalBy($dosen);
+				if(!$data['proposals']){
+					redirect('pengajuan');
+				}else{
+					$cetak  = $this->load->view('proposal/cetak_list_dosen',$data,TRUE);
+				}
+			}elseif($type == 'bimbingan'){
+				$data['title'] = 'Daftar Bimbingan';
+				$data['pengajuans']=$model->get_pengajuan_by($dosen);
+				if(!$data['pengajuans']){
+					redirect('pengajuan');
+				}else{
+					$cetak  = $this->load->view('pengajuan/cetak_list_dosen',$data,TRUE);
+				}
+				
+			}
+		}elseif($this->session->userdata('level')==2){
+			$data['pengajuans'] = $model->get_pengajuanmhs();
+			$cetak  = $this->load->view('pengajuan/cetak_list_mahasiswa',$data,TRUE);
+		}
+
+
+		$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+		$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+		$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+        $users->showImageErrors = true;
+        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+        $users->Output($data['title'].'.pdf ', 'D');
 	}
 
 }

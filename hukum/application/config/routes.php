@@ -50,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 
 */
+$route['cetak'] = 'BackendC/cetak';
 $route['all'] = 'BackendC/rank/3';
 $route['rank/2'] = 'BackendC/rank/2';
 $route['rank/1'] = 'BackendC/rank/1';

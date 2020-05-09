@@ -34,6 +34,11 @@
                 <div class="tab-content" id="custom-content-above-tabContent">
                   <div class="tab-pane fade active show" id="penilaian" role="tabpanel" aria-labelledby="tab-proposal">
                     <br>
+                    <a href="<?php echo base_url('pengajuan/cetak/proposal');?>">
+                      <button type="button" class="btn btn-info">
+                        <i class="fas fa-print"></i> Cetak
+                      </button>
+                    </a>
                     <table id="table-pengajuans" class="table table-bordered table-striped">
                       <thead>
                       <tr class="text-center">
@@ -60,6 +65,12 @@
                   </div>
                   <div class="tab-pane fade" id="bimbingan" role="tabpanel" aria-labelledby="tab-bimbingan">
                     <br>
+                    <a href="<?php echo base_url('pengajuan/cetak/bimbingan');?>">
+                      <button type="button" class="btn btn-info">
+                        <i class="fas fa-print"></i> Cetak
+                      </button>
+                    </a>                    
+                    
                     <table id="table-bimbingan" class="table table-bordered table-striped">
                       <thead>
                       <tr class="text-center">

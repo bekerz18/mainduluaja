@@ -23,7 +23,16 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <div class="row">
+                    <a href="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/cetak';?>" target="_blank">
+                      <button type="button" class="btn btn-info">
+                        <i class="fas fa-print"></i> Cetak
+                      </button>
+                    </a>
+                  </div>
+                  <br>
                 <?php if($pengajuan['status'] == 'terima' && $status_proposal == 'sudah'):?>
+                  
                   <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#data-pengajuan" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Data Pengajuan</a>

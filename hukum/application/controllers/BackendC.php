@@ -157,4 +157,19 @@ class BackendC extends CI_Controller{
 			}
 		}
 	}
+	public function cetak()
+	{
+		$data['title'] = 'Daftar Pembimbing Hukum';
+		$data['dosens'] = $this->Mymod->get_rank_all();
+		$url = str_replace("hukum/", "", base_url());
+		$data['url'] = $url;
+		$css = $url."assets/dist/css/cetak.css";
+		$style = file_get_contents($css);
+		$cetak = $this->load->view('cetak',$data,TRUE);
+        $users= new \Mpdf\Mpdf(['format' => 'Legal']);
+        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+        $users->Output($data['title'].'pdf ', 'D');
+		
+	}
 }

@@ -37,6 +37,11 @@
                 Gagal menghapus data.
               </div>
             <?php }?>
+            <a href="<?php echo base_url('proposal/cetak');?>" target="_blank">
+              <button type="button" class="btn btn-info">
+                <i class="fas fa-print"></i> Cetak
+              </button>
+            </a>
             <table id="table-proposal" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">

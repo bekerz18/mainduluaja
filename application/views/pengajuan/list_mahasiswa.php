@@ -50,6 +50,11 @@
                       Gagal mengubah data.
                     </div>
                   <?php }?>
+                  <a href="<?php echo base_url('pengajuan/cetak');?>" target="_blank">
+                    <button type="button" class="btn btn-info">
+                      <i class="fas fa-print"></i> Cetak
+                    </button>
+                  </a>
                 <table id="data-pengajuan" class="table table-bordered table-striped">
                   <thead>
                   <tr class="text-center">
