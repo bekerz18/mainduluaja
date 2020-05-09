@@ -139,7 +139,7 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function getProposalDone()
 	{
-		return $this->db->query("SELECT id_pengajuan FROM proposal WHERE revisi='tidak' AND nilai_1 IS NOT NULL AND nilai_2 IS NOT NULL AND nilai_3 IS NOT NULL GROUP BY id_pengajuan HAVING SUM(nilai_1+nilai_2+nilai_3) >= 75")->result_array();
+		return $this->db->query("SELECT id_pengajuan FROM proposal WHERE revisi='tidak' AND nilai_1 IS NOT NULL AND nilai_2 IS NOT NULL AND nilai_3 IS NOT NULL GROUP BY id_pengajuan HAVING SUM(nilai_1+nilai_2+nilai_3)/3 >= 75")->result_array();
 	}
 	public function checkIsHave()
 	{
