@@ -9,7 +9,7 @@
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="#">Pengajuan</a></li>
-              <li class="breadcrumb-item active">Daftar Pengajuan</li>
+              <li class="breadcrumb-item active">Daftar Bimbingan</li>
             </ol>
           </div>
         </div>
@@ -20,17 +20,18 @@
       <div class="container-fluid">
         <div class="card card-secondary">
           <div class="card-header">
-            <h3 class="card-title">Daftar Pengajuan</h3>
+            <h3 class="card-title">Daftar Bimbingan 2</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <a href="#" class="mulai-bimbingan" data-id="<?php echo uniqid();?>">
-            	<button type="button" class="btn btn-primary">Mulai Bimbingan</button>
-            </a>
+            
             <table id="table-bimbingan" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
                   <th>NO</th>
+                  <th>NAMA</th>
+                  <th>PRODI</th>
+                  <th>JUDUL</th>
                   <th>BIMBINGAN BAB</th>
                   <th>STATUS</th>
                   <th>OPSI</th>
@@ -40,6 +41,14 @@
                 <?php $no = 1; foreach ($bimbingans as $bimbingan):  ?>
                   <tr>
                     <td class="text-center"><?php echo $no++;?></td>
+                    <td class="text-center"><?php echo $bimbingan["nama_mahasiswa"].'<br>'.$bimbingan['nim_mahasiswa'];?></td>
+                    <td class="text-center">
+                      <?php if($bimbingan["prodi"] == "adpend"){echo "Administrasi Pendidikan";
+                    }elseif($bimbingan["prodi"] == "manajemen"){
+                      echo "Manajemen";
+                    }elseif($bimbingan["prodi"] == "hukum"){echo "Hukum";}?></td>
+
+                    <td><?php echo $bimbingan["judul"];?></td>
                     <td class="text-center"><?php echo $bimbingan["bab"];?></td>
                     <td class="text-center">
                       <?php if($bimbingan["status"] == "sudah"){
@@ -50,7 +59,7 @@
                         
                       </td>
                     <td class="text-center">
-                    	<a href="<?php echo base_url('bimbingan/bimbingan/2/').$bimbingan["id_bimbingan"];?>"class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>
+                      <a href="<?php echo base_url('bimbingan/bimbingan/2/').$bimbingan["id_bimbingan"].'/'.$bimbingan["bab"].'/'.$bimbingan["id_pengajuan"];?>"class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>
                     </td>
                   </tr>
                 <?php endforeach;?>
@@ -109,95 +118,14 @@
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
-<!-- Select2 -->
-<script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js');?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
-<!-- SweetAlert2 -->
-<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
+
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
-  $(function () {
-   
-
-    $(".mulai-bimbingan").click(function(){
-    	let $bimbingan = 2;
-    	let $mahasiswa = '<?php echo $this->session->userdata('id');?>';
-    	checkBimbingan($bimbingan,$mahasiswa);
-    })
-   
-    $('.select2').select2();
-
-    $('#table-bimbingan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": true, "responsive": true, });
-    $("#btn-mulai-bimbingan").click(function(){
-    	let $id = $(this).data('id');
-    	let $pembimbing = '2';
-    	let $bab = $("#bimbingan").val();
-    	addBimbingan($id,$pembimbing,$bab);
-
-    });
-    function addBimbingan($id, $pembimbing,$bab){
-    	if($bab == "" || $bab =="0"){
-    		alert('Silahkan Pilih BAB');
-    	}else{
-	    		$.ajax({
-	    		type : 'POST',
-	    		url: '<?php echo base_url('bimbingan/addBimbingan/');?>',
-	    		data:{id:$id,bab:$bab,pembimbing:$pembimbing},
-	    		success:function(data){
-	    			location.reload();
-	    		},error:function(data){
-	    			alert('Gagal');
-	    		}
-	    	});
-    	}
-    	
-    }
-    function checkBimbingan($bimbingan,$mahasiswa){
-    	$datas = '';
-    	$.ajax({
-    		type: 'GET',
-    		url: '<?php echo base_url('bimbingan/checkBimbingan/');?>'+$bimbingan+'/'+$mahasiswa,
-    		dataType: 'json',
-    		success:function(data){
-    			if(data.length == 0){
-    				$datas = '<option></option><option value="1">BAB I</option>';
-    			}
-    			for(var i=0; i < data.length; i++){
-    				if(data[i].bab == "1" && data[i].status=="belum"){
-              $("#btn-mulai-bimbingan").attr("disabled","");
-              $datas = '<option value="0">Silahkan Selesaikan BAB I Terlebih Dahulu</option>';
-              $("#bimbingan").attr("disabled","");
-            }else if(data[i].bab == "1" && data[i].status == "sudah"){
-              $datas = '<option></option><option value="2">BAB II</option>'
-            }else if(data[i].bab == "2" && data[i].status=="belum"){
-              $("#btn-mulai-bimbingan").attr("disabled","");
-              $datas = '<option value="0">Silahkan Selesaikan BAB II Terlebih Dahulu</option>';
-              $("#bimbingan").attr("disabled","");
-            }else if(data[i].bab == "2" && data[i].status == "sudah"){
-              $datas =  '<option></option><option value="3">BAB III</option>';
-            }else if(data[i].bab == "3" && data[i].status=="belum"){
-              $("#btn-mulai-bimbingan").attr("disabled","");
-              $datas = '<option value="0">Silahkan Selesaikan BAB III Terlebih Dahulu</option>';
-              $("#bimbingan").attr("disabled","")
-            }else if(data[i].bab == "3" && data[i].status == "sudah"){
-              $datas =  '<option></option><option value="4">BAB IV</option>';
-            }else{
-              $datas = '<option></option>';
-              $("#btn-mulai-bimbingan").attr("disabled","");
-              $("#bimbingan").attr("data-placeholder","Selamat!");
-              $("#bimbingan").attr("disabled","");
-            }
-    			}
-
-    			$("#bimbingan").html($datas);
-    			$("#modal-mulai").modal();
-
-    		}
-
-    	})
-    }
+  jQuery(function(){
+    jQuery('#table-bimbingan').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": true, "responsive": true, });
   });
 </script>
 </body>

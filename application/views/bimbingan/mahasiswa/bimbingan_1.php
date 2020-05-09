@@ -42,12 +42,15 @@
                     <td class="text-center"><?php echo $no++;?></td>
                     <td class="text-center"><?php echo $bimbingan["bab"];?></td>
                     <td class="text-center">
-                    	<?php if($bimbingan["status"] == "belum"){echo "Belum Diterima";
-                    }else{
-                    	echo "Diterima";
-                    }?></td>
+                      <?php if($bimbingan["status"] == "sudah"){
+                        echo '<span class="text-success">Sudah diacc</span><br>Pada '.date("l, d F Y H:i:s", strtotime($bimbingan["tgl_acc"]));
+                      }elseif($bimbingan["status"] == "belum"){
+                        echo 'Sedang dalam bimbingan';
+                      };?>
+                        
+                      </td>
                     <td class="text-center">
-                    	<a class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>
+                    	<a href="<?php echo base_url('bimbingan/bimbingan/1/').$bimbingan["id_bimbingan"];?>"class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>
                     </td>
                   </tr>
                 <?php endforeach;?>
@@ -131,7 +134,12 @@
     	let $id = $(this).data('id');
     	let $pembimbing = '1';
     	let $bab = $("#bimbingan").val();
-    	addBimbingan($id,$pembimbing,$bab);
+      if($bab == "" || $bab =="0"){
+        alert('Silahkan pilih')
+      }else{
+        addBimbingan($id,$pembimbing,$bab);
+      }
+    	
 
     });
     function addBimbingan($id, $pembimbing,$bab){
@@ -141,6 +149,7 @@
     		url: '<?php echo base_url('bimbingan/addBimbingan/');?>',
     		data:{id:$id,bab:$bab,pembimbing:$pembimbing},
     		success:function(data){
+          location.reload();
     		},error:function(data){
     			alert('Gagal');
     		}
@@ -154,10 +163,16 @@
     		dataType: 'json',
     		success:function(data){
     			if(data.length == 0){
-    				$datas = '<option></option><option value="2">BAB II</option><option value="3">BAB III</option><option value="4">BAB IV</option>';
+    				$datas = '<option></option><option value="1">BAB I</option>';
     			}
     			for(var i=0; i < data.length; i++){
-            if(data[i].bab == "2" && data[i].status=="belum"){
+            if(data[i].bab == "1" && data[i].status=="belum"){
+              $("#btn-mulai-bimbingan").attr("disabled","");
+              $datas = '<option value="0">Silahkan Selesaikan BAB I Terlebih Dahulu</option>';
+              $("#bimbingan").attr("disabled","");
+            }else if(data[i].bab == "1" && data[i].status == "sudah"){
+              $datas = '<option></option><option value="2">BAB II</option>'
+            }else if(data[i].bab == "2" && data[i].status=="belum"){
               $("#btn-mulai-bimbingan").attr("disabled","");
               $datas = '<option value="0">Silahkan Selesaikan BAB II Terlebih Dahulu</option>';
               $("#bimbingan").attr("disabled","");

@@ -59,7 +59,7 @@
                     <td class="text-center"><?php echo $no++;?></td>
                     <td class="text-center"><?php echo $proposal["nama_mahasiswa"].'<br>'.$proposal["nim_mahasiswa"];?></td>
                     <td><a href="<?php echo base_url('uploads/proposal/').$proposal["id_proposal"].'.pdf';?>" target="_blank" alt="<?php echo $proposal["judul_proposal"];?>"><?php echo $proposal["judul_proposal"];?></a></td>
-                    <td class="text-center"><?php echo date("d-m-Y H:i:s", strtotime($proposal["last_update"]));?></td>
+                    <td class="text-center"><?php echo date("l, d F Y H:i:s", strtotime($proposal["last_update"]));?></td>
                     <td class="text-center">
                       <?php
                       if($proposal["status_proposal"] == NULL){

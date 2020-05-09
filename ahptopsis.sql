@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.4
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: May 09, 2020 at 09:31 AM
--- Server version: 10.3.22-MariaDB-cll-lve
--- PHP Version: 7.3.6
+-- Host: localhost
+-- Generation Time: May 10, 2020 at 03:15 AM
+-- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
+-- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +17,62 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kawaluk1_ahptopsis`
+-- Database: `ahptopsis`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bimbingan`
+--
+
+CREATE TABLE `bimbingan` (
+  `id` varchar(100) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `pembimbing` enum('1','2') NOT NULL,
+  `bab` enum('1','2','3','4') NOT NULL,
+  `status` enum('belum','sudah') NOT NULL,
+  `tgl_acc` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bimbingan`
+--
+
+INSERT INTO `bimbingan` (`id`, `id_pengajuan`, `pembimbing`, `bab`, `status`, `tgl_acc`) VALUES
+('5eb6f9f3ce15c', 5, '1', '1', 'sudah', NULL),
+('5eb6fb480aca5', 5, '1', '2', 'sudah', NULL),
+('5eb6fb55773c2', 5, '2', '1', 'sudah', NULL),
+('5eb6fb6e66d0c', 5, '1', '3', 'sudah', NULL),
+('5eb6fba754989', 5, '2', '2', 'sudah', NULL),
+('5eb6fbc2266fc', 5, '2', '3', 'sudah', NULL),
+('5eb705dccf960', 5, '1', '4', 'sudah', '2020-05-09 19:36:04'),
+('5eb705e628961', 5, '2', '4', 'sudah', '2020-05-09 19:38:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bimbingan_detail`
+--
+
+CREATE TABLE `bimbingan_detail` (
+  `id` varchar(100) NOT NULL,
+  `id_bimbingan` varchar(100) NOT NULL,
+  `file` varchar(100) DEFAULT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deskripsi` text NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `level` enum('1','2') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bimbingan_detail`
+--
+
+INSERT INTO `bimbingan_detail` (`id`, `id_bimbingan`, `file`, `tanggal`, `deskripsi`, `id_pengguna`, `level`) VALUES
+('5eb70b1625eac', '5eb6f9f3ce15c', NULL, '2020-05-09 19:57:10', 'Ibu', 4, '2'),
+('5eb70b20660cf', '5eb6f9f3ce15c', '5eb70b20660cf.pdf', '2020-05-09 19:57:20', 'Ibu', 4, '2'),
+('5eb70b4dc6c26', '5eb6f9f3ce15c', NULL, '2020-05-09 19:58:05', 'Naon atuh aisia', 22, '1');
 
 -- --------------------------------------------------------
 
@@ -123,9 +175,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `konsentrasi`, `prodi`, `email`, `handphone`) VALUES
-(3, 'Arif', 'Pria', '04234', '0cd8015b3655ecf820107632cb41f3ae', 'Hukum Perdata', 'hukum', 'bekerz18@gmail.com', '082219583274'),
-(5, 'sanditha', 'Wanita', '43200', 'f8db36f4eb09c494a1619ebe4d8db028', 'manajemen pemasaran', 'manajemen', '', ''),
-(6, 'rahmawati', 'Wanita', '6160138', '34110146d443256a1325aa0c1105ec0b', 'Pendidikan Luar Negeri', 'adpend', '', '');
+(3, 'Arif', 'Pria', '04234', '0cd8015b3655ecf820107632cb41f3ae', '123', 'hukum', 'bekerz18@gmail.com', '082219583274'),
+(4, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'xxx', 'adpend', '', '');
 
 -- --------------------------------------------------------
 
@@ -136,23 +187,26 @@ INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `konsen
 CREATE TABLE `pengajuan` (
   `id` int(11) NOT NULL,
   `id_mahasiswa` int(11) NOT NULL,
-  `judul` varchar(500) NOT NULL,
+  `judul` varchar(100) NOT NULL,
   `tglpengajuan` timestamp NULL DEFAULT NULL,
   `tglditerima` timestamp NULL DEFAULT NULL,
   `status` enum('tolak','terima','belum') NOT NULL DEFAULT 'belum',
   `latarbelakang` text NOT NULL,
   `tujuan` text NOT NULL,
-  `keterangan` text DEFAULT NULL,
+  `keterangan` text,
   `id_pembimbing1` int(11) DEFAULT NULL,
-  `id_pembimbing2` int(11) DEFAULT NULL
+  `id_pembimbing2` int(11) DEFAULT NULL,
+  `acc_bab_pembimbing1` enum('ya','belum') DEFAULT NULL,
+  `acc_bab_pembimbing2` enum('ya','belum') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengajuan`
 --
 
-INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`) VALUES
-(10, 5, 'Analisis Pemberdayaan Aparatur Pemerintah Daerah Dalam Rangka Meningkatkan Kinerja Pegawai Di Bapped', '2020-05-08 06:04:24', '2020-05-08 07:54:15', 'terima', 'kdlkslkdlks', 'klsmdlmslkdm', NULL, NULL, NULL);
+INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`, `acc_bab_pembimbing1`, `acc_bab_pembimbing2`) VALUES
+(5, 4, 'Sistem Pendukung Keputusasaan', '2020-05-08 06:41:49', '2020-05-09 00:07:24', 'terima', 'Hello', 'Hello', NULL, 22, 26, 'ya', 'ya'),
+(6, 3, 'test1', '2020-05-09 01:17:30', '2020-05-09 01:19:17', 'terima', 'test2', 'test3', 'gak jelas', 33, 43, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -269,7 +323,7 @@ CREATE TABLE `proposal` (
   `nilai_2` int(11) DEFAULT NULL,
   `nilai_3` int(11) DEFAULT NULL,
   `revisi` enum('ya','tidak') DEFAULT NULL,
-  `ket_revisi` text DEFAULT NULL,
+  `ket_revisi` text,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -278,9 +332,8 @@ CREATE TABLE `proposal` (
 --
 
 INSERT INTO `proposal` (`id`, `id_pengajuan`, `file`, `tgl_seminar`, `acc_seminar`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `revisi`, `ket_revisi`, `last_update`) VALUES
-('5eb555945b39c', 10, '5eb555945b39c.pdf', '2020-05-08', '2020-05-08 12:53:47', 65, 63, 54, NULL, 88, NULL, 'tidak', NULL, '2020-05-08 12:50:28'),
-('5eb55669482ad', 10, '5eb55669482ad.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-08 12:54:01'),
-('5eb5574c4e7ed', 10, '5eb5574c4e7ed.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-08 12:57:48');
+('5eb5f462ba335', 5, '5eb5f462ba335.pdf', '2020-05-09', '2020-05-09 00:09:56', 28, 20, 26, 90, 100, 80, 'tidak', NULL, '2020-05-09 00:08:02'),
+('5eb60561b1d5a', 6, '5eb60561b1d5a.pdf', '2020-05-10', '2020-05-09 01:21:25', 45, 39, 35, 60, 60, 2, 'tidak', NULL, '2020-05-09 01:20:33');
 
 -- --------------------------------------------------------
 
@@ -308,6 +361,21 @@ INSERT INTO `users` (`id`, `nama`, `gender`, `username`, `password`, `email`, `h
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pengajuan` (`id_pengajuan`);
+
+--
+-- Indexes for table `bimbingan_detail`
+--
+ALTER TABLE `bimbingan_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_bimbingan` (`id_bimbingan`),
+  ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
 -- Indexes for table `dosen`
@@ -375,40 +443,46 @@ ALTER TABLE `users`
 --
 ALTER TABLE `dosen`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
-
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `prodi_detail`
 --
 ALTER TABLE `prodi_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  ADD CONSTRAINT `bimbingan_ibfk_1` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`);
+
+--
+-- Constraints for table `bimbingan_detail`
+--
+ALTER TABLE `bimbingan_detail`
+  ADD CONSTRAINT `bimbingan_detail_ibfk_1` FOREIGN KEY (`id_bimbingan`) REFERENCES `bimbingan` (`id`);
 
 --
 -- Constraints for table `pengajuan`
@@ -429,11 +503,10 @@ ALTER TABLE `prodi_detail`
 -- Constraints for table `proposal`
 --
 ALTER TABLE `proposal`
+  ADD CONSTRAINT `proposal_ibfk_1` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `proposal_ibfk_2` FOREIGN KEY (`id_penguji1`) REFERENCES `dosen` (`id`),
   ADD CONSTRAINT `proposal_ibfk_3` FOREIGN KEY (`id_penguji2`) REFERENCES `dosen` (`id`),
-  ADD CONSTRAINT `proposal_ibfk_4` FOREIGN KEY (`id_penguji3`) REFERENCES `dosen` (`id`),
-  ADD CONSTRAINT `proposal_ibfk_5` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`);
-COMMIT;
+  ADD CONSTRAINT `proposal_ibfk_4` FOREIGN KEY (`id_penguji3`) REFERENCES `dosen` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

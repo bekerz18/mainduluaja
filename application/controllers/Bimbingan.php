@@ -9,36 +9,105 @@ class Bimbingan extends CI_Controller {
 
 		if($this->session->userdata('login') != true ) redirect('login');
 		$this->load->model("Bimbingan_model");
+		$this->load->library("form_validation");
 
 
 	}
 
-	public function bimbingan($pembimbing)
+	public function bimbingan($pembimbing=null,$id=null)
 	{
-		$data["title"] = "Data Bimbingan 1";
 		$data["nama"] = $this->session->userdata('nama');
 		$model = $this->Bimbingan_model;
 		if($this->session->userdata('level') == 0){
-			$data['bimbingans'] = $model->getBimbinganAdmin($pembimbing);
-			$this->load->view('layout/admin/header',$data);
+			$data['bimbingans'] = $this->_getDataBimbinganAdmin($pembimbing);
+			$data['completes'] = $model->completeBimbingans();
+
+			if($pembimbing == 1 && !isset($id)){
+				$data["title"] = "Data Bimbingan 1";
+				$this->load->view('layout/admin/header',$data);
+				$this->load->view('bimbingan/admin/bimbingan_1',$data);	
+			}elseif($pembimbing == 2 && !isset($id)){
+				$data["title"] = "Data Bimbingan 2";
+				$this->load->view('layout/admin/header',$data);
+				$this->load->view('bimbingan/admin/bimbingan_2',$data);	
+			}elseif($pembimbing != 1 && $pembimbing !=2){
+				redirect('beranda');
+			}
+			if(($pembimbing== 1 || $pembimbing == 2) && isset($id)){
+				$data["histories"] = $this->_getDetailsBimb($id);
+				$data["detail"] = $model->getDetailsPengajuan($id);
+				$data["title"] = "Data Bimbingan ".$pembimbing;
+				$this->load->view('layout/admin/header',$data);
+				$this->load->view('bimbingan/admin/bimbingan_detail',$data);
+			}
 			
 		}elseif ($this->session->userdata('level') == 1) {
 			$dosen = $this->session->userdata('id');
-			$data['bimbingans'] = $model->getBimbinganDosen($pembimbing,$dosen);
-			$this->load->view('layout/dosen/header',$data);
+			
+			if($pembimbing == 1 && !isset($id)){
+				$data["title"] = "Data Bimbingan 1";
+				$this->load->view('layout/dosen/header',$data);
+				$data['bimbingans'] = $model->getBimbinganDosen($pembimbing,$dosen);
+				$this->load->view('bimbingan/dosen/bimbingan_1',$data);	
+			}elseif($pembimbing == 2 && !isset($id)){
+				$data["title"] = "Data Bimbingan 2";
+				$this->load->view('layout/dosen/header',$data);
+				$data['bimbingans'] = $model->getBimbinganDosen2($pembimbing,$dosen);
+				$this->load->view('bimbingan/dosen/bimbingan_2',$data);	
+			}elseif($pembimbing != 1 && $pembimbing !=2){
+				redirect('beranda');
+			}
+
+			if(($pembimbing== 1 || $pembimbing == 2) && isset($id)){
+				$data["title"] = "Data Bimbingan ".$pembimbing;
+				$this->load->view('layout/dosen/header',$data);
+				$validasi = $this->form_validation;
+				$validasi->set_rules('deskripsi','Deskripsi','required|trim');
+				$data["histories"] = $this->_getDetailsBimb($id);
+				$data["detail"] = $model->getDetailsPengajuan($id);
+				if($validasi->run()){
+					$insert = $model->insertBimDetail();
+					if($insert){
+						redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id);
+					}
+				}
+				$this->load->view('bimbingan/dosen/bimbingan_detail',$data);
+			}
+			
 			
 		}elseif ($this->session->userdata('level') == 2) {
-			$id = $this->session->userdata('id');
-			$proposal = $model->getProposalDone($id);
+			$idMahasiswa = $this->session->userdata('id');
+			$proposal = $model->getProposalDone($idMahasiswa);
 			if(!$proposal) redirect('pengajuan');
-			$mahasiswa = $this->session->userdata('id');
-			$data['bimbingans'] = $model->getBimbinganMahasiswa($pembimbing,$mahasiswa);
-			$this->load->view('layout/mahasiswa/header',$data);
+			
+			$data['bimbingans'] = $model->getBimbinganMahasiswa($pembimbing,$idMahasiswa);
 			$data['id_pengajuan'] = $proposal["id_pengajuan"];
-			if($pembimbing == 1){
+			
+			if($pembimbing == 1 && !isset($id)){
+				$data["title"] = "Data Bimbingan 1";
+				$this->load->view('layout/mahasiswa/header',$data);
 				$this->load->view('bimbingan/mahasiswa/bimbingan_1',$data);	
-			}elseif($pembimbing == 2){
+			}elseif($pembimbing == 2 && !isset($id)){
+				$data["title"] = "Data Bimbingan 2";
+				$this->load->view('layout/mahasiswa/header',$data);
 				$this->load->view('bimbingan/mahasiswa/bimbingan_2',$data);	
+			}elseif($pembimbing != 1 && $pembimbing !=2){
+				redirect('beranda');
+			}
+
+			if(($pembimbing== 1 || $pembimbing == 2) && isset($id)){
+				$data["title"] = "Data Bimbingan ".$pembimbing;
+				$this->load->view('layout/mahasiswa/header',$data);
+				$validasi = $this->form_validation;
+				$validasi->set_rules('deskripsi','Deskripsi','required|trim');
+				$data["histories"] = $this->_getDetailsBimb($id);
+				if($validasi->run()){
+					$insert = $model->insertBimDetail();
+					if($insert){
+						redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id);
+					}
+				}
+				$this->load->view('bimbingan/mahasiswa/bimbingan_detail',$data);
 			}
 					
 		}else{
@@ -71,6 +140,83 @@ class Bimbingan extends CI_Controller {
 			}	
 		}
 		
+	}
+
+	private function _getDataBimbinganAdmin($bimbingan)
+	{
+		
+		$model = $this->Bimbingan_model;
+		$datas = $model->getBimbinganAdmin($bimbingan);
+		$newDatas = array();
+		$no=0;
+		foreach($datas as $data){
+			$dosen = $model->getDosen($bimbingan,$data["id_pengajuan"]);
+
+			$newDatas += array(
+				$no => array(
+					'id_bimbingan' => $data["id_bimbingan"],
+					'bab' => $data["bab"],
+					'status' => $data["status"],
+					'tgl_acc' => $data["tgl_acc"],
+					'id_pengajuan' => $data["id_pengajuan"],
+					'nama_mahasiswa' => $data["nama_mahasiswa"],
+					'nim_mahasiswa' => $data["nim_mahasiswa"],
+					'prodi' => $data["prodi"],
+					'judul' => $data["judul"],
+					'pembimbing' => $dosen["nama"]
+				));
+
+			$no++;
+		}
+
+		return $newDatas;
+	}
+
+	private function _getDetailsBimb($id)
+	{
+		$model = $this->Bimbingan_model;
+		$datas = $model->getBimbinganDetail($id);
+		$newDatas=array();
+		$no=0;
+		foreach ($datas as $data) {
+			
+
+			$user = $model->findUsersInConvers($data["level"],$data["id_pengguna"]);
+			
+			$newDatas += array(
+				$no => array(
+				'tanggal'	=> date("l, d F Y H:i:s",strtotime($data["tanggal"])),
+				'id_bimbingan_detail'	=> $data["id_bimbingan_detail"],
+				'file'	=> $data["file"],
+				'level'	=> $data["level"],
+				'deskripsi'	=> $data["deskripsi"],
+				'pengguna'	=> $user["nama"]
+
+			));
+			$no++;
+		}
+
+		return $newDatas;
+		
+	}
+
+	public function acc($pembimbing,$id,$bab,$pengajuan)
+	{
+		if($this->session->userdata('level') != 1){
+			redirect('beranda');
+		}else{
+			$model = $this->Bimbingan_model;
+			$update = $model->accBimbingan($id);
+			if($update){
+				if($bab == '4'){
+					$model->accPengajuan($pembimbing,$pengajuan);
+				}
+				$this->session->set_flashdata('success_acc','Berhasil diacc!');
+			}else{
+				$this->session->set_flashdata('failed_acc','Gagal diacc!');
+			}
+			redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id.'/'.$bab.'/'.$pengajuan);
+		}
 	}
 
 }

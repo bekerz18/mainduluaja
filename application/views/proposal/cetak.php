@@ -17,7 +17,7 @@
       <td class="center"><?php echo $no++;?></td>
       <td class="center"><?php echo $proposal["nama_mahasiswa"].'<br>'.$proposal["nim_mahasiswa"];?></td>
       <td><?php echo $proposal["judul_proposal"];?></td>
-      <td class="center"><?php echo date("d-m-Y H:i:s", strtotime($proposal["last_update"]));?></td>
+      <td class="center"><?php echo date("l, d F Y H:i:s", strtotime($proposal["last_update"]));?></td>
       <td class="center">
         <?php
           if($proposal["status_proposal"] == NULL){

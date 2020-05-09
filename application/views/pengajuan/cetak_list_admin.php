@@ -14,15 +14,15 @@
       <td class="center"><?php echo $no++;?></td>
       <td><?php echo $pengajuan->nama.'<br>'.$pengajuan->username;?></td>
       <td><?php echo $pengajuan->judul;?></td>
-      <td><?php echo date("d-m-Y H:i:s", strtotime($pengajuan->tglpengajuan));?></td>
+      <td><?php echo date("l, d F Y H:i:s", strtotime($pengajuan->tglpengajuan));?></td>
       <td class="center">
         <?php
           if($pengajuan->status == "belum"){
             echo "Sedang diproses";
           }elseif($pengajuan->status == "tolak"){
-            echo "Ditolak Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
+            echo "Ditolak Pada <br>".date("l, d F Y H:i:s", strtotime($pengajuan->tglditerima));
           }elseif($pengajuan->status == "terima"){
-            echo "Diterima Pada <br>".date("d-m-Y H:i:s", strtotime($pengajuan->tglditerima));
+            echo "Diterima Pada <br>".date("l, d F Y H:i:s", strtotime($pengajuan->tglditerima));
           }
         ?> 
       </td>
