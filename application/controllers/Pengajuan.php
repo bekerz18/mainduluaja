@@ -163,11 +163,13 @@ class Pengajuan extends CI_Controller{
 				redirect('pengajuan/detail/'.$id);
 			}
 			$ProposalCheck = $model->is_there_proposal($id);
+
 			if(!$ProposalCheck){
 				$data['status_proposal'] = 'belum';
 			}else{
 
 				$data['status_proposal'] = 'sudah';
+
 				$data['proposal'] = $ProposalCheck;
 				if($ProposalCheck["revisi"] != NULL){
 
@@ -178,6 +180,8 @@ class Pengajuan extends CI_Controller{
 					
 					$data['cariDosbing1'] = $model->get_dosen($data['pengajuans']['pembimbing1']);
 					$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
+					$data["checkKompre"] = $this->_isHaveKompre($id);
+					$data["kompreData"] = $this->_KompreMahasiswa();
 				}
 			}
 			$data['title'] = 'Detail Pengajuan';
@@ -319,6 +323,48 @@ class Pengajuan extends CI_Controller{
         $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
         $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
         $users->Output($data['title'].'.pdf ', 'D');
+	}
+
+	private function _isHaveKompre($pengajuanID)
+	{
+		$model = $this->Pengajuan_model;
+		$kompre = $model->isHaveKompre($pengajuanID);
+
+		if(!$kompre){
+			return 'belum';
+		}
+
+		return $kompre["status"];
+	}
+
+	private function _KompreMahasiswa()
+	{
+		$model = $this->Pengajuan_model;
+		$dataKompre = $model->getKompreMahasiswa();
+		$newData = array(
+			'id'	=> $dataKompre["id"],
+			'id_pengajuan'	=> $dataKompre["id_pengajuan"],
+			'status'	=> $dataKompre["status"],
+			'tgl_daftar' => $dataKompre["tgl_daftar"],
+			'tgl_terima' => $dataKompre["tgl_terima"],
+			'tgl_sidang' => $dataKompre["tgl_sidang"],
+			'id_penguji1' => $dataKompre["id_penguji1"],
+			'id_penguji2' => $dataKompre["id_penguji2"],
+			'id_penguji3' => $dataKompre["id_penguji3"],
+			'penguji1' => $this->_getDosen($dataKompre["id_penguji1"])["nama"],
+			'penguji2' => $this->_getDosen($dataKompre["id_penguji2"])["nama"],
+			'penguji3' => $this->_getDosen($dataKompre["id_penguji3"])["nama"]
+		);
+
+		return $newData;
+		
+	}
+
+	private function _getDosen($id){
+		$model = $this->Pengajuan_model;
+		$data = $model->searchDosenBy($id);
+
+		return $data;
 	}
 
 }

@@ -30,6 +30,9 @@
                   <li class="nav-item">
                     <a class="nav-link" id="tab-bimbingan" data-toggle="pill" href="#bimbingan" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Bimbingan</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="tab-komprehensif" data-toggle="pill" href="#komprehensif" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Sidang Komprehensif</a>
+                  </li>
                 </ul>
                 <div class="tab-content" id="custom-content-above-tabContent">
                   <div class="tab-pane fade active show" id="penilaian" role="tabpanel" aria-labelledby="tab-proposal">
@@ -93,7 +96,22 @@
                       </tbody>
                     </table>
                 </div>
-
+                <div class="tab-pane fade" id="komprehensif" role="tabpanel" aria-labelledby="tab-komprehensif">
+                  <br>
+                  <table id="table-kompre" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>NO</th>
+                        <th>NAMA</th>
+                        <th>PRODI</th>
+                        <th>JUDUL</th>
+                        <th>JADWAL SIDANG</th>
+                      </tr>
+                    </thead>
+                    <tbody id="data-kompre">
+                    </tbody>
+                  </table>
+                </div>
                 
               </div>
               <!-- Start Modal Detail -->
@@ -197,8 +215,8 @@
     var penguji = '';
     var $id_proposal = '';
     const $ModalDetails = $("#modal-details-pengajuan");
-    $('#table-pengajuans').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true});
-    $('#table-bimbingan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true});
+    // $('#table-pengajuans').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true});
+    $('.table').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true});
     $("#data-pengajuans").on("click",".detail-pengajuan",function(){
       let $id = $(this).data('id');
       getProposal($id);

@@ -102,7 +102,7 @@
         </section>
         <!-- Modal Detail -->
         <div class="modal fade" id="modal-detail">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">Data Pengajuan</h4>
@@ -116,23 +116,23 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="nim">NIM :</label>
-                      <input type="text" id="nim" class="form-control form-control-lg" readonly>
+                      <input type="text" id="nim" class="form-control form-control-md" readonly>
                     </div>
                     <div class="form-group">
                       <label for="username-ubah">NAMA :</label>
-                      <input type="text" id="nama" class="form-control form-control-lg" readonly>
+                      <input type="text" id="nama" class="form-control form-control-md" readonly>
                     </div>
                     <div class="form-group">
                       <label for="prodi">PROGRAM STUDI :</label>
-                      <input type="text" id="prodi" class="form-control form-control-lg" readonly>
+                      <input type="text" id="prodi" class="form-control form-control-md" readonly>
                     </div>
                     <div class="form-group">
                       <label for="konsentrasi">KONSENTRASI :</label>
-                      <input type="text" id="konsentrasi" class="form-control form-control-lg" readonly>
+                      <input type="text" id="konsentrasi" class="form-control form-control-md" readonly>
                     </div>
                     <div class="form-group">
                       <label for="tglpengajuan">TANGGAL PENGAJUAN :</label>
-                      <input type="text" id="tglpengajuan" class="form-control form-control-lg" readonly>
+                      <input type="text" id="tglpengajuan" class="form-control form-control-md" readonly>
                     </div>
                     <div id="area-respon" class="form-group">
                     </div>
@@ -140,24 +140,24 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="judul">JUDUL :</label>
-                      <input type="text" id="judul" class="form-control form-control-lg" readonly>
+                      <input type="text" id="judul" class="form-control form-control-md" readonly>
                     </div>
                     <div class="form-group">
                       <label for="latarbelakang">LATAR BELAKANG :</label>
-                      <textarea id="latarbelakang" class="form-control form-control-lg" readonly></textarea>
+                      <textarea id="latarbelakang" class="form-control form-control-md" readonly></textarea>
                     </div>
                     <div class="form-group">
                       <label for="tujuan">TUJUAN :</label>
-                      <textarea id="tujuan" class="form-control form-control-lg" readonly></textarea>
+                      <textarea id="tujuan" class="form-control form-control-md" readonly></textarea>
                     </div>
                     <div class="form-group">
                       <label for="status">STATUS :</label>
-                      <select id="status" class="form-control form-control-lg select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
+                      <select id="status" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                       </select>
                     </div>
                   <div class="form-group">
                     <label for="alasan">ALASAN DITOLAK :</label>
-                     <textarea id="alasan" class="form-control form-control-lg" placeholder="Cantumkan Alasan, Bilamana Pengajuan Ditolak"></textarea>
+                     <textarea id="alasan" class="form-control form-control-md" placeholder="Cantumkan Alasan, Bilamana Pengajuan Ditolak"></textarea>
                   </div> 
                 </div>
               </div> 
@@ -313,12 +313,12 @@
           }else if(data[0].status_pengajuan == 'tolak'){
             $("#tglditerima").remove();
             $("#status").html('<option></option><option value="belum">BELUM</option><option value="terima">TERIMA</option><option value="tolak" selected>TOLAK</option>');
-            $("#area-respon").append('<div id="tglditerima"><label for="tglditerima">TANGGAL DITOLAK :</label><input type="text" class="form-control form-control-lg" value="'+tglrespon+'" readonly></div>');
+            $("#area-respon").append('<div id="tglditerima"><label for="tglditerima">TANGGAL DITOLAK :</label><input type="text" class="form-control form-control-md" value="'+tglrespon+'" readonly></div>');
             $("#alasan").val(data[0].alasan);
           }else if(data[0].status_pengajuan == 'terima'){
             $("#tglditerima").remove();
             $("#status").html('<option></option><option value="belum">BELUM</option><option value="terima" selected>TERIMA</option><option value="tolak">TOLAK</option>');
-            $("#area-respon").append('<div id="tglditerima"><label for="tglditerima">TANGGAL DITERIMA :</label><input type="text" class="form-control form-control-lg" value="'+tglrespon+'" readonly></div>');
+            $("#area-respon").append('<div id="tglditerima"><label for="tglditerima">TANGGAL DITERIMA :</label><input type="text" class="form-control form-control-md" value="'+tglrespon+'" readonly></div>');
           }
         },error:function(data){
           alert('Gagal mengambil data');

@@ -23,6 +23,31 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <?php if($this->session->flashdata('berhasil_kompre')) {?>
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Berhasil mendaftar sidang kompre!
+                </div>
+              <?php } elseif($this->session->flashdata('gagal_kompre')) {?>
+                <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Gagal mendaftar sidang kompre!
+                </div>
+              <?php } elseif($this->session->flashdata('having')) {?>
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Telah terdaftar!
+                </div>
+              <?php }elseif($this->session->flashdata('id_not_found')) {?>
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Belum bisa mendaftarkan!
+                </div>
+              <?php }?>
                 <div class="row">
                     <a href="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/cetak';?>" target="_blank">
                       <button type="button" class="btn btn-info">
@@ -40,6 +65,11 @@
                     <li class="nav-item">
                       <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#data-proposal" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Proposal</a>
                     </li>
+                    <?php if($proposal['revisi'] == 'tidak'){?>
+                      <li class="nav-item">
+                      <a class="nav-link" id="tab-sidang-kompre" data-toggle="pill" href="#daftar-sidang-kompre" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Komprehensif</a>
+                    </li>
+                    <?php }?>
                     <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
                       <li class="nav-item">
                       <a class="nav-link" id="custom-content-above-pembimbing-tab" data-toggle="pill" href="#data-pembimbing" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Pembimbing</a>
@@ -145,6 +175,50 @@
                         <?php }?>
                        </dl>
                     </div>
+                    <?php if($proposal['revisi'] == 'tidak'){?>
+                      <div class="tab-pane fade" id="daftar-sidang-kompre" role="tabpanel" aria-labelledby="tab-sidang-kompre">
+                        <br>
+                        <?php if($checkKompre == "belum"){?>
+                          <div class="text-center">
+                            <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3);?>">
+                              <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
+                            </a>
+                          </div>
+                        <?php }elseif($checkKompre == "tidak"){?>
+                          <div class="text-center">
+                            <a href="#" disabled>
+                              <button type="button" class="btn btn-lg btn-primary" disabled>Pendaftaran Dalam Proses</button>
+                            </a>
+                          </div>
+                        <?php }elseif($checkKompre == "ya"){?>
+                          <dl class="row">
+                            <dt class="col-sm-2">TANGGAL DAFTAR</dt>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></dd>
+                              
+                            <dt class="col-sm-2">TANGGAL DITERIMA</dt>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></dd>
+
+                            <dt class="col-sm-2">TANGGAL SIDANG</dt>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></dd>
+
+                            <dt class="col-sm-2">PENGUJI 1</dt>
+                            <dd class="col-sm-10">: <?php echo $kompreData["penguji1"];?></dd>
+
+                            <dt class="col-sm-2">PENGUJI 2</dt>
+                            <dd class="col-sm-10">: <?php echo $kompreData["penguji2"];?></dd>
+
+                            <dt class="col-sm-2">PENGUJI 3</dt>
+                            <dd class="col-sm-10">: <?php echo $kompreData["penguji3"];?></dd>
+
+                            <dt class="col-sm-2">NILAI </dt>
+                            <dd class="col-sm-10">: Belum Ada</dd>
+
+                          </dl>
+                        <?php }?>
+
+
+                      </div>
+                    <?php }?>
                     <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
                       <div class="tab-pane fade" id="data-pembimbing" role="tabpanel" aria-labelledby="custom-content-above-pembimbing-tab">
                         <br>

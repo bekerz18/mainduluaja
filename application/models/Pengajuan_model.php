@@ -148,4 +148,15 @@ class Pengajuan_model extends CI_Model {
 		return $this->db->query("SELECT id FROM pengajuan WHERE id_mahasiswa=$id AND status='terima' OR status='belum'")->result_array();
 	}	
 
+	public function isHaveKompre($pengajuanID)
+	{
+		return $this->db->query("SELECT komprehensif.id_pengajuan AS id_pengajuan, komprehensif.status AS status FROM komprehensif WHERE komprehensif.id_pengajuan=$pengajuanID")->row_array();
+	}
+	public function getKompreMahasiswa()
+	{
+		$id = $this->session->userdata('id');
+		return $this->db->query("SELECT komprehensif.id, komprehensif.id_pengajuan, komprehensif.status, komprehensif.tgl_daftar,komprehensif.tgl_terima,komprehensif.tgl_sidang,komprehensif.id_penguji1,komprehensif.id_penguji2, komprehensif.id_penguji3 FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
+
+	}
+
 }
