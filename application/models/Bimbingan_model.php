@@ -78,7 +78,7 @@ class Bimbingan_model extends CI_Model {
         	$this->session->set_flashdata('file_failed','Gagal Mengirim Proposal!');
         }
 
-        return NULL;
+        return $id.'.pdf';
 	}
 
 	public function getBimbinganDetail($id)

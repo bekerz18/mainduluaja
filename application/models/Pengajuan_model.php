@@ -101,6 +101,7 @@ class Pengajuan_model extends CI_Model {
         }else{
         	$this->session->set_flashdata('proposal_failed','Gagal Mengirim Proposal!');
         }
+        return $id.'.pdf';
 	}
 	public function is_there_proposal($id){
 		$this->db->where('id_pengajuan',$id);
