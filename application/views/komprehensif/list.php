@@ -249,7 +249,7 @@
       });
     }
     function getPenguji($prodi,penguji1,penguji2,penguji3){
-      console.log(penguji1);
+      
       var datas='';
       $.ajax({
         type: 'GET',

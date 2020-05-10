@@ -59,6 +59,48 @@
         <td>: <?php echo $proposal['ket_revisi'];?></td>
       </tr>
     <?php }?>
+     <?php if($proposal['revisi'] == 'tidak' && $checkKompre == "ya"){?>
+      <tr>
+        <th colspan="2"><strong>DATA KOMPREHENSIF</strong></th>
+      </tr>
+      <tr>
+        <th>NIM</th>
+        <td>: <?php echo $pengajuan["nim"];?></td>
+      </tr>
+      <tr><th>TANGGAL DAFTAR</th>
+                            <td>: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></td></tr>
+                              
+                            <tr><th>TANGGAL DITERIMA</th>
+                            <td>: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></td></tr>
+
+                            <tr><th>TANGGAL SIDANG</th>
+                            <td>: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></td></tr>
+
+                            <tr><th>PENGUJI 1</th>
+                            <td>: <?php echo $kompreData["penguji1"];?></td></tr>
+
+                            <tr><th>PENGUJI 2</th>
+                            <td>: <?php echo $kompreData["penguji2"];?></td></tr>
+
+                            <tr><th>PENGUJI 3</th>
+                            <td>: <?php echo $kompreData["penguji3"];?></td></tr>
+
+                            <tr><th>NILAI </th>
+                            <td>: 
+                              <?php
+                                $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                                if($nilai["nilai"] == NULL){
+                                  echo 'Belum Ada';
+                                }else{
+                                  echo number_format($nilai['nilai'],2);
+                                }
+                                if(number_format($nilai['nilai'],2) < 75){
+                                  echo ' Revisi';
+                                }?>
+                                  
+                                </td></tr>
+
+     <?php }?>
     <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
       <tr>
         <th colspan="2"><strong>DATA PEMBIMBING</strong></th></tr>

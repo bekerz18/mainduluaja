@@ -40,12 +40,17 @@ class Komprehensif_model extends CI_Model {
 	}
 	public function getKompre($kompreID)
 	{
-		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, komprehensif.id AS id_komprehensif, komprehensif.status AS status_komprehensif, komprehensif.tgl_daftar AS tgl_daftar, komprehensif.tgl_terima AS tgl_terima, komprehensif.tgl_sidang AS tgl_sidang, komprehensif.id_penguji1 AS id_penguji1, komprehensif.id_penguji2 AS id_penguji2, komprehensif.id_penguji3 AS id_penguji3, pengajuan.judul as judul FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE komprehensif.id = $kompreID")->result_array();
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, komprehensif.id AS id_komprehensif, komprehensif.status AS status_komprehensif, komprehensif.tgl_daftar AS tgl_daftar, komprehensif.tgl_terima AS tgl_terima, komprehensif.tgl_sidang AS tgl_sidang, komprehensif.id_penguji1 AS id_penguji1, komprehensif.id_penguji2 AS id_penguji2, komprehensif.id_penguji3 AS id_penguji3, komprehensif.nilai_1 as nilai1, komprehensif.nilai_2 as nilai2, komprehensif.nilai_3 as nilai3,pengajuan.judul as judul FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE komprehensif.id = $kompreID")->result_array();
 	}
 	public function updateKompre($data)
 	{
 		return $this->db->update('komprehensif',$data);
 	}
-	
+	public function updateNilai($id,$kelompok,$nilai)
+	{
+		$this->db->set($kelompok, (int)$nilai);
+		$this->db->where('id', $id);
+		return $this->db->update('komprehensif');
+	}
 
 }

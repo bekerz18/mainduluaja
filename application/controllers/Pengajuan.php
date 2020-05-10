@@ -57,6 +57,7 @@ class Pengajuan extends CI_Controller{
 			$dosen = $this->session->userdata('id');
 			$data['proposals'] = $model->getProposalBy($dosen);
 			$data['pengajuans']=$model->get_pengajuan_by($dosen);
+			$data['kompres'] = $model->getKompreByDosen();
 			$this->load->view('layout/dosen/header',$data);
 			$this->load->view('pengajuan/list_dosen',$data);
 		}elseif($this->session->userdata('level')==2){
@@ -182,6 +183,14 @@ class Pengajuan extends CI_Controller{
 					$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
 					$data["checkKompre"] = $this->_isHaveKompre($id);
 					$data["kompreData"] = $this->_KompreMahasiswa();
+					$cektesis = $model->isBimbinganDone();
+					if(!$cektesis){
+						$data['tesis_is'] = 'tidak';
+					}else{
+						$data['tesis_is'] = 'ada';
+						$data["checkThesis"] = $this->_cekTesis($id);
+					}
+					$data["model"] = $model;
 				}
 			}
 			$data['title'] = 'Detail Pengajuan';
@@ -289,10 +298,11 @@ class Pengajuan extends CI_Controller{
 			$data['pengajuans'] = $model->get_pengajuan();
 			$cetak  = $this->load->view('pengajuan/cetak_list_admin',$data,TRUE);
 		}elseif($this->session->userdata('level')==1){
+			$data['model'] = $model;
 			$dosen = $this->session->userdata('id');
 			if($type == 'proposal'){
 				$data['title'] = 'Daftar Proposal';
-				$data['model'] = $model;
+				
 				$data['proposals'] = $model->getProposalBy($dosen);
 				if(!$data['proposals']){
 					redirect('pengajuan');
@@ -308,6 +318,14 @@ class Pengajuan extends CI_Controller{
 					$cetak  = $this->load->view('pengajuan/cetak_list_dosen',$data,TRUE);
 				}
 				
+			}elseif($type == "komprehensif"){
+				$data['kompres'] = $model->getKompreByDosen();
+				if(!$data['kompres']){
+					redirect('pengajuan');
+				}else{
+					$cetak  = $this->load->view('proposal/cetak_list_dosen_kompre',$data,TRUE);
+				}
+
 			}
 		}elseif($this->session->userdata('level')==2){
 			$data['pengajuans'] = $model->get_pengajuanmhs();
@@ -329,6 +347,17 @@ class Pengajuan extends CI_Controller{
 	{
 		$model = $this->Pengajuan_model;
 		$kompre = $model->isHaveKompre($pengajuanID);
+
+		if(!$kompre){
+			return 'belum';
+		}
+
+		return $kompre["status"];
+	}
+	private function _cekTesis($pengajuanID)
+	{
+		$model = $this->Pengajuan_model;
+		$kompre = $model->cektesis($pengajuanID);
 
 		if(!$kompre){
 			return 'belum';

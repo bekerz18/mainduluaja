@@ -158,5 +158,23 @@ class Pengajuan_model extends CI_Model {
 		return $this->db->query("SELECT komprehensif.id, komprehensif.id_pengajuan, komprehensif.status, komprehensif.tgl_daftar,komprehensif.tgl_terima,komprehensif.tgl_sidang,komprehensif.id_penguji1,komprehensif.id_penguji2, komprehensif.id_penguji3 FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
 
 	}
+	public function getKompreByDosen()
+	{
+		$id = $this->session->userdata('id');
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, komprehensif.id AS id_komprehensif, komprehensif.status AS status_komprehensif, komprehensif.tgl_daftar AS tgl_daftar, komprehensif.tgl_terima AS tgl_terima, komprehensif.tgl_sidang AS tgl_sidang, komprehensif.id_penguji1 AS id_penguji1, komprehensif.id_penguji2 AS id_penguji2, komprehensif.id_penguji3 AS id_penguji3, pengajuan.judul as judul,komprehensif.nilai_1 as nilai_1, komprehensif.nilai_2 as nilai_2, komprehensif.nilai_3 as nilai_3 FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE komprehensif.id_penguji1=$id OR komprehensif.id_penguji2=$id OR komprehensif.id_penguji3=$id  ORDER BY tgl_daftar DESC")->result_array();
+	}
+	public function nilaiKompre($pengajuanID){
+		return $this->db->query("SELECT sum(nilai_1+nilai_2+nilai_3)/3 as nilai FROM komprehensif WHERE id_pengajuan=$pengajuanID")->row_array();
+	}
+	public function isBimbinganDone()
+	{
+		$mahasiswaID = $this->session->userdata('id');
+		return $this->db->query("SELECT mahasiswa.nama AS nama, mahasiswa.username AS nim, mahasiswa.prodi AS prodi, pengajuan.id AS id_pengajuan, pengajuan.judul AS judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.acc_bab_pembimbing1='ya' AND pengajuan.acc_bab_pembimbing2='ya' AND pengajuan.id_mahasiswa = $mahasiswaID")->row_array();
+	}
+	public function cektesis($pengajuanID)
+	{
+		$this->db->where('id_pengajuan',$pengajuanID);
+		return $this->db->get('thesis')->row_array();
+	}
 
 }

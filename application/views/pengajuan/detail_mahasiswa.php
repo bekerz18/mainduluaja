@@ -48,6 +48,31 @@
                   Belum bisa mendaftarkan!
                 </div>
               <?php }?>
+              <?php if($this->session->flashdata('berhasil_kompre_thesis')) {?>
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Berhasil mendaftar sidang kompre!
+                </div>
+              <?php } elseif($this->session->flashdata('gagal_kompre_thesis')) {?>
+                <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Gagal mendaftar sidang kompre!
+                </div>
+              <?php } elseif($this->session->flashdata('having_thesis')) {?>
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Telah terdaftar!
+                </div>
+              <?php }elseif($this->session->flashdata('id_not_found_thesis')) {?>
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                  Belum bisa mendaftarkan!
+                </div>
+              <?php }?>
                 <div class="row">
                     <a href="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/cetak';?>" target="_blank">
                       <button type="button" class="btn btn-info">
@@ -73,6 +98,11 @@
                     <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
                       <li class="nav-item">
                       <a class="nav-link" id="custom-content-above-pembimbing-tab" data-toggle="pill" href="#data-pembimbing" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Pembimbing</a>
+                    </li>
+                  <?php }?>
+                    <?php if($tesis_is == 'ada'){?>
+                      <li class="nav-item">
+                      <a class="nav-link" id="custom-content-above-tesis-tab" data-toggle="pill" href="#data-tesis" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Tesis</a>
                     </li>
                     <?php }?>
                   </ul>
@@ -211,7 +241,19 @@
                             <dd class="col-sm-10">: <?php echo $kompreData["penguji3"];?></dd>
 
                             <dt class="col-sm-2">NILAI </dt>
-                            <dd class="col-sm-10">: Belum Ada</dd>
+                            <dd class="col-sm-10">: 
+                              <?php
+                                $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                                if($nilai["nilai"] == NULL){
+                                  echo 'Belum Ada';
+                                }else{
+                                  echo number_format($nilai['nilai'],2);
+                                }
+                                if(number_format($nilai['nilai'],2) < 75){
+                                  echo ' Revisi';
+                                }?>
+                                  
+                                </dd>
 
                           </dl>
                         <?php }?>
@@ -231,6 +273,60 @@
                         </dl>
                       </div>
                     <?php }?>
+                    <?php if($tesis_is == 'ada'){?>
+                      <div class="tab-pane fade" id="data-tesis" role="tabpanel" aria-labelledby="custom-content-above-tesis-tab-tab">
+                        <br>
+                        <?php if($checkThesis == "belum"){?>
+                          <div class="text-center">
+                            <a href="<?php echo base_url('thesis/register/').$this->uri->segment(3);?>">
+                              <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Thesis</button>
+                            </a>
+                          </div>
+                        <?php }elseif($checkThesis == "tidak"){?>
+                          <div class="text-center">
+                            <a href="#" disabled>
+                              <button type="button" class="btn btn-lg btn-primary" disabled>Pendaftaran Dalam Proses</button>
+                            </a>
+                          </div>
+                        <?php }elseif($checkThesis == "ya"){?>
+                          <dl class="row">
+                            <dt class="col-sm-2">TANGGAL DAFTAR</dt>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></dd>
+                              
+                            <dt class="col-sm-2">TANGGAL DITERIMA</dt>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></dd>
+
+                            <dt class="col-sm-2">TANGGAL SIDANG</dt>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></dd>
+
+                            <dt class="col-sm-2">PENGUJI 1</dt>
+                            <dd class="col-sm-10">: <?php echo $kompreData["penguji1"];?></dd>
+
+                            <dt class="col-sm-2">PENGUJI 2</dt>
+                            <dd class="col-sm-10">: <?php echo $kompreData["penguji2"];?></dd>
+
+                            <dt class="col-sm-2">PENGUJI 3</dt>
+                            <dd class="col-sm-10">: <?php echo $kompreData["penguji3"];?></dd>
+
+                            <dt class="col-sm-2">NILAI </dt>
+                            <dd class="col-sm-10">: 
+                              <?php
+                                $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                                if($nilai["nilai"] == NULL){
+                                  echo 'Belum Ada';
+                                }else{
+                                  echo number_format($nilai['nilai'],2);
+                                }
+                                if(number_format($nilai['nilai'],2) < 75){
+                                  echo ' Revisi';
+                                }?>
+                                  
+                                </dd>
+
+                          </dl>
+                        <?php }?>
+                      </div>
+                      <?php }?>
                   </div>
                 <?php endif;?>
                 <?php if($pengajuan['status'] == 'belum' || $pengajuan['status'] == 'tolak' || $pengajuan['status'] == 'terima' && $status_proposal == 'belum'):?>

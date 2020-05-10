@@ -86,6 +86,20 @@ class Komprehensif extends CI_Controller {
 		}
 	}
 
+	public function updateNilai(){
+		$model = $this->Komprehensif_model;
+		if($this->input->method() == "post"){
+			$id = $this->input->post('id');
+			$kelompok = 'nilai_'.+$this->input->post('kelompok');
+			$nilai = $this->input->post('nilai');
+
+			$update = $model->updateNilai($id,$kelompok,$nilai);
+			
+		}else{
+			redirect('beranda');
+		}
+	}
+
 	
 
 }

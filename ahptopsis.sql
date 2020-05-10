@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 10, 2020 at 03:15 AM
+-- Generation Time: May 11, 2020 at 05:11 AM
 -- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -155,6 +155,34 @@ INSERT INTO `dosen` (`id`, `nama`, `gender`, `username`, `password`, `kode_alter
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `komprehensif`
+--
+
+CREATE TABLE `komprehensif` (
+  `id` int(11) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `status` enum('ya','tidak') NOT NULL,
+  `tgl_daftar` timestamp NULL DEFAULT NULL,
+  `tgl_terima` timestamp NULL DEFAULT NULL,
+  `tgl_sidang` date DEFAULT NULL,
+  `id_penguji1` int(11) DEFAULT NULL,
+  `id_penguji2` int(11) DEFAULT NULL,
+  `id_penguji3` int(11) DEFAULT NULL,
+  `nilai_1` int(11) DEFAULT NULL,
+  `nilai_2` int(11) DEFAULT NULL,
+  `nilai_3` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `komprehensif`
+--
+
+INSERT INTO `komprehensif` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`) VALUES
+(1, 5, 'ya', '2020-05-10 02:36:38', '2020-05-10 09:41:15', '2020-05-11', 28, 23, 26, 90, 90, 90);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mahasiswa`
 --
 
@@ -176,7 +204,9 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `konsentrasi`, `prodi`, `email`, `handphone`) VALUES
 (3, 'Arif', 'Pria', '04234', '0cd8015b3655ecf820107632cb41f3ae', '123', 'hukum', 'bekerz18@gmail.com', '082219583274'),
-(4, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'xxx', 'adpend', '', '');
+(4, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'xxx', 'adpend', '', ''),
+(5, 'x', 'Pria', 'x', '9dd4e461268c8034f5c8564e155c67a6', 'x', 'adpend', '', ''),
+(6, 'y', 'Wanita', 'y', '415290769594460e2e485922904f345d', 'y', 'adpend', '', '');
 
 -- --------------------------------------------------------
 
@@ -206,7 +236,9 @@ CREATE TABLE `pengajuan` (
 
 INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`, `acc_bab_pembimbing1`, `acc_bab_pembimbing2`) VALUES
 (5, 4, 'Sistem Pendukung Keputusasaan', '2020-05-08 06:41:49', '2020-05-09 00:07:24', 'terima', 'Hello', 'Hello', NULL, 22, 26, 'ya', 'ya'),
-(6, 3, 'test1', '2020-05-09 01:17:30', '2020-05-09 01:19:17', 'terima', 'test2', 'test3', 'gak jelas', 33, 43, NULL, NULL);
+(6, 3, 'test1', '2020-05-09 01:17:30', '2020-05-09 01:19:17', 'terima', 'test2', 'test3', 'gak jelas', 33, 43, NULL, NULL),
+(7, 5, 'xxx', '2020-05-10 02:56:55', '2020-05-10 02:57:14', 'terima', 'x', 'xxxx', NULL, NULL, NULL, NULL, NULL),
+(8, 6, 'xz', '2020-05-10 07:19:53', NULL, 'terima', 'xzz', 'xzzz', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -333,7 +365,37 @@ CREATE TABLE `proposal` (
 
 INSERT INTO `proposal` (`id`, `id_pengajuan`, `file`, `tgl_seminar`, `acc_seminar`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `revisi`, `ket_revisi`, `last_update`) VALUES
 ('5eb5f462ba335', 5, '5eb5f462ba335.pdf', '2020-05-09', '2020-05-09 00:09:56', 28, 20, 26, 90, 100, 80, 'tidak', NULL, '2020-05-09 00:08:02'),
-('5eb60561b1d5a', 6, '5eb60561b1d5a.pdf', '2020-05-10', '2020-05-09 01:21:25', 45, 39, 35, 60, 60, 2, 'tidak', NULL, '2020-05-09 01:20:33');
+('5eb60561b1d5a', 6, '5eb60561b1d5a.pdf', '2020-05-10', '2020-05-09 01:21:25', 45, 39, 35, 60, 60, 2, 'tidak', NULL, '2020-05-09 01:20:33'),
+('5eb76da83eee9', 7, '5eb76da83eee9.pdf', '2020-05-10', '2020-05-10 03:01:39', 28, 26, 20, 0, 87, 80, 'tidak', NULL, '2020-05-10 02:57:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thesis`
+--
+
+CREATE TABLE `thesis` (
+  `id` varchar(100) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `status` enum('ya','tidak') NOT NULL,
+  `tgl_daftar` timestamp NULL DEFAULT NULL,
+  `tgl_terima` timestamp NULL DEFAULT NULL,
+  `tgl_sidang` date DEFAULT NULL,
+  `id_penguji1` int(11) DEFAULT NULL,
+  `id_penguji2` int(11) DEFAULT NULL,
+  `id_penguji3` int(11) DEFAULT NULL,
+  `nilai_1` int(11) DEFAULT NULL,
+  `nilai_2` int(11) DEFAULT NULL,
+  `nilai_3` int(11) DEFAULT NULL,
+  `file` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `thesis`
+--
+
+INSERT INTO `thesis` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `file`) VALUES
+('5eb877c964e0e', 5, 'ya', '2020-05-10 21:53:13', '2020-05-10 22:10:32', '2020-05-13', 26, 28, 20, NULL, NULL, NULL, '5eb877c964e0e.pdf');
 
 -- --------------------------------------------------------
 
@@ -385,6 +447,16 @@ ALTER TABLE `dosen`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `komprehensif`
+--
+ALTER TABLE `komprehensif`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pengajuan` (`id_pengajuan`),
+  ADD KEY `id_penguji1` (`id_penguji1`),
+  ADD KEY `id_penguji2` (`id_penguji2`),
+  ADD KEY `id_penguji3` (`id_penguji3`);
+
+--
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -428,6 +500,16 @@ ALTER TABLE `proposal`
   ADD KEY `id_pembimbing3` (`id_penguji3`);
 
 --
+-- Indexes for table `thesis`
+--
+ALTER TABLE `thesis`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pengajuan` (`id_pengajuan`),
+  ADD KEY `id_penguji1` (`id_penguji1`),
+  ADD KEY `id_penguji2` (`id_penguji2`),
+  ADD KEY `id_penguji3` (`id_penguji3`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -444,15 +526,20 @@ ALTER TABLE `users`
 ALTER TABLE `dosen`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
+-- AUTO_INCREMENT for table `komprehensif`
+--
+ALTER TABLE `komprehensif`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `prodi`
 --
@@ -485,6 +572,15 @@ ALTER TABLE `bimbingan_detail`
   ADD CONSTRAINT `bimbingan_detail_ibfk_1` FOREIGN KEY (`id_bimbingan`) REFERENCES `bimbingan` (`id`);
 
 --
+-- Constraints for table `komprehensif`
+--
+ALTER TABLE `komprehensif`
+  ADD CONSTRAINT `komprehensif_ibfk_1` FOREIGN KEY (`id_penguji1`) REFERENCES `dosen` (`id`),
+  ADD CONSTRAINT `komprehensif_ibfk_2` FOREIGN KEY (`id_penguji2`) REFERENCES `dosen` (`id`),
+  ADD CONSTRAINT `komprehensif_ibfk_3` FOREIGN KEY (`id_penguji3`) REFERENCES `dosen` (`id`),
+  ADD CONSTRAINT `komprehensif_ibfk_4` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`);
+
+--
 -- Constraints for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
@@ -507,6 +603,15 @@ ALTER TABLE `proposal`
   ADD CONSTRAINT `proposal_ibfk_2` FOREIGN KEY (`id_penguji1`) REFERENCES `dosen` (`id`),
   ADD CONSTRAINT `proposal_ibfk_3` FOREIGN KEY (`id_penguji2`) REFERENCES `dosen` (`id`),
   ADD CONSTRAINT `proposal_ibfk_4` FOREIGN KEY (`id_penguji3`) REFERENCES `dosen` (`id`);
+
+--
+-- Constraints for table `thesis`
+--
+ALTER TABLE `thesis`
+  ADD CONSTRAINT `thesis_ibfk_1` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`),
+  ADD CONSTRAINT `thesis_ibfk_2` FOREIGN KEY (`id_penguji1`) REFERENCES `dosen` (`id`),
+  ADD CONSTRAINT `thesis_ibfk_3` FOREIGN KEY (`id_penguji2`) REFERENCES `dosen` (`id`),
+  ADD CONSTRAINT `thesis_ibfk_4` FOREIGN KEY (`id_penguji3`) REFERENCES `dosen` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
