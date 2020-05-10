@@ -24,6 +24,19 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            <?php if($this->session->userdata('success_delete')) {?>
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Berhasil menghapus data.
+              </div>
+            <?php }elseif($this->session->userdata('failed_delete')){?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Gagal menghapus data.
+              </div>
+            <?php }?>
             <table id="table-data" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
@@ -64,7 +77,7 @@
                   <td>
                     <?php echo date("l, d F Y H:i:s",strtotime($data["tgl_daftar"]));?>
                   </td>
-                  <td class="text-center"><a class="details-kompre text-info text-md" data-id="<?php echo $data["id_komprehensif"];?>">Detail</a></td>
+                  <td class="text-center"><a class="details-kompre text-info text-md" data-id="<?php echo $data["id_komprehensif"];?>">Detail</a>   <a class="text-danger text-md" href="<?php echo base_url('komprehensif/delete/').$data["id_komprehensif"];?>">Hapus</a></td>
                 </tr>
                 <?php endforeach;?>
               </tbody>

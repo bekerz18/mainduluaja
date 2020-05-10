@@ -53,6 +53,16 @@ class Thesis_model extends CI_Model {
 	{
 		return $this->db->update('thesis',$data);
 	}
-	
+	public function updateNilai($id,$kelompok,$nilai)
+	{
+		$this->db->set($kelompok, (int)$nilai);
+		$this->db->where('id', $id);
+		return $this->db->update('thesis');
+	}
+	public function delete($id)
+	{
+		$this->db->where('id',$id);
+		return $this->db->delete('thesis');
+	}
 
 }

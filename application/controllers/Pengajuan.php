@@ -58,6 +58,7 @@ class Pengajuan extends CI_Controller{
 			$data['proposals'] = $model->getProposalBy($dosen);
 			$data['pengajuans']=$model->get_pengajuan_by($dosen);
 			$data['kompres'] = $model->getKompreByDosen();
+			$data['thesisies'] = $model->getThesisByDosen();
 			$this->load->view('layout/dosen/header',$data);
 			$this->load->view('pengajuan/list_dosen',$data);
 		}elseif($this->session->userdata('level')==2){
@@ -301,7 +302,7 @@ class Pengajuan extends CI_Controller{
 			$data['model'] = $model;
 			$dosen = $this->session->userdata('id');
 			if($type == 'proposal'){
-				$data['title'] = 'Daftar Proposal';
+				$data['title'] = 'DAFTAR SEMINAR PROPOSAL';
 				
 				$data['proposals'] = $model->getProposalBy($dosen);
 				if(!$data['proposals']){
@@ -310,7 +311,7 @@ class Pengajuan extends CI_Controller{
 					$cetak  = $this->load->view('proposal/cetak_list_dosen',$data,TRUE);
 				}
 			}elseif($type == 'bimbingan'){
-				$data['title'] = 'Daftar Bimbingan';
+				$data['title'] = 'DAFTAR BIMBINGAN';
 				$data['pengajuans']=$model->get_pengajuan_by($dosen);
 				if(!$data['pengajuans']){
 					redirect('pengajuan');
@@ -319,11 +320,21 @@ class Pengajuan extends CI_Controller{
 				}
 				
 			}elseif($type == "komprehensif"){
+				$data['title'] = 'DAFTAR SIDANG KOMPREHENSIF';
 				$data['kompres'] = $model->getKompreByDosen();
 				if(!$data['kompres']){
 					redirect('pengajuan');
 				}else{
 					$cetak  = $this->load->view('proposal/cetak_list_dosen_kompre',$data,TRUE);
+				}
+
+			}elseif($type == "thesis"){
+				$data['title'] = 'DAFTAR SIDANG THESIS';
+				$data['thesisies'] = $model->getThesisByDosen();
+				if(!$data['thesisies']){
+					redirect('pengajuan');
+				}else{
+					$cetak  = $this->load->view('proposal/cetak_list_dosen_thesis',$data,TRUE);
 				}
 
 			}

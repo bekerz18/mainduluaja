@@ -99,6 +99,24 @@ class Komprehensif extends CI_Controller {
 			redirect('beranda');
 		}
 	}
+	public function delete($id)
+	{
+		if($this->session->userdata('level') == 0){
+			$model = $this->Komprehensif_model;
+			$delete = $model->delete($id);
+			if($delete){
+				$this->session->set_flashdata('success_delete','berhasil');
+			}else{
+				$this->session->set_flashdata('failed_delete','gagal');
+			}
+			redirect('komprehensif');
+			
+		}else{
+			redirect('komprehensif');
+		}
+
+		
+	}
 
 	
 

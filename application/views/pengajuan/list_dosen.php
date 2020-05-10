@@ -33,6 +33,9 @@
                   <li class="nav-item">
                     <a class="nav-link" id="tab-komprehensif" data-toggle="pill" href="#komprehensif" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Sidang Komprehensif</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="tab-thesis" data-toggle="pill" href="#thesis" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Sidang Thesis</a>
+                  </li>
                 </ul>
                 <div class="tab-content" id="custom-content-above-tabContent">
                   <div class="tab-pane fade active show" id="penilaian" role="tabpanel" aria-labelledby="tab-proposal">
@@ -149,6 +152,51 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="tab-pane fade" id="thesis" role="tabpanel" aria-labelledby="tab-thesis">
+                  <br>
+                  <div>
+                    <h5 class="text-center text-lg text-bold">DATA THESIS</h5> 
+                    <a href="<?php echo base_url('pengajuan/cetak/thesis');?>">
+                      <button type="button" class="btn btn-info">
+                        <i class="fas fa-print"></i> Cetak
+                      </button>
+                    </a>
+                  </div>
+                    <br>
+                  <table id="table-thesis" class="table table-bordered table-striped">
+                    <thead>
+                      <tr class="text-center">
+                        <th>NO</th>
+                        <th>NAMA</th>
+                        <th>PRODI</th>
+                        <th>JUDUL</th>
+                        <th>JADWAL SIDANG</th>
+                        <th>OPSI</th>
+                      </tr>
+                    </thead>
+                    <tbody id="data-thesis">
+                      <?php $no=0; foreach($thesisies as $thesis): $no++?>
+                        <tr class="text-center">
+                          <td><?php echo $no;?></td>
+                          <td><?php echo $thesis['nama_mahasiswa'].'<br>'.$thesis['nim_mahasiswa'];?></td>
+                          <td>
+                            <?php if($thesis['prodi'] == "adpend"){
+                              echo "Administrasi Pendidikan";
+                            }elseif($thesis['prodi'] == "manajemen"){
+                              echo "Manajemen";
+                            }else{
+                              echo "Hukum";
+                            }
+                            ?>
+                          </td>
+                          <td><?php echo $thesis["judul"];?></td>
+                          <td><?php echo date('l, d F Y',strtotime($thesis['tgl_sidang']));?></td>
+                          <td><a class="details-thesis text-info text-md" data-id="<?php echo $thesis["id_thesis"];?>">Detail</a></td>
+                        </tr>
+                      <?php endforeach;?>
+                    </tbody>
+                  </table>
+                </div>
                 
               </div>
               <!-- Start Modal Detail -->
@@ -173,7 +221,7 @@
                             <span id="nama_mahasiswa" class="text-md">nama_mahasiswa</span>
                           </div>
                           <div class="form-group">
-                            <label for="judul_pengajuan">JUDUL</label> <a href="#" target="_blank" id="link_proposal" class="text-info">Klik Untuk Melihat Proposal</a><br>
+                            <label for="judul_pengajuan">JUDUL</label> <a href="#" target="_blank" id="link_proposal" class="text-info">Klik Untuk Melihat Thesis</a><br>
                             <span id="judul_pengajuan" class="text-md">judul_pengajuan</span>
                           </div>
                           <div class="form-group">
@@ -293,6 +341,80 @@
             <!-- /.modal-dialog -->
           </div>
           <!-- End Modal Details -->
+          <!-- Start Modal Details -->
+          <div class="modal fade" id="modal-detail-thesis">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Detail</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!-- Element Start -->
+                  <input type="hidden" name="thesis" id="thesis">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="nim_mahasiswa_thesis">NIM MAHASISWA</label>
+                          <input type="text" name="nim_mahasiswa_thesis" id="nim_mahasiswa_thesis" class="form-control form-control-md" value="nim"readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="nama_mahasiswa_thesis">NAMA MAHASISWA</label>
+                          <input type="text" name="nama_mahasiswa_thesis" id="nama_mahasiswa_thesis" class="form-control form-control-md" value="nama_mahasiswa_thesis"readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="prodi_thesis">PRODI</label>
+                          <input type="text" name="prodi_thesis" id="prodi_thesis" value="prodi" class="form-control form-control-md" readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="judul_thesis">JUDUL</label> <a href="#" target="_blank" id="link_thesis" class="text-info">Klik Untuk Melihat Proposal</a><br>
+                          <input type="text" name="judul_thesis" id="judul_thesis" value="judul_thesis" class="form-control form-control-md"  readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="tgl_daftar_thesis">TANGGAL DAFTAR</label>
+                          <input type="text" name="tgl_daftar_thesis" id="tgl_daftar_thesis" value="tgl_daftar_thesis" class="form-control form-control-md"  readonly>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="tgl_sidang_thesis">TANGGAL SIDANG</label>
+                          <input type="text" name="tgl_sidang_thesis" id="tgl_sidang_thesis" class="form-control form-control-md" value="tgl_sidang_thesis">
+                        </div>
+                        <div class="form-group">
+                          <label for="nama_penguji1_thesis">PENGUJI 1</label><br>
+                          <span id="nama_penguji1_thesis" class="text-md">nama_penguji1_thesis</span>
+                            <div id="nilai_1_thesis"></div>
+                            <span id="nilai_penguji1_thesis" class="text-md font-italic">NILAI: </span>
+                        </div>
+                        <div class="form-group">
+                          <label for="nama_penguji2_thesis">PENGUJI 2</label><br>
+                          <span id="nama_penguji2_thesis" class="text-md">nama_penguji2_thesis</span>
+                            <div id="nilai_2_thesis"></div>
+                            <span id="nilai_penguji2_thesis" class="text-md font-italic">NILAI: </span>
+                        </div>
+                       <div class="form-group">
+                          <label for="nama_penguji3_thesis">PENGUJI 3</label><br>
+                          <span id="nama_penguji3_thesis" class="text-md">nama_penguji3thesis</span>
+                            <div id="nilai_3_thesis"></div>
+                            <span id="nilai_penguji3_thesis" class="text-md font-italic">NILAI: </span>
+                        </div>
+
+                      </div>
+                    </div>
+                  <!-- Element End -->  
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                  <button type="button" id="btn-simpan-thesis" class="btn btn-primary">Simpan</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- End Modal Details -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -328,6 +450,8 @@
     var penguji_kompre ='';
     var $id_proposal = '';
     var $id_kompre ='';
+    var $id_thesis='';
+    var penguji_thesis='';
     const $ModalDetails = $("#modal-details-pengajuan");
  
     $('.table').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true});
@@ -355,8 +479,13 @@
       let $id = $(this).data("id");
       getKompro($id);
 
-      // $("#modal-detail-kompre").modal();
     });
+    $("#data-thesis").on("click",".details-thesis",function(){
+      let $id = $(this).data("id");
+      getThesis($id);
+
+    });
+
     jQuery("#btn-simpan-kompre").click(function(){
       if(penguji_kompre == 1){
         var nilai = $("#nilai_penguji1_kompre").val();
@@ -367,6 +496,20 @@
       }else if(penguji_kompre == 3){
         var nilai = $("#nilai_penguji3_kompre").val();
         updateNilai(penguji_kompre,nilai,$id_kompre,"kompre");
+      }else{
+        console.log('maaf, tidak dapat mengambil identitas penguji');
+      }
+    });
+    jQuery("#btn-simpan-thesis").click(function(){
+      if(penguji_thesis == 1){
+        var nilai = $("#nilai_penguji1_thesis").val();
+        updateNilai(penguji_thesis,nilai,$id_thesis,"thesis");
+      }else if(penguji_thesis == 2){
+        var nilai = $("#nilai_penguji2_thesis").val();
+        updateNilai(penguji_thesis,nilai,$id_thesis,"thesis");
+      }else if(penguji_thesis == 3){
+        var nilai = $("#nilai_penguji3_thesis").val();
+        updateNilai(penguji_thesis,nilai,$id_thesis,"thesis");
       }else{
         console.log('maaf, tidak dapat mengambil identitas penguji');
       }
@@ -395,6 +538,15 @@
               $("#nama_penguji3_kompre").text(data.nama);
             }
             $("#modal-detail-kompre").modal();
+          }else if(type == "thesis"){
+            if($pengujiNumber == 1){
+              $("#nama_penguji1_thesis").text(data.nama);
+            }else if($pengujiNumber == 2){
+              $("#nama_penguji2_thesis").text(data.nama);
+            }else if($pengujiNumber == 3){
+              $("#nama_penguji3_thesis").text(data.nama);
+            }
+            $("#modal-detail-thesis").modal();
           }
           
         },error:function(data){
@@ -557,11 +709,31 @@
               );
               }
             });
+          }else if(type=="thesis"){
+            $.ajax({
+              type: 'POST',
+              url : '<?php echo base_url('thesis/updateNilai/');?>',
+              data:{id:$id,kelompok:$kelompok,nilai:$nilai},
+              success:function(data){
+                  Swal.fire(
+                  'Berhasil!',
+                  'Nilai Berhasil Ditambahkan!',
+                  'success'
+                );
+              },error: function(data){
+                Swal.fire(
+                'Gagal!',
+                'Nilai Gagal Ditambahkan! :(',
+                'error'
+              );
+              }
+            });
           }
+
       }
     }
     // GET KoMPREHENSIF
-function getKompro($kompreID){
+    function getKompro($kompreID){
       $.ajax({
         type: 'GET',
         url : '<?php echo base_url('komprehensif/getkompre/');?>'+$kompreID,
@@ -652,6 +824,109 @@ function getKompro($kompreID){
                 $("#nilai_3_kompre").append('<input type="number" id="nilai_penguji3_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" value="'+data[0].nilai3+'" min="0" max="100">');
               }else{
                 $("#nilai_3_kompre").append('<input type="number" id="nilai_penguji3_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" min="0" max="100">');
+              }
+            }
+          }
+
+        
+        },error:function(data){
+          console.log('tidak dapat mengambil data pengajuan');
+        }
+      });
+    }
+
+    // Get Thesis
+    function getThesis($thesisID){
+      $.ajax({
+        type: 'GET',
+        url : '<?php echo base_url('thesis/getthesis/');?>'+$thesisID,
+        dataType :'json',
+        success: function(data){
+
+          $id_thesis = data[0].id_thesis;
+        
+
+          $("#tgl_sidang_thesis").val(new Date(data[0].tgl_sidang).toLocaleString(['ban', 'id']));
+          $("#nim_mahasiswa_thesis").val(data[0].nim_mahasiswa);
+          $("#nama_mahasiswa_thesis").val(data[0].nama_mahasiswa);
+          $("#link_thesis").attr("href","<?php echo base_url('uploads/thesis/');?>"+data[0].id_thesis+'.pdf');
+          $("#judul_thesis").val(data[0].judul);
+          if(data[0].prodi == "adpend"){
+            $("#prodi_thesis").val("Administrasi Pendidikan");
+          }else if(data[0].prodi == "amnajemen"){
+            $("#prodi_thesis").val("Manajemen");
+          }else if(data[0].prodi == "hukum"){
+            $("#prodi_thesis").val("Hukum");
+          }
+          $("#tgl_daftar_thesis").val(new Date(data[0].tgl_daftar).toLocaleString(['ban', 'id']));
+        getPenguji(data[0].id_penguji1,1,'thesis');
+        getPenguji(data[0].id_penguji2,2,'thesis');
+        getPenguji(data[0].id_penguji3,3,'thesis');
+        if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji1){
+            penguji_thesis = 1;
+            if(data[0].nilai2 == null){
+              $("#nilai_penguji2_thesis").text("NILAI: BELUM ADA");
+            }else{
+              $("#nilai_penguji2_thesis").text('NILAI : '+data[0].nilai2);
+            }
+            if(data[0].nilai3 == null){
+              $("#nilai_penguji3_thesis").text("NILAI: BELUM ADA");
+            }else{
+              $("#nilai_penguji3_thesis").text('NILAI : '+data[0].nilai3);
+            }
+            $("#nilai_penguji1_thesis").remove();
+            if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
+              $("#nilai_1_thesis").append('<input type="number" id="nilai_penguji1_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
+            }else{
+              if(data[0].nilai1 != null){
+                $("#nilai_1_thesis").append('<input type="number" id="nilai_penguji1_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" value="'+data[0].nilai1+'" min="0" max="100">');
+              }else{
+                $("#nilai_1_thesis").append('<input type="number" id="nilai_penguji1_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" min="0" max="100">');
+              }
+            }
+            
+          }else if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji2){
+            penguji_thesis = 2;
+            if(data[0].nilai1 == null){
+              $("#nilai_penguji1_thesis").text("NILAI: BELUM ADA");
+            }else{
+              $("#nilai_penguji1_thesis").text('NILAI : '+data[0].nilai1);
+            }
+            if(data[0].nilai3 == null){
+              $("#nilai_penguji3_thesis").text("NILAI: BELUM ADA");
+            }else{
+              $("#nilai_penguji3_thesis").text('NILAI : '+data[0].nilai3);
+            }
+            $("#nilai_penguji2_thesis").remove();
+            if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
+              $("#nilai_2_thesis").append('<input type="number" id="nilai_penguji2_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
+            }else{
+              if(data[0].nilai2 != null){
+                $("#nilai_2_thesis").append('<input type="number" id="nilai_penguji2_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" value="'+data[0].nilai2+'" min="0" max="100">');
+              }else{
+                $("#nilai_2_thesis").append('<input type="number" id="nilai_penguji2_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" min="0" max="100">');
+              }
+            }
+          }else if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji3){
+            penguji_thesis = 3;
+            if(data[0].nilai2 == null){
+              $("#nilai_penguji2_thesis").text("NILAI: BELUM ADA");
+            }else{
+              $("#nilai_penguji2_thesis").text('NILAI : '+data[0].nilai2);
+            }
+            if(data[0].nilai1 == null){
+              $("#nilai_penguji1_thesis").text("NILAI: BELUM ADA");
+            }else{
+              $("#nilai_penguji1_thesis").text('NILAI : '+data[0].nilai1);
+            }
+            $("#nilai_penguji3_thesis").remove();
+            if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
+              $("#nilai_3_thesis").append('<input type="number" id="nilai_penguji3_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
+            }else{
+              if(data[0].nilai3 != null){
+                $("#nilai_3_thesis").append('<input type="number" id="nilai_penguji3_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" value="'+data[0].nilai3+'" min="0" max="100">');
+              }else{
+                $("#nilai_3_thesis").append('<input type="number" id="nilai_penguji3_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" min="0" max="100">');
               }
             }
           }
