@@ -136,7 +136,7 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function getNilaiProposal($id)
 	{
-		return $this->db->query("SELECT SUM(nilai_1+nilai_2+nilai_2)/3 AS nilai FROM proposal WHERE id_pengajuan='$id'")->row_array();
+		return $this->db->query("SELECT SUM(nilai_1+nilai_2+nilai_3)/3 AS nilai FROM proposal WHERE id_pengajuan='$id'")->row_array();
 	}
 	public function getProposalDone()
 	{
