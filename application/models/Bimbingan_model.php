@@ -150,14 +150,12 @@ class Bimbingan_model extends CI_Model {
 	public function CheckIsByMahasiswa($pembimbing){
 		$mahasiswa = $this->session->userdata('id');
 		if($pembimbing == '1'){
-			$this->db->where('id_mahasiswa',$mahasiswa);
 			$this->db->where('acc_bab_pembimbing1','ya');
-			return $this->db->get('pengajuan')->row_array();
 		}elseif($pembimbing == '2'){
-			$this->db->where('id_mahasiswa',$mahasiswa);
 			$this->db->where('acc_bab_pembimbing2','ya');
-			return $this->db->get('pengajuan')->row_array();
 		}
+		$this->db->where('id_mahasiswa',$mahasiswa);
+		return $this->db->get('pengajuan')->row_array();
 		
 	}
 	public function isChatDone($id){

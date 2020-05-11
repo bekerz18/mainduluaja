@@ -29,7 +29,7 @@
               <li class="nav-item">
                 <a class="nav-link active" id="tab-riwayat-bimbingan" data-toggle="pill" href="#riwayat-bimbingan" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Riwayat Bimbingan</a>
               </li>
-              <?php if($chatisEnd !="sudah"){?>
+              <?php if($chatisEnd["status"] !="sudah"){?>
               <li class="nav-item">
                 <a class="nav-link" id="tab-tambah-percakapan" data-toggle="pill" href="#tambah-percakapan" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Tambah Percakapan</a>
               </li>
@@ -86,7 +86,7 @@
                   <!-- /.col -->
                 </div> 
               </div>
-              <?php if($chatisEnd !="sudah"){?>
+              <?php if($chatisEnd["status"] !="sudah"){?>
                 <div class="tab-pane fade" id="tambah-percakapan" role="tabpanel" aria-labelledby="tab-tambah-percakapan">
                    <?php echo form_open_multipart();?>
                    <div class="form-group">
