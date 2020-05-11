@@ -27,8 +27,12 @@ class Thesis_model extends CI_Model {
 			'id_pengajuan' => $pengajuanID,
 			'status'=> 'tidak',
 			'tgl_daftar' => date("Y-m-d H:i:s"));
-
-		return $this->db->insert('thesis',$data);
+		if($data['file'] == 'no'){
+			$this->session->set_flashdata('gagal_kompre_thesis','Gagal Mengirim Thesis!');
+		}else{
+			return $this->db->insert('thesis',$data);
+		}
+		
 	}
 	public function checkAcc($mahasiswaID)
 	{
@@ -76,7 +80,7 @@ class Thesis_model extends CI_Model {
         if ($this->upload->do_upload('thesis')) {
         	return $this->upload->data("file_name");
         }
-        return $id.'.pdf';
+        return 'no';
 	}
 
 }

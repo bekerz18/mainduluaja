@@ -83,7 +83,12 @@ class Pengajuan_model extends CI_Model {
 			'file'			=> $this->_uploadProposal($IDProposal)
 		);
 
-		return $this->db->insert('proposal',$data);
+		if($data['file'] == 'no'){
+			$this->session->set_flashdata('proposal_failed','Gagal Mengirim Proposal!');
+		}else{
+			return $this->db->insert('proposal',$data);	
+		}
+		
 	}
 
 	private function _uploadProposal($id)
@@ -101,7 +106,7 @@ class Pengajuan_model extends CI_Model {
         }else{
         	$this->session->set_flashdata('proposal_failed','Gagal Mengirim Proposal!');
         }
-        return $id.'.pdf';
+        return 'no';
 	}
 	public function is_there_proposal($id){
 		$this->db->where('id_pengajuan',$id);
