@@ -24,7 +24,11 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            
+            <a href="<?php echo base_url('bimbingan/cetak/2');?>" target="_blank">
+              <button type="button" class="btn btn-info">
+                <i class="fas fa-print"></i> Cetak
+              </button>
+            </a>
             <table id="table-bimbingan" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">

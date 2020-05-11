@@ -82,5 +82,9 @@ class Thesis_model extends CI_Model {
         }
         return 'no';
 	}
+	public function cariDosen($id)
+	{
+		return $this->db->query("SELECT nama FROM dosen where id=$id")->row_array();
+	}
 
 }

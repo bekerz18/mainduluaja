@@ -10,7 +10,7 @@ class Bimbingan_model extends CI_Model {
 
 	public function getBimbinganAdmin($pembimbing)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing'")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' order by bimbingan.status desc")->result_array();
 	}
 	public function getDosen($bimbingan,$idpengajuan)
 	{
@@ -24,15 +24,15 @@ class Bimbingan_model extends CI_Model {
 	}
 	public function getBimbinganDosen($pembimbing,$dosen)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing1=$dosen")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing1=$dosen order by bimbingan.status desc")->result_array();
 	}
 	public function getBimbinganDosen2($pembimbing,$dosen)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc,  bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing2=$dosen")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc,  bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing2=$dosen order by bimbingan.status desc")->result_array();
 	}
 	public function getBimbinganMahasiswa($pembimbing,$mahasiswa)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.pembimbing as pembimbing, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing'AND pengajuan.id_mahasiswa=$mahasiswa")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.pembimbing as pembimbing, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing'AND pengajuan.id_mahasiswa=$mahasiswa order by bimbingan.status desc")->result_array();
 	}
 	public function checkBimbingan($bimbingan,$mahasiswa)
 	{

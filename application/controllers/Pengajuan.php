@@ -214,7 +214,7 @@ class Pengajuan extends CI_Controller{
 		        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
 		        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
 		        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
-		        $users->Output($data['title'].'.pdf ', 'D');
+		        $users->Output($data['title'], 'D');
 			}
 			
 			$data['nama'] = $this->session->userdata('nama');
@@ -241,7 +241,7 @@ class Pengajuan extends CI_Controller{
 	        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
 	        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
 	        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
-	        $users->Output($data['title'].'.pdf ', 'D');
+	        $users->Output($data['title'], 'D');
 		}else{
 			$data['nama'] = $this->session->userdata('nama');
 			$this->load->view('layout/admin/header',$data);
@@ -360,7 +360,7 @@ class Pengajuan extends CI_Controller{
         $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
         $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
         $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-        $users->Output($data['title'].'.pdf ', 'D');
+        $users->Output($data['title'], 'D');
 	}
 
 	private function _isHaveKompre($pengajuanID)

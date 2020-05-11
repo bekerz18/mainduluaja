@@ -254,4 +254,23 @@ class Bimbingan extends CI_Controller {
 			redirect('data-bimbingan-'.$type);
 		}
 	}
+	public function cetak($pembimbing=null)
+	{
+		if($this->session->userdata('level') == 0){
+			$model = $this->Bimbingan_model;
+			$data['bimbingans'] = $this->_getDataBimbinganAdmin($pembimbing);
+			$data["title"] = "Data Bimbingan ".$pembimbing;
+			$cetak = $this->load->view('bimbingan/admin/cetak_bimbingan_1',$data,TRUE);
+			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+        	$users->showImageErrors = true;
+        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+        	$users->Output($data['title'], 'I');
+		}else{
+			redirect('beranda');
+		}
+	}
 }

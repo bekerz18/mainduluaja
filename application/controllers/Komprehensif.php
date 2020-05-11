@@ -118,6 +118,29 @@ class Komprehensif extends CI_Controller {
 		
 	}
 
+	public function cetak()
+	{
+		if($this->session->userdata('level') == 0){
+			$model = $this->Komprehensif_model;
+			$data['model'] = $model;
+			$data['kompres'] = $model->getAllKompre();
+			
+			$data['title'] = 'Daftar Kompre';
+			$cetak = $this->load->view('komprehensif/cetak_admin',$data,TRUE);
+			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+        	$users->showImageErrors = true;
+        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+        	$users->Output($data['title'], 'I');
+		}else{
+			redirect('beranda');
+		}
+	}
+
+
 	
 
 }

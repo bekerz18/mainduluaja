@@ -57,5 +57,9 @@ class Komprehensif_model extends CI_Model {
 		$this->db->where('id',$id);
 		return $this->db->delete('komprehensif');
 	}
+	public function cariDosen($id)
+	{
+		return $this->db->query("SELECT nama FROM dosen where id=$id")->row_array();
+	}
 
 }

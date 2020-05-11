@@ -24,6 +24,11 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            <a href="<?php echo base_url('bimbingan/cetak/2');?>" target="_blank">
+              <button type="button" class="btn btn-info">
+                <i class="fas fa-print"></i> Cetak
+              </button>
+            </a>
             <?php if($isdone =="belum"){?>
               <a href="#" class="mulai-bimbingan" data-id="<?php echo uniqid();?>">
                 <button type="button" class="btn btn-primary">Mulai Bimbingan</button>
