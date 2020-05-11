@@ -183,8 +183,13 @@ class Pengajuan extends CI_Controller{
 					$data['cariDosbing1'] = $model->get_dosen($data['pengajuans']['pembimbing1']);
 					$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
 					$data["checkKompre"] = $this->_isHaveKompre($id);
-					$data["kompreData"] = $this->_KompreMahasiswa();
+					if($this->_isHaveKompre($id) == "ya"){
+					
+						$data["kompreData"] = $this->_KompreMahasiswa();
+					
+					}
 					$cektesis = $model->isBimbinganDone();
+
 					if(!$cektesis){
 						$data['tesis_is'] = 'tidak';
 					}else{
@@ -391,9 +396,9 @@ class Pengajuan extends CI_Controller{
 			'id_penguji1' => $dataKompre["id_penguji1"],
 			'id_penguji2' => $dataKompre["id_penguji2"],
 			'id_penguji3' => $dataKompre["id_penguji3"],
-			'penguji1' => $this->_getDosen($dataKompre["id_penguji1"])["nama"],
-			'penguji2' => $this->_getDosen($dataKompre["id_penguji2"])["nama"],
-			'penguji3' => $this->_getDosen($dataKompre["id_penguji3"])["nama"]
+			'penguji1' => $this->_getDosen($dataKompre["id_penguji1"]),
+			'penguji2' => $this->_getDosen($dataKompre["id_penguji2"]),
+			'penguji3' => $this->_getDosen($dataKompre["id_penguji3"])
 		);
 
 		return $newData;
@@ -404,7 +409,7 @@ class Pengajuan extends CI_Controller{
 		$model = $this->Pengajuan_model;
 		$data = $model->searchDosenBy($id);
 
-		return $data;
+		return $data["nama"];
 	}
 
 }

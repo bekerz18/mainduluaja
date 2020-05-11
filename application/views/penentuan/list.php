@@ -9,7 +9,7 @@
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="#">Penentuan Pembimbing</a></li>
-              <li class="breadcrumb-item active">Daftar Pengajuan</li>
+              <li class="breadcrumb-item active">Daftar Penentuan Pembimbing</li>
             </ol>
           </div>
         </div>
@@ -20,10 +20,23 @@
       <div class="container-fluid">
         <div class="card card-secondary">
           <div class="card-header">
-            <h3 class="card-title">Daftar Pengajuan</h3>
+            <h3 class="card-title">Daftar Penentuan Pembimbing</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            <?php if($this->session->userdata('success_delete')) {?>
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Berhasil menghapus data.
+              </div>
+            <?php }elseif($this->session->userdata('failed_delete')){?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Gagal menghapus data.
+              </div>
+            <?php }?>
             <a href="<?php echo base_url('pengajuan/penentuan_pembimbing/cetak');?>">
               <button type="button" class="btn btn-info">
                 <i class="fas fa-print"></i> Cetak
@@ -46,8 +59,8 @@
                   <tr>
                     <td class="text-center"><?php echo $no;?></td>
                     <td class="text-center"><?php echo $pengajuan["nama"].'<br>'.$pengajuan["nim"];?></td>
-                    <td class="text-center"><?php echo $pengajuan["judul"];?></td>
                     <td class="text-center"><?php echo $pengajuan["nama_prodi"];?></td>
+                    <td class="text-center"><?php echo $pengajuan["judul"];?></td>
                     <td><?php if($pengajuan['pembimbing1'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing1'];}?></td>
                     <td><?php if($pengajuan['pembimbing2'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing2'];}?></td>
                     <td class="text-center"><a class="details-penentuan text-info" data-id="<?php echo $pengajuan["id_pengajuan"];?>">Details</a></td>
@@ -285,14 +298,16 @@
           url : '<?php echo base_url('pengajuan/getpenentuan/');?>',
           dataType : 'json',
           success : function(data){
+            
             for(var i=0 ; i < data.length; i++){
+
               let pembimbing1 = data[i].pembimbing1;
               let pembimbing2 = data[i].pembimbing2;
               if(pembimbing1 == null || pembimbing2 == null){
                 pembimbing1 = 'Belum Ada';
                 pembimbing2 = 'Belum Ada';
               }
-              datas += '<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+data[i].nama+'<br>'+data[i].nim+'</td><td class="text-center">'+data[i].judul+'<br>('+data[i].nama_prodi+')</td><td>'+pembimbing1+'</td><td>'+pembimbing2+'</td><td class="text-center"><a class="details-penentuan text-info" data-id="'+data[i].id_pengajuan+'">Details</a></td></tr>';
+              datas += '<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+data[i].nama+'<br>'+data[i].nim+'</td><td class="text-center">'+data[i].nama_prodi+'</td><td>'+data[i].judul+'</td><td>'+pembimbing1+'</td><td>'+pembimbing2+'</td><td class="text-center"><a class="details-penentuan text-info" data-id="'+data[i].id_pengajuan+'">Details</a></td></tr>';
             }
             $('#table-pengajuan').dataTable().fnClearTable();
             $('#table-pengajuan').dataTable().fnDestroy();

@@ -125,5 +125,26 @@ class Bimbingan_model extends CI_Model {
 		return $this->db->update('pengajuan');
 
 	}
+	public function delete($id)
+	{
+		
+		if($this->_deleteDetail($id) == 'berhasil'){
+			$this->db->where('id',$id);
+			return $this->db->delete('bimbingan');
+		}
 
+		return $this->db->delete('bimbingan');
+		
+		
+	}
+
+	private function _deleteDetail($id)
+	{
+		$this->db->where('id_bimbingan',$id);
+		if($this->db->delete('bimbingan_detail')){
+			return 'berhasil';
+		}
+		return 'gagal';
+	}
+	
 }

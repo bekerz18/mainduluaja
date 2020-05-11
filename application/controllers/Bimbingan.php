@@ -218,5 +218,17 @@ class Bimbingan extends CI_Controller {
 			redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id.'/'.$bab.'/'.$pengajuan);
 		}
 	}
+	public function delete($type,$id){
+		if($this->session->userdata('level') == 0){
+			$model = $this->Bimbingan_model;
+			$delete = $model->delete($id);
 
+			if($delete){
+				$this->session->set_flashdata('success_delete','berhasil');
+			}else{
+				$this->session->set_flashdata('failed_delete','gagal');
+			}
+			redirect('data-bimbingan-'.$type);
+		}
+	}
 }

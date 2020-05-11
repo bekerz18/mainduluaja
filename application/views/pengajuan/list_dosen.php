@@ -588,12 +588,12 @@
             }
             $("#nilai_penguji1").remove();
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
-              $("#nilai_1").append('<input type="number" id="nilai_penguji1_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
+              $("#nilai_1").append('<input type="number" id="nilai_penguji1" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
             }else{
               if(data[0].nilai1 != null){
-                $("#nilai_1").append('<input type="number" id="nilai_penguji1_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai1+'" min="0" max="100">');
+                $("#nilai_1").append('<input type="number" id="nilai_penguji1" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai1+'" min="0" max="100">');
               }else{
-                $("#nilai_1").append('<input type="number" id="nilai_penguji1_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
+                $("#nilai_1").append('<input type="number" id="nilai_penguji1" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
               }
             }
             
@@ -611,12 +611,12 @@
             }
             $("#nilai_penguji2").remove();
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
-              $("#nilai_2").append('<input type="number" id="nilai_penguji2_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
+              $("#nilai_2").append('<input type="number" id="nilai_penguji2" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
             }else{
               if(data[0].nilai2 != null){
-                $("#nilai_2").append('<input type="number" id="nilai_penguji2_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai2+'" min="0" max="100">');
+                $("#nilai_2").append('<input type="number" id="nilai_penguji2" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai2+'" min="0" max="100">');
               }else{
-                $("#nilai_2").append('<input type="number" id="nilai_penguji2_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
+                $("#nilai_2").append('<input type="number" id="nilai_penguji2" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
               }
             }
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].penguji3){
@@ -633,12 +633,12 @@
             }
             $("#nilai_penguji3").remove();
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
-              $("#nilai_3").append('<input type="number" id="nilai_penguji3_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
+              $("#nilai_3").append('<input type="number" id="nilai_penguji3" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
             }else{
               if(data[0].nilai3 != null){
-                $("#nilai_3").append('<input type="number" id="nilai_penguji3_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai3+'" min="0" max="100">');
+                $("#nilai_3").append('<input type="number" id="nilai_penguji3" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" value="'+data[0].nilai3+'" min="0" max="100">');
               }else{
-                $("#nilai_3").append('<input type="number" id="nilai_penguji3_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
+                $("#nilai_3").append('<input type="number" id="nilai_penguji3" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" min="0" max="100">');
               }
             }
           }

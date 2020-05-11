@@ -24,7 +24,19 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            
+            <?php if($this->session->userdata('success_delete')) {?>
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Berhasil menghapus data.
+              </div>
+            <?php }elseif($this->session->userdata('failed_delete')){?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Informasi!</h5>
+                Gagal menghapus data.
+              </div>
+            <?php }?>
             <table id="table-bimbingan" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
@@ -60,7 +72,7 @@
                       </td>
                     <td><?php echo $bimbingan['pembimbing'];?></td>
                     <td class="text-center">
-                    	<a href="<?php echo base_url('bimbingan/bimbingan/2/').$bimbingan["id_bimbingan"];?>"class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>
+                    	<a href="<?php echo base_url('bimbingan/bimbingan/2/').$bimbingan["id_bimbingan"];?>"class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>   <a href="<?php echo base_url('bimbingan/delete/2/').$bimbingan["id_bimbingan"];?>" class="text-danger">Hapus</a>
                     </td>
                   </tr>
                 <?php endforeach;?>

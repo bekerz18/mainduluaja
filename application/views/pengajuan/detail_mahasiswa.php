@@ -94,17 +94,19 @@
                       <li class="nav-item">
                       <a class="nav-link" id="tab-sidang-kompre" data-toggle="pill" href="#daftar-sidang-kompre" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Komprehensif</a>
                     </li>
-                    <?php }?>
-                    <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
+                    
                       <li class="nav-item">
                       <a class="nav-link" id="custom-content-above-pembimbing-tab" data-toggle="pill" href="#data-pembimbing" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Pembimbing</a>
                     </li>
-                  <?php }?>
-                    <?php if($tesis_is == 'ada'){?>
+             
+                   
                       <li class="nav-item">
                       <a class="nav-link" id="custom-content-above-tesis-tab" data-toggle="pill" href="#data-tesis" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Data Tesis</a>
                     </li>
                     <?php }?>
+                    
+                      
+                    
                   </ul>
                   <div class="tab-content" id="custom-content-above-tabContent">
                     <div class="tab-pane fade active show" id="data-pengajuan" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
@@ -248,10 +250,11 @@
                                   echo 'Belum Ada';
                                 }else{
                                   echo number_format($nilai['nilai'],2);
-                                }
-                                if(number_format($nilai['nilai'],2) < 75){
+                                   if(number_format($nilai['nilai'],2) < 75){
                                   echo ' Revisi';
-                                }?>
+                                }
+                                }
+                               ?>
                                   
                                 </dd>
 
@@ -260,8 +263,7 @@
 
 
                       </div>
-                    <?php }?>
-                    <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
+                      
                       <div class="tab-pane fade" id="data-pembimbing" role="tabpanel" aria-labelledby="custom-content-above-pembimbing-tab">
                         <br>
                         <dl class="row">
@@ -272,7 +274,7 @@
                           <dd class="col-sm-10">: <?php echo $cariDosbing2['nama'];?></dd>
                         </dl>
                       </div>
-                    <?php }?>
+                   
                     <?php if($tesis_is == 'ada'){?>
                       <div class="tab-pane fade" id="data-tesis" role="tabpanel" aria-labelledby="custom-content-above-tesis-tab-tab">
                         <br>
@@ -316,10 +318,11 @@
                                   echo 'Belum Ada';
                                 }else{
                                   echo number_format($nilai['nilai'],2);
+                                    if(number_format($nilai['nilai'],2) < 75){
+                                    echo ' Revisi';
+                                  }
                                 }
-                                if(number_format($nilai['nilai'],2) < 75){
-                                  echo ' Revisi';
-                                }?>
+                                ?>
                                   
                                 </dd>
 
@@ -327,6 +330,8 @@
                         <?php }?>
                       </div>
                       <?php }?>
+                    <?php }?>
+                    
                   </div>
                 <?php endif;?>
                 <?php if($pengajuan['status'] == 'belum' || $pengajuan['status'] == 'tolak' || $pengajuan['status'] == 'terima' && $status_proposal == 'belum'):?>
