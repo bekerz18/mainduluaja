@@ -14,7 +14,7 @@ class Bimbingan extends CI_Controller {
 
 	}
 
-	public function bimbingan($pembimbing=null,$id=null)
+	public function bimbingan($pembimbing=null,$id=null,$id_bimbingan=null,$id_pengajuan=null)
 	{
 		$data["nama"] = $this->session->userdata('nama');
 		$model = $this->Bimbingan_model;
@@ -68,7 +68,7 @@ class Bimbingan extends CI_Controller {
 				if($validasi->run()){
 					$insert = $model->insertBimDetail();
 					if($insert){
-						redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id);
+						redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id.'/'.$id_bimbingan.'/'.$id_pengajuan);
 					}
 				}
 				$this->load->view('bimbingan/dosen/bimbingan_detail',$data);
@@ -200,10 +200,12 @@ class Bimbingan extends CI_Controller {
 		
 	}
 
-	public function acc($pembimbing,$id,$bab,$pengajuan)
+	public function acc($pembimbing=null,$id=null,$bab=null,$pengajuan=null)
 	{
 		if($this->session->userdata('level') != 1){
 			redirect('beranda');
+		}else if(!isset($bab) || !isset($pengajuan)){
+			redirect('data-bimbingan-'.$pembimbing);
 		}else{
 			$model = $this->Bimbingan_model;
 			$update = $model->accBimbingan($id);
