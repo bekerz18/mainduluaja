@@ -29,9 +29,11 @@
               <li class="nav-item">
                 <a class="nav-link active" id="tab-riwayat-bimbingan" data-toggle="pill" href="#riwayat-bimbingan" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Riwayat Bimbingan</a>
               </li>
+              <?php if($chatisEnd !="sudah"){?>
               <li class="nav-item">
                 <a class="nav-link" id="tab-tambah-percakapan" data-toggle="pill" href="#tambah-percakapan" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Tambah Percakapan</a>
               </li>
+            <?php }?>
             </ul>
             <div class="tab-content" id="custom-content-above-tabContent">
               <div class="tab-pane fade active show" id="riwayat-bimbingan" role="tabpanel" aria-labelledby="tab-riwayat-bimbingan">
@@ -84,25 +86,27 @@
                   <!-- /.col -->
                 </div> 
               </div>
-              <div class="tab-pane fade" id="tambah-percakapan" role="tabpanel" aria-labelledby="tab-tambah-percakapan">
-                 <?php echo form_open_multipart();?>
-                 <div class="form-group">
-                    <label for="deskripsi">Deskripsi <?php echo form_error('deskripsi');?></label>
-                    <textarea id="deskripsi" name="deskripsi" class="form-control form-control-md" rows="4" placeholder="Silahkan masukan deskripsi" required=""></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="file">Berkas (PDF)</label>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="file" name="file" accept="application/pdf">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
+              <?php if($chatisEnd !="sudah"){?>
+                <div class="tab-pane fade" id="tambah-percakapan" role="tabpanel" aria-labelledby="tab-tambah-percakapan">
+                   <?php echo form_open_multipart();?>
+                   <div class="form-group">
+                      <label for="deskripsi">Deskripsi <?php echo form_error('deskripsi');?></label>
+                      <textarea id="deskripsi" name="deskripsi" class="form-control form-control-md" rows="4" placeholder="Silahkan masukan deskripsi" required=""></textarea>
                     </div>
-                  </div>
-                  <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
-                  <div class="form-group">
-                    <input type="submit" value="Kirim" class="btn btn-success float-left">
-                  </div>
-                 <?php echo form_close();?> 
-              </div>
+                    <div class="form-group">
+                      <label for="file">Berkas (PDF)</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file" name="file" accept="application/pdf">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </div>
+                    <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
+                    <div class="form-group">
+                      <input type="submit" value="Kirim" class="btn btn-success float-left">
+                    </div>
+                   <?php echo form_close();?> 
+                </div>
+              <?php }?>
             </div>
           </div>
         </section>

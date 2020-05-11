@@ -38,17 +38,23 @@
               </div>
             <?php }?>
             <div class="row">
+               <?php if($chatisEnd !="sudah"){?>
               <a href="<?php echo base_url('bimbingan/acc/').$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6);?>">
                 <button type="button" class="btn btn-md btn-success">ACC</button>
               </a>
+            <?php }else{?>
+              <button type="button" class="btn btn-md btn-success">Sudah diacc</button>
+            <?php }?>
             </div>
             <br>
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="tab-riwayat-bimbingan" data-toggle="pill" href="#riwayat-bimbingan" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Riwayat Bimbingan</a>
               </li>
+              <?php if($chatisEnd !="sudah"){?>
               <li class="nav-item">
                 <a class="nav-link" id="tab-tambah-percakapan" data-toggle="pill" href="#tambah-percakapan" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Tambah Percakapan</a>
+              <?php }?>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="tab-detail" data-toggle="pill" href="#detail" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Detail</a>
@@ -105,25 +111,27 @@
                   <!-- /.col -->
                 </div> 
               </div>
-              <div class="tab-pane fade" id="tambah-percakapan" role="tabpanel" aria-labelledby="tab-tambah-percakapan">
-                 <?php echo form_open_multipart();?>
-                 <div class="form-group">
-                    <label for="deskripsi">Deskripsi <?php echo form_error('deskripsi');?></label>
-                    <textarea id="deskripsi" name="deskripsi" class="form-control form-control-md" rows="4" placeholder="Silahkan masukan deskripsi" required=""></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="file">Berkas (PDF)</label>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="file" name="file" accept="application/pdf">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
+              <?php if($chatisEnd !="sudah"){?>
+                <div class="tab-pane fade" id="tambah-percakapan" role="tabpanel" aria-labelledby="tab-tambah-percakapan">
+                   <?php echo form_open_multipart();?>
+                   <div class="form-group">
+                      <label for="deskripsi">Deskripsi <?php echo form_error('deskripsi');?></label>
+                      <textarea id="deskripsi" name="deskripsi" class="form-control form-control-md" rows="4" placeholder="Silahkan masukan deskripsi" required=""></textarea>
                     </div>
-                  </div>
-                  <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
-                  <div class="form-group">
-                    <input type="submit" value="Kirim" class="btn btn-success float-left">
-                  </div>
-                 <?php echo form_close();?> 
-              </div>
+                    <div class="form-group">
+                      <label for="file">Berkas (PDF)</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file" name="file" accept="application/pdf">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </div>
+                    <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
+                    <div class="form-group">
+                      <input type="submit" value="Kirim" class="btn btn-success float-left">
+                    </div>
+                   <?php echo form_close();?> 
+                </div>
+              <?php }?>
               <div class="tab-pane fade" id="detail" role="tabpanel" aria-labelledby="tab-detail">
                 <br>
                 <table class="table table-sm">

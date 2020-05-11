@@ -160,6 +160,10 @@ class Bimbingan_model extends CI_Model {
 		}
 		
 	}
+	public function isChatDone($id){
+		$this->db->where('id',$id);
+		return $this->db->get('bimbingan')->row_array();
+	}
 	public function CheckIsByGeneral($id){
 		
 		$this->db->where('id',$id);
