@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.9.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 11, 2020 at 05:11 AM
--- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
--- PHP Version: 7.3.17-1+ubuntu16.04.1+deb.sury.org+1
+-- Host: localhost:3306
+-- Generation Time: May 11, 2020 at 11:24 AM
+-- Server version: 10.3.22-MariaDB-cll-lve
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ahptopsis`
+-- Database: `kawaluk1_ahptopsis`
 --
 
 -- --------------------------------------------------------
@@ -40,14 +42,14 @@ CREATE TABLE `bimbingan` (
 --
 
 INSERT INTO `bimbingan` (`id`, `id_pengajuan`, `pembimbing`, `bab`, `status`, `tgl_acc`) VALUES
-('5eb6f9f3ce15c', 5, '1', '1', 'sudah', NULL),
-('5eb6fb480aca5', 5, '1', '2', 'sudah', NULL),
-('5eb6fb55773c2', 5, '2', '1', 'sudah', NULL),
-('5eb6fb6e66d0c', 5, '1', '3', 'sudah', NULL),
-('5eb6fba754989', 5, '2', '2', 'sudah', NULL),
-('5eb6fbc2266fc', 5, '2', '3', 'sudah', NULL),
-('5eb705dccf960', 5, '1', '4', 'sudah', '2020-05-09 19:36:04'),
-('5eb705e628961', 5, '2', '4', 'sudah', '2020-05-09 19:38:10');
+('5eb8bd0d11657', 12, '1', '1', 'sudah', '2020-05-11 02:50:12'),
+('5eb8bd6f77f1c', 12, '1', '2', 'sudah', '2020-05-11 02:51:46'),
+('5eb8bded74f95', 12, '1', '3', 'sudah', '2020-05-11 02:53:04'),
+('5eb8be2687fa2', 12, '1', '4', 'sudah', '2020-05-11 02:54:10'),
+('5eb8beb69bcf1', 12, '2', '1', 'sudah', '2020-05-11 02:56:45'),
+('5eb8befe497f4', 12, '2', '2', 'sudah', '2020-05-11 02:57:51'),
+('5eb8bf3d9a642', 12, '2', '3', 'sudah', '2020-05-11 02:59:01'),
+('5eb8bfa6bf6ea', 12, '2', '4', 'sudah', '2020-05-11 03:01:21');
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,7 @@ CREATE TABLE `bimbingan_detail` (
   `id` varchar(100) NOT NULL,
   `id_bimbingan` varchar(100) NOT NULL,
   `file` varchar(100) DEFAULT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deskripsi` text NOT NULL,
   `id_pengguna` int(11) NOT NULL,
   `level` enum('1','2') NOT NULL
@@ -70,9 +72,15 @@ CREATE TABLE `bimbingan_detail` (
 --
 
 INSERT INTO `bimbingan_detail` (`id`, `id_bimbingan`, `file`, `tanggal`, `deskripsi`, `id_pengguna`, `level`) VALUES
-('5eb70b1625eac', '5eb6f9f3ce15c', NULL, '2020-05-09 19:57:10', 'Ibu', 4, '2'),
-('5eb70b20660cf', '5eb6f9f3ce15c', '5eb70b20660cf.pdf', '2020-05-09 19:57:20', 'Ibu', 4, '2'),
-('5eb70b4dc6c26', '5eb6f9f3ce15c', NULL, '2020-05-09 19:58:05', 'Naon atuh aisia', 22, '1');
+('5eb8bd4b99839', '5eb8bd0d11657', '5eb8bd4b99839.pdf', '2020-05-11 02:49:47', 'khghkgh', 7, '2'),
+('5eb8bda093f29', '5eb8bd6f77f1c', '5eb8bda093f29.pdf', '2020-05-11 02:51:12', 'bab 2', 7, '2'),
+('5eb8be0022a21', '5eb8bded74f95', '5eb8be0022a21.pdf', '2020-05-11 02:52:48', 'bab 3', 7, '2'),
+('5eb8be4916245', '5eb8be2687fa2', '5eb8be4916245.pdf', '2020-05-11 02:54:01', 'bab 4', 7, '2'),
+('5eb8bee2361dd', '5eb8beb69bcf1', '5eb8bee2361dd.pdf', '2020-05-11 02:56:34', 'bab 1', 7, '2'),
+('5eb8bf1356a52', '5eb8befe497f4', '5eb8bf1356a52.pdf', '2020-05-11 02:57:23', 'bab 2', 7, '2'),
+('5eb8bf527716e', '5eb8bf3d9a642', '5eb8bf527716e.pdf', '2020-05-11 02:58:26', 'bab 3', 7, '2'),
+('5eb8bfc430956', '5eb8bfa6bf6ea', '5eb8bfc430956.pdf', '2020-05-11 03:00:20', 'dtd', 42, '1'),
+('5eb8bfe99528b', '5eb8bfa6bf6ea', '5eb8bfe99528b.pdf', '2020-05-11 03:00:57', 'ads', 7, '2');
 
 -- --------------------------------------------------------
 
@@ -178,7 +186,7 @@ CREATE TABLE `komprehensif` (
 --
 
 INSERT INTO `komprehensif` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`) VALUES
-(1, 5, 'ya', '2020-05-10 02:36:38', '2020-05-10 09:41:15', '2020-05-11', 28, 23, 26, 90, 90, 90);
+(4, 12, 'ya', '2020-05-11 03:02:13', '2020-05-11 03:04:36', '2020-05-11', 36, 38, 40, 90, 89, 78);
 
 -- --------------------------------------------------------
 
@@ -203,10 +211,7 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `konsentrasi`, `prodi`, `email`, `handphone`) VALUES
-(3, 'Arif', 'Pria', '04234', '0cd8015b3655ecf820107632cb41f3ae', '123', 'hukum', 'bekerz18@gmail.com', '082219583274'),
-(4, 'ZAM ZAM SAEFUL BAHTIAR', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'xxx', 'adpend', '', ''),
-(5, 'x', 'Pria', 'x', '9dd4e461268c8034f5c8564e155c67a6', 'x', 'adpend', '', ''),
-(6, 'y', 'Wanita', 'y', '415290769594460e2e485922904f345d', 'y', 'adpend', '', '');
+(7, 'sanditha', 'Wanita', '43200', 'f8db36f4eb09c494a1619ebe4d8db028', 'hukum perdata', 'hukum', '', '');
 
 -- --------------------------------------------------------
 
@@ -223,7 +228,7 @@ CREATE TABLE `pengajuan` (
   `status` enum('tolak','terima','belum') NOT NULL DEFAULT 'belum',
   `latarbelakang` text NOT NULL,
   `tujuan` text NOT NULL,
-  `keterangan` text,
+  `keterangan` text DEFAULT NULL,
   `id_pembimbing1` int(11) DEFAULT NULL,
   `id_pembimbing2` int(11) DEFAULT NULL,
   `acc_bab_pembimbing1` enum('ya','belum') DEFAULT NULL,
@@ -235,10 +240,7 @@ CREATE TABLE `pengajuan` (
 --
 
 INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`, `acc_bab_pembimbing1`, `acc_bab_pembimbing2`) VALUES
-(5, 4, 'Sistem Pendukung Keputusasaan', '2020-05-08 06:41:49', '2020-05-09 00:07:24', 'terima', 'Hello', 'Hello', NULL, 22, 26, 'ya', 'ya'),
-(6, 3, 'test1', '2020-05-09 01:17:30', '2020-05-09 01:19:17', 'terima', 'test2', 'test3', 'gak jelas', 33, 43, NULL, NULL),
-(7, 5, 'xxx', '2020-05-10 02:56:55', '2020-05-10 02:57:14', 'terima', 'x', 'xxxx', NULL, NULL, NULL, NULL, NULL),
-(8, 6, 'xz', '2020-05-10 07:19:53', NULL, 'terima', 'xzz', 'xzzz', NULL, NULL, NULL, NULL, NULL);
+(12, 7, 'sistem manajemen pemasaran berbasis aplikasi', '2020-05-11 02:31:00', '2020-05-11 02:32:00', 'terima', 'drdg', 'dtff', NULL, 33, 42, 'ya', 'ya');
 
 -- --------------------------------------------------------
 
@@ -355,7 +357,7 @@ CREATE TABLE `proposal` (
   `nilai_2` int(11) DEFAULT NULL,
   `nilai_3` int(11) DEFAULT NULL,
   `revisi` enum('ya','tidak') DEFAULT NULL,
-  `ket_revisi` text,
+  `ket_revisi` text DEFAULT NULL,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -364,9 +366,10 @@ CREATE TABLE `proposal` (
 --
 
 INSERT INTO `proposal` (`id`, `id_pengajuan`, `file`, `tgl_seminar`, `acc_seminar`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `revisi`, `ket_revisi`, `last_update`) VALUES
-('5eb5f462ba335', 5, '5eb5f462ba335.pdf', '2020-05-09', '2020-05-09 00:09:56', 28, 20, 26, 90, 100, 80, 'tidak', NULL, '2020-05-09 00:08:02'),
-('5eb60561b1d5a', 6, '5eb60561b1d5a.pdf', '2020-05-10', '2020-05-09 01:21:25', 45, 39, 35, 60, 60, 2, 'tidak', NULL, '2020-05-09 01:20:33'),
-('5eb76da83eee9', 7, '5eb76da83eee9.pdf', '2020-05-10', '2020-05-10 03:01:39', 28, 26, 20, 0, 87, 80, 'tidak', NULL, '2020-05-10 02:57:44');
+('5eb8ba25cdcde', 12, '5eb8ba25cdcde.pdf', '2020-05-11', '2020-05-11 02:37:09', 39, 45, 35, 89, 90, 88, 'tidak', NULL, '2020-05-11 02:36:21'),
+('5eb8ba635b600', 12, '5eb8ba635b600.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-11 02:37:23'),
+('5eb8bbdf2332b', 12, '5eb8bbdf2332b.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-11 02:43:43'),
+('5eb8bcdcdaf72', 12, '5eb8bcdcdaf72.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-11 02:47:56');
 
 -- --------------------------------------------------------
 
@@ -395,7 +398,7 @@ CREATE TABLE `thesis` (
 --
 
 INSERT INTO `thesis` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `file`) VALUES
-('5eb877c964e0e', 5, 'ya', '2020-05-10 21:53:13', '2020-05-10 22:10:32', '2020-05-13', 26, 28, 20, NULL, NULL, NULL, '5eb877c964e0e.pdf');
+('5eb8c1f084788', 12, 'ya', '2020-05-11 03:09:36', '2020-05-11 03:10:21', '2020-05-11', 39, 45, 35, 80, 88, 88, '5eb8c1f084788.pdf');
 
 -- --------------------------------------------------------
 
@@ -525,36 +528,43 @@ ALTER TABLE `users`
 --
 ALTER TABLE `dosen`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
 --
 -- AUTO_INCREMENT for table `komprehensif`
 --
 ALTER TABLE `komprehensif`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `prodi_detail`
 --
 ALTER TABLE `prodi_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -612,6 +622,7 @@ ALTER TABLE `thesis`
   ADD CONSTRAINT `thesis_ibfk_2` FOREIGN KEY (`id_penguji1`) REFERENCES `dosen` (`id`),
   ADD CONSTRAINT `thesis_ibfk_3` FOREIGN KEY (`id_penguji2`) REFERENCES `dosen` (`id`),
   ADD CONSTRAINT `thesis_ibfk_4` FOREIGN KEY (`id_penguji3`) REFERENCES `dosen` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
