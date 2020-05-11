@@ -158,6 +158,12 @@ class Pengajuan_model extends CI_Model {
 		return $this->db->query("SELECT komprehensif.id, komprehensif.id_pengajuan, komprehensif.status, komprehensif.tgl_daftar,komprehensif.tgl_terima,komprehensif.tgl_sidang,komprehensif.id_penguji1,komprehensif.id_penguji2, komprehensif.id_penguji3 FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
 
 	}
+	public function getthesisMahasiswa()
+	{
+		$id = $this->session->userdata('id');
+		return $this->db->query("SELECT thesis.id, thesis.id_pengajuan, thesis.status, thesis.tgl_daftar,thesis.tgl_terima,thesis.tgl_sidang,thesis.id_penguji1,thesis.id_penguji2, thesis.id_penguji3 FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
+
+	}
 	public function getKompreByDosen()
 	{
 		$id = $this->session->userdata('id');
@@ -165,6 +171,9 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function nilaiKompre($pengajuanID){
 		return $this->db->query("SELECT sum(nilai_1+nilai_2+nilai_3)/3 as nilai FROM komprehensif WHERE id_pengajuan=$pengajuanID")->row_array();
+	}
+	public function nilaiThesis($pengajuanID){
+		return $this->db->query("SELECT sum(nilai_1+nilai_2+nilai_3)/3 as nilai FROM thesis WHERE id_pengajuan=$pengajuanID")->row_array();
 	}
 	public function isBimbinganDone()
 	{

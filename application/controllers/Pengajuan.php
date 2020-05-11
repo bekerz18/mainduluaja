@@ -193,8 +193,12 @@ class Pengajuan extends CI_Controller{
 					if(!$cektesis){
 						$data['tesis_is'] = 'tidak';
 					}else{
+
 						$data['tesis_is'] = 'ada';
 						$data["checkThesis"] = $this->_cekTesis($id);
+						if($this->_cekTesis($id) == "ya"){
+							$data['thesis'] = $this->_ThesisMahasiswa();
+						}
 					}
 					$data["model"] = $model;
 				}
@@ -399,6 +403,28 @@ class Pengajuan extends CI_Controller{
 			'penguji1' => $this->_getDosen($dataKompre["id_penguji1"]),
 			'penguji2' => $this->_getDosen($dataKompre["id_penguji2"]),
 			'penguji3' => $this->_getDosen($dataKompre["id_penguji3"])
+		);
+
+		return $newData;
+		
+	}
+	private function _ThesisMahasiswa()
+	{
+		$model = $this->Pengajuan_model;
+		$dataThesis= $model->getthesisMahasiswa();
+		$newData = array(
+			'id'	=> $dataThesis["id"],
+			'id_pengajuan'	=> $dataThesis["id_pengajuan"],
+			'status'	=> $dataThesis["status"],
+			'tgl_daftar' => $dataThesis["tgl_daftar"],
+			'tgl_terima' => $dataThesis["tgl_terima"],
+			'tgl_sidang' => $dataThesis["tgl_sidang"],
+			'id_penguji1' => $dataThesis["id_penguji1"],
+			'id_penguji2' => $dataThesis["id_penguji2"],
+			'id_penguji3' => $dataThesis["id_penguji3"],
+			'penguji1' => $this->_getDosen($dataThesis["id_penguji1"]),
+			'penguji2' => $this->_getDosen($dataThesis["id_penguji2"]),
+			'penguji3' => $this->_getDosen($dataThesis["id_penguji3"])
 		);
 
 		return $newData;

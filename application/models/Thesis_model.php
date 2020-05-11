@@ -23,7 +23,7 @@ class Thesis_model extends CI_Model {
 		$id = uniqid();
 		$data = array(
 			'id'	=> $id,
-			'file'	=> $id.'.pdf',
+			'file'	=> $this->_upload($id),
 			'id_pengajuan' => $pengajuanID,
 			'status'=> 'tidak',
 			'tgl_daftar' => date("Y-m-d H:i:s"));
@@ -63,6 +63,20 @@ class Thesis_model extends CI_Model {
 	{
 		$this->db->where('id',$id);
 		return $this->db->delete('thesis');
+	}
+	private function _upload($id)
+	{
+		$config['upload_path']          = './uploads/thesis/';
+        $config['allowed_types']        = 'pdf';
+        $config['file_name']            = $id;
+        $config['overwrite']			= true;
+        $config['max_size']             = 50000;
+        
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload('thesis')) {
+        	return $this->upload->data("file_name");
+        }
+        return $id.'.pdf';
 	}
 
 }

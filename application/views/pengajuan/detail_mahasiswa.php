@@ -280,9 +280,19 @@
                         <br>
                         <?php if($checkThesis == "belum"){?>
                           <div class="text-center">
-                            <a href="<?php echo base_url('thesis/register/').$this->uri->segment(3);?>">
-                              <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Thesis</button>
-                            </a>
+                                <?php echo form_open_multipart ('thesis/register/'.$this->uri->segment(3));?>
+                                <div class="form-group">
+                                   <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="thesis" name="thesis"  accept="application/pdf" required="">
+                                    <label class="custom-file-label" for="thesis">Cari Thesis</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                   <button type="submi" class="btn btn-lg btn-primary">Daftar Sidang Thesis</button>
+                                 </div>
+                                  <?php echo form_error('thesis');?>
+                                <?php echo form_close();?>
+                            
                           </div>
                         <?php }elseif($checkThesis == "tidak"){?>
                           <div class="text-center">
@@ -293,27 +303,27 @@
                         <?php }elseif($checkThesis == "ya"){?>
                           <dl class="row">
                             <dt class="col-sm-2">TANGGAL DAFTAR</dt>
-                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></dd>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($thesis["tgl_daftar"]));?></dd>
                               
                             <dt class="col-sm-2">TANGGAL DITERIMA</dt>
-                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></dd>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($thesis["tgl_terima"]));?></dd>
 
                             <dt class="col-sm-2">TANGGAL SIDANG</dt>
-                            <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></dd>
+                            <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($thesis["tgl_sidang"]));?></dd>
 
                             <dt class="col-sm-2">PENGUJI 1</dt>
-                            <dd class="col-sm-10">: <?php echo $kompreData["penguji1"];?></dd>
+                            <dd class="col-sm-10">: <?php echo $thesis["penguji1"];?></dd>
 
                             <dt class="col-sm-2">PENGUJI 2</dt>
-                            <dd class="col-sm-10">: <?php echo $kompreData["penguji2"];?></dd>
+                            <dd class="col-sm-10">: <?php echo $thesis["penguji2"];?></dd>
 
                             <dt class="col-sm-2">PENGUJI 3</dt>
-                            <dd class="col-sm-10">: <?php echo $kompreData["penguji3"];?></dd>
+                            <dd class="col-sm-10">: <?php echo $thesis["penguji3"];?></dd>
 
                             <dt class="col-sm-2">NILAI </dt>
                             <dd class="col-sm-10">: 
                               <?php
-                                $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                                $nilai = $model->nilaiThesis($thesis["id_pengajuan"]);
                                 if($nilai["nilai"] == NULL){
                                   echo 'Belum Ada';
                                 }else{

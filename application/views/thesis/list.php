@@ -113,7 +113,7 @@
                           <input type="text" name="prodi" id="prodi" value="prodi" class="form-control form-control-md" readonly>
                         </div>
                         <div class="form-group">
-                          <label for="judul">JUDUL</label>
+                          <label for="judul">JUDUL</label>  <a id="link_thesis" href="#" alt="Klik Untuk Melihat Thesis" class="text-md" title="Klik Untuk Melihat Thesis" target="_blank">Klik Untuk Melihat Thesis</a>
                           <input type="text" name="judul" id="judul" value="judul" class="form-control form-control-md"  readonly>
                         </div>
                         <div class="form-group">
@@ -242,6 +242,7 @@
           }else{
             getPenguji(data[0].prodi,'no');
           }
+          jQuery("#link_thesis").attr("href","<?php echo base_url('uploads/thesis/');?>"+data[0].id_thesis+".pdf");
           jQuery("#tgl_sidang").val(data[0].tgl_sidang);
           jQuery("#nim_mahasiswa").val(data[0].nim_mahasiswa);
           jQuery("#nama_mahasiswa").val(data[0].nama_mahasiswa);

@@ -35,26 +35,21 @@ class Thesis extends CI_Controller {
 
 	public function register($pengajuanID)
 	{
-		$model = $this->Thesis_model;
-		$mahasiswaID = $this->session->userdata('id');
-		$check = $model->checkAcc($mahasiswaID);
-		if(!$check){
-				$this->session->set_flashdata('id_not_found_thesis','ek nao siah');
+		if($this->input->method() == "post"){
+			$model = $this->Thesis_model;
+			
+			$insert = $model->registerByMhs($pengajuanID);
+			if($insert){
+				$this->session->set_flashdata('berhasil_thesis','berhasil mendaftar');
+				redirect('pengajuan/detail/'.$pengajuanID);
 			}else{
-				$ishave = $model->isHave($pengajuanID);
-				if(!$ishave){
-					$insert = $model->registerByMhs($pengajuanID);
-					if($insert){
-						$this->session->set_flashdata('berhasil_thesis','berhasil mendaftar');
-					}else{
-						$this->session->set_flashdata('gagal_thesis','gagal mendaftar');
-					}
-				}else{
-					$this->session->set_flashdata('having_thesis','sudah ada');
-				}
-				
+				$this->session->set_flashdata('gagal_thesis','gagal mendaftar');
+				redirect('pengajuan/detail/'.$pengajuanID);
 			}
-		redirect('pengajuan/detail/'.$pengajuanID);
+					
+			}else{
+				redirect('pengajuan/detail/'.$pengajuanID);
+			}
 	}
 
 	public function getThesis($thesisID)
