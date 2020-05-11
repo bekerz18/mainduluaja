@@ -18,6 +18,7 @@ class Bimbingan extends CI_Controller {
 	{
 		$data["nama"] = $this->session->userdata('nama');
 		$model = $this->Bimbingan_model;
+		// $data['bimbinganisdone'] = $this->_cekisAcc($id);
 		if($this->session->userdata('level') == 0){
 			$data['bimbingans'] = $this->_getDataBimbinganAdmin($pembimbing);
 			$data['completes'] = $model->completeBimbingans();
@@ -76,6 +77,7 @@ class Bimbingan extends CI_Controller {
 			
 			
 		}elseif ($this->session->userdata('level') == 2) {
+			$data['isdone'] = $this->isDoneByMahasiswa($pembimbing);
 			$idMahasiswa = $this->session->userdata('id');
 			$proposal = $model->getProposalDone($idMahasiswa);
 			if(!$proposal) redirect('pengajuan');
@@ -113,6 +115,24 @@ class Bimbingan extends CI_Controller {
 		}else{
 			redirect('login');
 		}
+	}
+	private function isDoneByMahasiswa($pembimbing){
+		$model = $this->Bimbingan_model;
+		$data = $model->CheckIsByMahasiswa($pembimbing);
+		if(!$data){
+			return 'belum';
+		}
+
+		return 'sudah';
+	}
+	private function isDoneByGeneral($id){
+		$model = $this->Bimbingan_model;
+		$data = $model->CheckIsByGeneral($id);
+		if(!$data){
+			return 'belum';
+		}
+
+		return 'sudah';
 	}
 	public function checkBimbingan($bimbingan,$mahasiswa)
 	{

@@ -24,9 +24,11 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <a href="#" class="mulai-bimbingan" data-id="<?php echo uniqid();?>">
-            	<button type="button" class="btn btn-primary">Mulai Bimbingan</button>
-            </a>
+            <?php if($isdone =="belum"){?>
+              <a href="#" class="mulai-bimbingan" data-id="<?php echo uniqid();?>">
+              	<button type="button" class="btn btn-primary">Mulai Bimbingan</button>
+              </a>
+            <?php }?>
             <table id="table-bimbingan" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
