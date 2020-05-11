@@ -221,7 +221,7 @@
                             <span id="nama_mahasiswa" class="text-md">nama_mahasiswa</span>
                           </div>
                           <div class="form-group">
-                            <label for="judul_pengajuan">JUDUL</label> <a href="#" target="_blank" id="link_proposal" class="text-info">Klik Untuk Melihat Thesis</a><br>
+                            <label for="judul_pengajuan">JUDUL</label> <a href="#" target="_blank" id="link_proposal" class="text-info">Klik Untuk Melihat Proposal</a><br>
                             <span id="judul_pengajuan" class="text-md">judul_pengajuan</span>
                           </div>
                           <div class="form-group">
@@ -369,7 +369,7 @@
                           <input type="text" name="prodi_thesis" id="prodi_thesis" value="prodi" class="form-control form-control-md" readonly>
                         </div>
                         <div class="form-group">
-                          <label for="judul_thesis">JUDUL</label> <a href="#" target="_blank" id="link_thesis" class="text-info">Klik Untuk Melihat Proposal</a><br>
+                          <label for="judul_thesis">JUDUL</label> <a href="#" target="_blank" id="link_thesis" class="text-info">Klik Untuk Melihat Thesis</a><br>
                           <input type="text" name="judul_thesis" id="judul_thesis" value="judul_thesis" class="form-control form-control-md"  readonly>
                         </div>
                         <div class="form-group">
