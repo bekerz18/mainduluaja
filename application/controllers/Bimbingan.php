@@ -18,7 +18,7 @@ class Bimbingan extends CI_Controller {
 	{
 		$data["nama"] = $this->session->userdata('nama');
 		$model = $this->Bimbingan_model;
-		$['chatisEnd'] = $model->isChatDone($id_bimbingan);
+		$data["chatisEnd"] = $model->isChatDone($id_bimbingan);
 		// $data['bimbinganisdone'] = $this->_cekisAcc($id);
 		if($this->session->userdata('level') == 0){
 			$data['bimbingans'] = $this->_getDataBimbinganAdmin($pembimbing);
