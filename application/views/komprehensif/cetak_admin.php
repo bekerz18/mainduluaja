@@ -11,6 +11,7 @@
       <th><strong>PENGUJI 2</strong></th>
       <th><strong>PENGUJI 3</strong></th>
       <th><strong>TANGGAL SEMINAR</strong></th>
+      <th><strong>NILAI</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -65,6 +66,13 @@
           <td>
             <?php echo date("l, d F Y",strtotime($data["tgl_sidang"]));?>
               
+            </td>
+            <td><?php if($data["nilai"] == NULL){
+              echo 'Belum Ada';
+            }else{
+              echo number_format($data["nilai"],2);
+            }
+            ?>
             </td>
         </tr>
     <?php endforeach;?>

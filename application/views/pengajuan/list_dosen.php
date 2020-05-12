@@ -57,6 +57,7 @@
                         <th>PRODI</th>
                         <th>JUDUL</th>
                         <th>JADWAL SEMINAR</th>
+                        <th>NILAI</th>
                         <th>OPSI</th>
                       </tr>
                       <tbody id="data-pengajuans">
@@ -67,6 +68,13 @@
                             <td class="text-center"><?php echo $proposal['prodi'];?></td>
                             <td><?php echo $proposal['judul'];?></td>
                             <td><?php echo date('l, d F Y',strtotime($proposal['tgl_seminar']));?></td>
+                            <td><?php if($proposal["nilai"] == NULL){
+                              echo 'Belum Ada';
+                            }else{
+                              echo number_format($proposal["nilai"],2);
+                            }
+                            ?>
+                            </td>
                             <td class="text-center"><a class="detail-pengajuan text-info" href="#" data-id="<?php echo $proposal["id_proposal"];?>">Detail</a></td>
                         </tr>
                         <?php endforeach;?>
@@ -126,6 +134,7 @@
                         <th>PRODI</th>
                         <th>JUDUL</th>
                         <th>JADWAL SIDANG</th>
+                        <th>NILAI</th>
                         <th>OPSI</th>
                       </tr>
                     </thead>
@@ -146,6 +155,14 @@
                           </td>
                           <td><?php echo $kompre["judul"];?></td>
                           <td><?php echo date('l, d F Y',strtotime($kompre['tgl_sidang']));?></td>
+                          <td><?php if($kompre["nilai"] == NULL){
+                            echo 'Belum Ada';
+                          }else{
+                            echo number_format($kompre["nilai"],2);
+                          }
+                          ?>
+                          </td>
+                          
                           <td><a class="details-kompre text-info text-md" data-id="<?php echo $kompre["id_komprehensif"];?>">Detail</a></td>
                         </tr>
                       <?php endforeach;?>
@@ -171,6 +188,7 @@
                         <th>PRODI</th>
                         <th>JUDUL</th>
                         <th>JADWAL SIDANG</th>
+                        <th>NILAI</th>
                         <th>OPSI</th>
                       </tr>
                     </thead>
@@ -191,6 +209,14 @@
                           </td>
                           <td><?php echo $thesis["judul"];?></td>
                           <td><?php echo date('l, d F Y',strtotime($thesis['tgl_sidang']));?></td>
+                          <td><?php if($thesis["nilai"] == NULL){
+                            echo 'Belum Ada';
+                          }else{
+                            echo number_format($thesis["nilai"],2);
+                          }
+                          ?>
+                          </td>
+                          
                           <td><a class="details-thesis text-info text-md" data-id="<?php echo $thesis["id_thesis"];?>">Detail</a></td>
                         </tr>
                       <?php endforeach;?>

@@ -51,6 +51,7 @@
                   <th>JUDUL</th>
                   <th>STATUS</th>
                   <th>DAFTAR</th>
+                  <th>NILAI</th>
                   <th>OPSI</th>
                 </tr>
               </thead>
@@ -82,6 +83,13 @@
                   <td>
                     <?php echo date("l, d F Y H:i:s",strtotime($data["tgl_daftar"]));?>
                   </td>
+                  <td><?php if($data["nilai"] == NULL){
+                    echo 'Belum Ada';
+                  }else{
+                    echo number_format($data["nilai"],2);
+                  }
+                  ?>
+                </td>
                   <td class="text-center"><a class="details-kompre text-info text-md" data-id="<?php echo $data["id_komprehensif"];?>">Detail</a>   <a class="text-danger text-md" href="<?php echo base_url('komprehensif/delete/').$data["id_komprehensif"];?>">Hapus</a></td>
                 </tr>
                 <?php endforeach;?>
@@ -338,6 +346,7 @@
         url:'<?php echo base_url('komprehensif/index/json');?>',
         dataType:'json',
         success:function(data){
+          var nilai = '';
           for(var i=0; i<data.length;i++){
             var terima = new Date(data[0].tgl_terima).toLocaleString(['ban', 'id']); 
             var status='';
@@ -354,7 +363,12 @@
             }else if(data[i].prodi == "hukum"){
               prodi = "Hukum";
             }
-            datas+= '<tr class="text-center"><td>'+(i+1)+'</td><td>'+data[i].nama_mahasiswa+'<br>'+data[i].nim_mahasiswa+'</td><td>'+prodi+'</td><td>'+data[i].judul+'</td><td>'+status+'</td><td>'+tgl_daftar+'</td><td><a class="text-info details-kompre" data-id="'+data[i].id_komprehensif+'" href="#">Detail</td></tr>';
+            if(data[i].nilai == null){
+              nilai = 'Belum Ada';
+            }else{
+              nilai = data[i].nilai.toFixed(2);
+            }
+            datas+= '<tr class="text-center"><td>'+(i+1)+'</td><td>'+data[i].nama_mahasiswa+'<br>'+data[i].nim_mahasiswa+'</td><td>'+prodi+'</td><td>'+data[i].judul+'</td><td>'+status+'</td><td>'+tgl_daftar+'</td><td>'+nilai+'</td><td><a class="text-info details-kompre" data-id="'+data[i].id_komprehensif+'" href="#">Detail</td></tr>';
           }
           jQuery("#table-data").dataTable().fnClearTable();
           jQuery("#table-data").dataTable().fnDestroy();

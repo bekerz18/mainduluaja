@@ -73,13 +73,7 @@
                   Belum bisa mendaftarkan!
                 </div>
               <?php }?>
-              <?php if($this->session->flashdata('proposal_failed')) {?>
-                <div class="alert alert-warning alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h5><i class="icon fas fa-check"></i> Informasi!</h5>
-                  Upload file proposal!
-                </div>
-              <?php }?>
+              
                 <div class="row">
                     <a href="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/cetak';?>" target="_blank">
                       <button type="button" class="btn btn-info">
@@ -261,10 +255,15 @@
                                   }else{
                                     echo number_format($nilai['nilai'],2);
                                      if(number_format($nilai['nilai'],2) < 75){
-                                    echo ' Revisi';
-                                  }
-                                  }
-                                 ?>
+                                    echo ' Revisi';?>
+                                    <dt class="col-sm-4">
+                                    <div class="text-center">
+                                    <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3).'/re';?>">
+                                      <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
+                                    </a>
+                                  </div>
+                                </dt>
+                                  <?php } } ?>
                                     
                                   </dd>
 

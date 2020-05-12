@@ -59,7 +59,7 @@ class Users extends CI_Controller{
                 $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
                 $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
                 $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-                $users->Output('Daftar Mahasiswa.pdf ', 'D');
+                $users->Output('Daftar Mahasiswa.pdf', 'D');
 			}else{
 				$this->load->view('layout/admin/header',$data);
 				$this->load->view('users/mahasiswa',$data);
@@ -107,7 +107,7 @@ class Users extends CI_Controller{
                 $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
                 $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
                 $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-                $users->Output('Daftar Dosen.pdf ', 'D');
+                $users->Output('Daftar Dosen.pdf', 'D');
 			}else{
 				$this->load->view('layout/admin/header',$data);
 				$this->load->view('users/dosen',$data);
@@ -134,7 +134,7 @@ class Users extends CI_Controller{
                 $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
                 $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
                 $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-                $users->Output('Daftar Admin.pdf ', 'D');
+                $users->Output('Daftar Admin.pdf', 'D');
 				
 
 			}else{

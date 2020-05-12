@@ -9,6 +9,7 @@
       <th><strong>PENGUJI 1</strong></th>
       <th><strong>PENGUJI 2</strong></th>
       <th><strong>PENGUJI 3</strong></th>
+      <th><strong>NILAI</strong></th>
     </tr>
   </thead>
   <tbody>
@@ -55,6 +56,13 @@
           echo '</span>';
         ?>
       </td>
+      <td><?php if($proposal["nilai"] == NULL){
+                              echo 'Belum Ada';
+                            }else{
+                              echo number_format($proposal["nilai"],2);
+                            }
+                            ?>
+                            </td>
     </tr>
     <?php endforeach;?>
   </tbody>

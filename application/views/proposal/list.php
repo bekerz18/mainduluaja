@@ -50,6 +50,7 @@
                   <th>JUDUL</th>
                   <th>TERAKHIR DIUBAH</th>
                   <th>STATUS</th>
+                  <th>NILAI</th>
                   <th>OPSI</th>
                 </tr>
               </thead>
@@ -70,6 +71,13 @@
                         echo 'Seminar Pada<br>'.date("d-m-Y",strtotime($proposal["seminar"]));
                       }
                       ?>
+                    </td>
+                    <td><?php if($proposal["nilai"] == NULL){
+                      echo 'Belum Ada';
+                    }else{
+                      echo number_format($proposal["nilai"],2);
+                    }
+                    ?>
                     </td>
                     <td class="text-center"><a class="text-info detail-proposal" data-id="<?php echo $proposal["id_proposal"];?>" href="#">Detail</a>  <a class="text-danger" href="<?php echo base_url('proposal/delete/').$proposal["id_proposal"];?>">Hapus</a></td>
                   </tr>
@@ -342,8 +350,9 @@
         url:'<?php echo base_url('proposal/getall/');?>',
         dataType:'json',
         success:function(data){
+          var nilai ='';
           for(var i=0; i<data.length;i++){
-            var modfified = new Date(data[0].last_update).toLocaleString(['ban', 'id']) 
+            var modfified = new Date(data[i].last_update).toLocaleString(['ban', 'id']) 
             var status='';
             var tanggal='';
             if(data[i].status_proposal == ''){
@@ -354,7 +363,12 @@
               status ='Seminar Pada<br>';
               tanggal = data[i].seminar;
             }
-            datas+= '<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+data[i].nama_mahasiswa+'<br>'+data[i].nim_mahasiswa+'</td><td><a href="<?php echo base_url('uploads/proposal/');?>'+data[i].id_proposal+'.pdf" target="_blank" alt="'+data[i].judul_proposal+'">'+data[i].judul_proposal+'</a></td><td class="text-center">'+modfified+'</td><td class="text-center">'+status+tanggal+'</td><td class="text-center"><a class="text-info detail-proposal" data-id="'+data[i].id_proposal+'" href="#">Detail</td></tr>';
+            if(data[i].nilai == null){
+              nilai = 'Belum Ada';
+            }else{
+              nilai = data[i].nilai.toFixed(2);
+            }
+            datas+= '<tr><td class="text-center">'+(i+1)+'</td><td class="text-center">'+data[i].nama_mahasiswa+'<br>'+data[i].nim_mahasiswa+'</td><td><a href="<?php echo base_url('uploads/proposal/');?>'+data[i].id_proposal+'.pdf" target="_blank" alt="'+data[i].judul_proposal+'">'+data[i].judul_proposal+'</a></td><td class="text-center">'+modfified+'</td><td class="text-center">'+status+tanggal+'</td><td>'+nilai+'</td><td class="text-center"><a class="text-info detail-proposal" data-id="'+data[i].id_proposal+'" href="#">Detail</td></tr>';
           }
           $TableProposal.dataTable().fnClearTable();
           $TableProposal.dataTable().fnDestroy();

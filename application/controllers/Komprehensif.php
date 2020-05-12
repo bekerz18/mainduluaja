@@ -17,6 +17,7 @@ class Komprehensif extends CI_Controller {
 	public function index($json = null)
 	{
 		$model = $this->Komprehensif_model;
+
 		if($this->session->userdata('level') == 0 && $json==null){
 			$data['title'] = "Data Komprehensif";
 			$data['nama'] = $this->session->userdata('nama');
@@ -31,7 +32,7 @@ class Komprehensif extends CI_Controller {
 		}
 	}
 
-	public function register($pengajuanID)
+	public function register($pengajuanID,$remedia=null)
 	{
 		$model = $this->Komprehensif_model;
 		// Check is have pengajuan_id
@@ -49,7 +50,17 @@ class Komprehensif extends CI_Controller {
 				}
 			}
 		}else{
-			$this->session->set_flashdata('having','sudah punya');
+			if($remedia =='re'){
+				$insert = $model->remedialByMhs($pengajuanID);
+				if($insert){
+					$this->session->set_flashdata('berhasil_kompre','berhasil mendaftar');
+				}else{
+					$this->session->set_flashdata('gagal_kompre','gagal mendaftar');
+				}
+			}elseif(!isset($remedia)){
+				$this->session->set_flashdata('having','sudah punya');
+			}
+			
 			
 		}
 		redirect('pengajuan/detail/'.$pengajuanID);
