@@ -602,17 +602,11 @@
           getPenguji(data[0].penguji3,3,'proposal');
           if("<?php echo $this->session->userdata('id');?>" == data[0].penguji1){
             penguji = 1;
-            if(data[0].nilai2 == null){
-              $("#nilai_penguji2").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji2").text('NILAI : '+data[0].nilai2);
-            }
-            if(data[0].nilai3 == null){
-              $("#nilai_penguji3").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji3").text('NILAI : '+data[0].nilai3);
-            }
+            $("#nilai_penguji2").text("");
+            $("#nilai_penguji3").text("");
+           
             $("#nilai_penguji1").remove();
+
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_1").append('<input type="number" id="nilai_penguji1" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
             }else{
@@ -625,16 +619,10 @@
             
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].penguji2){
             penguji = 2;
-            if(data[0].nilai1 == null){
-              $("#nilai_penguji1").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji1").text('NILAI : '+data[0].nilai1);
-            }
-            if(data[0].nilai3 == null){
-              $("#nilai_penguji3").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji3").text('NILAI : '+data[0].nilai3);
-            }
+
+            $("#nilai_penguji1").text("");
+            $("#nilai_penguji3").text("");
+
             $("#nilai_penguji2").remove();
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_2").append('<input type="number" id="nilai_penguji2" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
@@ -647,16 +635,10 @@
             }
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].penguji3){
             penguji = 3;
-            if(data[0].nilai2 == null){
-              $("#nilai_penguji2").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji2").text('NILAI : '+data[0].nilai2);
-            }
-            if(data[0].nilai1 == null){
-              $("#nilai_penguji1").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji1").text('NILAI : '+data[0].nilai1);
-            }
+
+            $("#nilai_penguji1").text("");
+            $("#nilai_penguji2").text("");
+
             $("#nilai_penguji3").remove();
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_3").append('<input type="number" id="nilai_penguji3" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Seminar" readonly>');
@@ -786,18 +768,11 @@
         getPenguji(data[0].id_penguji3,3,'kompre');
         if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji1){
             penguji_kompre = 1;
-            console.log(penguji_kompre);
-            if(data[0].nilai2 == null){
-              $("#nilai_penguji2_kompre").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji2_kompre").text('NILAI : '+data[0].nilai2);
-            }
-            if(data[0].nilai3 == null){
-              $("#nilai_penguji3_kompre").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji3_kompre").text('NILAI : '+data[0].nilai3);
-            }
+            $("#nilai_penguji2_kompre").text("");
+            $("#nilai_penguji3_kompre").text("");
+
             $("#nilai_penguji1_kompre").remove();
+
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_1_kompre").append('<input type="number" id="nilai_penguji1_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
             }else{
@@ -810,17 +785,11 @@
             
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji2){
             penguji_kompre = 2;
-            if(data[0].nilai1 == null){
-              $("#nilai_penguji1_kompre").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji1_kompre").text('NILAI : '+data[0].nilai1);
-            }
-            if(data[0].nilai3 == null){
-              $("#nilai_penguji3_kompre").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji3_kompre").text('NILAI : '+data[0].nilai3);
-            }
+            $("#nilai_penguji1_kompre").text("");
+            $("#nilai_penguji3_kompre").text("");
+
             $("#nilai_penguji2_kompre").remove();
+
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_2_kompre").append('<input type="number" id="nilai_penguji2_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
             }else{
@@ -832,17 +801,11 @@
             }
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji3){
             penguji_kompre = 3;
-            if(data[0].nilai2 == null){
-              $("#nilai_penguji2_kompre").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji2_kompre").text('NILAI : '+data[0].nilai2);
-            }
-            if(data[0].nilai1 == null){
-              $("#nilai_penguji1_kompre").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji1_kompre").text('NILAI : '+data[0].nilai1);
-            }
+            $("#nilai_penguji1_kompre").text("");
+            $("#nilai_penguji2_kompre").text("");
+
             $("#nilai_penguji3_kompre").remove();
+
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_3_kompre").append('<input type="number" id="nilai_penguji3_kompre" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
             }else{
@@ -890,17 +853,11 @@
         getPenguji(data[0].id_penguji3,3,'thesis');
         if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji1){
             penguji_thesis = 1;
-            if(data[0].nilai2 == null){
-              $("#nilai_penguji2_thesis").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji2_thesis").text('NILAI : '+data[0].nilai2);
-            }
-            if(data[0].nilai3 == null){
-              $("#nilai_penguji3_thesis").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji3_thesis").text('NILAI : '+data[0].nilai3);
-            }
+            $("#nilai_penguji2_thesis").text("");
+            $("#nilai_penguji3_thesis").text("");
+
             $("#nilai_penguji1_thesis").remove();
+            
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_1_thesis").append('<input type="number" id="nilai_penguji1_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
             }else{
@@ -913,17 +870,11 @@
             
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji2){
             penguji_thesis = 2;
-            if(data[0].nilai1 == null){
-              $("#nilai_penguji1_thesis").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji1_thesis").text('NILAI : '+data[0].nilai1);
-            }
-            if(data[0].nilai3 == null){
-              $("#nilai_penguji3_thesis").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji3_thesis").text('NILAI : '+data[0].nilai3);
-            }
+            $("#nilai_penguji1_thesis").text("");
+            $("#nilai_penguji3_thesis").text("");
+
             $("#nilai_penguji2_thesis").remove();
+            
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_2_thesis").append('<input type="number" id="nilai_penguji2_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
             }else{
@@ -935,17 +886,11 @@
             }
           }else if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji3){
             penguji_thesis = 3;
-            if(data[0].nilai2 == null){
-              $("#nilai_penguji2_thesis").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji2_thesis").text('NILAI : '+data[0].nilai2);
-            }
-            if(data[0].nilai1 == null){
-              $("#nilai_penguji1_thesis").text("NILAI: BELUM ADA");
-            }else{
-              $("#nilai_penguji1_thesis").text('NILAI : '+data[0].nilai1);
-            }
+            $("#nilai_penguji1_thesis").text("");
+            $("#nilai_penguji2_thesis").text("");
+
             $("#nilai_penguji3_thesis").remove();
+            
             if("<?php echo date('Y-m-d');?>" < data[0].tglseminar){
               $("#nilai_3_thesis").append('<input type="number" id="nilai_penguji3_thesis" class="form-control form-control-lg" placeholder="Silahkan Isi Nilai Hasil Sidang" readonly>');
             }else{
