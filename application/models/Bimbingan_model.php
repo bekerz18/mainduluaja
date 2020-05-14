@@ -113,18 +113,7 @@ class Bimbingan_model extends CI_Model {
 	{
 		return $this->db->query("SELECT id_pengajuan FROM bimbingan WHERE bab='4' AND status='sudah' AND pembimbing='1' OR pembimbing='2' GROUP BY id_pengajuan")->result_array();
 	}
-	public function accPengajuan($pembimbing,$id)
-	{
-		if($pembimbing == '1'){
-			$pembimbing = 'acc_bab_pembimbing1';
-		}else{
-			$pembimbing = 'acc_bab_pembimbing2';
-		}
-		$this->db->set($pembimbing,'ya');
-		$this->db->where('id',$id);
-		return $this->db->update('pengajuan');
-
-	}
+	
 	public function delete($id)
 	{
 		

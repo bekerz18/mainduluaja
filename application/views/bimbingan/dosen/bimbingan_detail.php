@@ -120,12 +120,9 @@
                     </div>
                     <div class="form-group">
                       <label for="file">Berkas (PDF)</label>
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="file" name="file" accept="application/pdf">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                      </div>
-                    </div>
-                    <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
+                      <input type="file" class="form-control form-control-md" id="file" name="file" accept="application/pdf">
+                      
+                      <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
                     <div class="form-group">
                       <input type="submit" value="Kirim" class="btn btn-success float-left">
                     </div>

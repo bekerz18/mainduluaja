@@ -95,10 +95,10 @@
                     </div>
                     <div class="form-group">
                       <label for="file">Berkas (PDF)</label>
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="file" name="file" accept="application/pdf">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                      </div>
+                     
+                        <input type="file" class="form-control form-control-md" id="file" name="file" accept="application/pdf">
+                       
+                 
                     </div>
                     <label>Sebelum Dikirim, Silahkan Periksa Dulu. Karena anda tidak bisa menghapusnya</label>
                     <div class="form-group">

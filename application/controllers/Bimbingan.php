@@ -231,9 +231,6 @@ class Bimbingan extends CI_Controller {
 			$model = $this->Bimbingan_model;
 			$update = $model->accBimbingan($id);
 			if($update){
-				if($bab == '4'){
-					$model->accPengajuan($pembimbing,$pengajuan);
-				}
 				$this->session->set_flashdata('success_acc','Berhasil diacc!');
 			}else{
 				$this->session->set_flashdata('failed_acc','Gagal diacc!');
