@@ -143,6 +143,11 @@
                              <option></option>
                           </select>
                         </div>
+                        <div class="form-group">
+                          <label for="nilai_tampil">TAMPILKAN NILAI</label>
+                          <input type="radio" value="ya" id="nilai_tampil_ya" name="nilai_tampil">YA
+                          <input type="radio" value="tidak" id="nilai_tampil_tidak" name="nilai_tampil">TIDAK
+                        </div>
                         <div class="form-group" id="acc">
 
                         </div>
@@ -222,6 +227,11 @@
         url : '<?php echo base_url('proposal/getproposal/');?>'+$id,
         dataType: 'json',
         success: function(data){
+          if(data[0].nilai_tampil == 'ya'){
+            $("#nilai_tampil_ya"). prop("checked", true);
+          }else{
+            $("#nilai_tampil_tidak"). prop("checked", true);
+          }
           
           if(data[0].prodi == 'adpend'){
             $prodi = 'Administrasi Pendidikan';
@@ -303,6 +313,7 @@
       let $penguji1 = $("#penguji1").val();
       let $penguji2 = $("#penguji2").val();
       let $penguji3 = $("#penguji3").val();
+      let $nilai_tampil = $("input[name='nilai_tampil']:checked"). val();
       if($tanggal == '' || $penguji1 == '' || $penguji2 == '' || $penguji3 == ''){
         Swal.fire(
           'Perhatikan!',
@@ -317,15 +328,15 @@
           );
       }
       else{
-        updateProposal($id,$tanggal,$penguji1,$penguji2,$penguji3);
+        updateProposal($id,$tanggal,$penguji1,$penguji2,$penguji3,$nilai_tampil);
       }
     }
 
-    function updateProposal(id,tanggal,penguji1,penguji2,penguji3){
+    function updateProposal(id,tanggal,penguji1,penguji2,penguji3,nilai_tampil){
       $.ajax({
         type: 'POST',
         url : '<?php echo base_url('proposal/updateProposal');?>',
-        data: {id:id,tanggal:tanggal,penguji1:penguji1,penguji2:penguji2,penguji3:penguji3},
+        data: {id:id,tanggal:tanggal,penguji1:penguji1,penguji2:penguji2,penguji3:penguji3,nilai_tampil:nilai_tampil},
         success:function(data){
           Swal.fire(
           'Berhasil!',

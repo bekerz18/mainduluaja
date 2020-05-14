@@ -178,19 +178,23 @@
                           <dd class="col-sm-10">: <?php echo $penguji3['nama'];?></dd>
                           <!-- Nilai -->
                           <dt class="col-sm-2"><strong>NILAI</strong></dt>
-                          <dd class="col-sm-10">: <?php if($proposal["nilai_1"] == NULL || $proposal["nilai_2"] == NULL || $proposal["nilai_3"] == NULL) { echo 'Belum ada';}else{echo number_format($nilai_total['nilai'],2).'</dd>';if(number_format($nilai_total['nilai'],2) < 75){?>
+                          <dd class="col-sm-10">: <?php if($proposal["nilai_1"] == NULL || $proposal["nilai_2"] == NULL || $proposal["nilai_3"] == NULL) { echo 'Belum ada';}else{
+                            if($proposal['nilai_tampil'] != 'ya'){
+                              echo 'Belum ada';
+                            }else{
+                            echo number_format($nilai_total['nilai'],2).'</dd>';if(number_format($nilai_total['nilai'],2) < 75){?>
                             <dt class="col-sm-2">UPLOAD REVISI</dt>
                              <dd class="col-sm-10">
                             <form action="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/'.$proposal['id'];?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                               <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="proposal" name="proposal"  accept="application/pdf">
-                                <label class="custom-file-label" for="proposal">Cari Proposal</label>
-                              </div>
+                             
+                                <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
+                                
+                             
                               <button type="submit" class="btn btn-primary">Upload Proposal</button>
                               <?php echo form_error('proposal');?>
                             <?php echo form_close();?>
                           </dd>
-                          <?php }}?>
+                          <?php }}}?>
                           
                         <?php }elseif($proposal['revisi'] == 'ya'){ ?>
                           <dd class="col-sm-10">: <strong class="text-danger">Proposal Ditolak</strong></dd>
@@ -199,10 +203,10 @@
                            <dt class="col-sm-2">UPLOAD REVISI</dt>
                              <dd class="col-sm-10">
                             <form action="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/'.$proposal['id'];?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                               <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="proposal" name="proposal"  accept="application/pdf">
-                                <label class="custom-file-label" for="proposal">Cari Proposal</label>
-                              </div>
+                               
+                                <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
+                               
+                             
                               <button type="submit" class="btn btn-primary">Upload Proposal</button>
                               <?php echo form_error('proposal');?>
                             <?php echo form_close();?>
@@ -301,7 +305,7 @@
                                 <?php echo form_open_multipart ('thesis/register/'.$this->uri->segment(3));?>
                                 <div class="form-group">
                                    <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="thesis" name="thesis"  accept="application/pdf" required="">
+                                    <input type="file" class="form-control" id="thesis" name="thesis"  accept="application/pdf" required="">
                                     <label class="custom-file-label" for="thesis">Cari Thesis</label>
                                   </div>
                                 </div>
@@ -420,13 +424,13 @@
 
                       <?php if($pengajuan["status"] == "terima" && $status_proposal == 'belum'):?>
                          
-                      <dt class="col-sm-2">KIRIM PROPOSAL</dt>
+                      <dt class="col-sm-2">FILE PENDUKUNG</dt>
                         : <dd class="col-sm-3">
                           <?php echo form_open_multipart ();?>
-                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="proposal" name="proposal"  accept="application/pdf">
-                              <label class="custom-file-label" for="proposal">Cari Proposal</label>
-                            </div>
+                             
+                              <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
+                             
+                            
                             <button type="submit" class="btn btn-primary">Upload Proposal</button>
                             <?php echo form_error('proposal');?>
                           <?php echo form_close();?>

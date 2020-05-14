@@ -14,7 +14,7 @@ class Proposal_model extends CI_Model {
 	}
 	public function getByIdJson($id)
 	{
-		return $this->db->query("SELECT proposal.id as id_proposal,proposal.revisi as status_proposal,proposal.last_update as last_update, proposal.tgl_seminar as tglseminar, proposal.acc_seminar as acc_seminar, proposal.id_penguji1 as penguji1, proposal.id_penguji2 as penguji2,proposal.id_penguji3 as penguji3, proposal.nilai_1 as nilai1, proposal.nilai_2 as nilai2, proposal.nilai_3 as nilai3, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi, pengajuan.judul as judul_proposal FROM proposal INNER JOIN pengajuan ON pengajuan.id=proposal.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE proposal.id='$id'")->result_array();
+		return $this->db->query("SELECT proposal.id as id_proposal,proposal.revisi as status_proposal,proposal.last_update as last_update, proposal.tgl_seminar as tglseminar, proposal.acc_seminar as acc_seminar, proposal.id_penguji1 as penguji1, proposal.id_penguji2 as penguji2,proposal.id_penguji3 as penguji3, proposal.nilai_1 as nilai1, proposal.nilai_2 as nilai2, proposal.nilai_3 as nilai3, proposal.nilai_tampil as nilai_tampil, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi, pengajuan.judul as judul_proposal FROM proposal INNER JOIN pengajuan ON pengajuan.id=proposal.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE proposal.id='$id'")->result_array();
 	}
 	public function getDosenBy($prodi)
 	{

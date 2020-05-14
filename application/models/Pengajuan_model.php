@@ -129,6 +129,7 @@ class Pengajuan_model extends CI_Model {
 			'nilai_3'		=> NULL,
 			'last_update'	=> date("Y-m-d H:i:s"),
 			'revisi'		=> NULL,
+			'nilai_tampil'	=> 'tidak',
 			'file'			=> $this->_uploadProposal($propID)
 		);
 		$this->db->where('id',$propID);

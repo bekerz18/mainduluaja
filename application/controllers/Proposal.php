@@ -63,7 +63,8 @@ class Proposal extends CI_Controller{
 					'id_penguji2'	=> $this->input->post('penguji2'),
 					'id_penguji3'	=> $this->input->post('penguji3'),
 					'revisi'		=> 'tidak',
-					'acc_seminar'	=> date("Y-m-d H:i:s")
+					'acc_seminar'	=> date("Y-m-d H:i:s"),
+					'nilai_tampil'	=> $this->input->post('nilai_tampil')
 				);
 				$update = $model->updateProposal($id,$data);
 			}
