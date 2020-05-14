@@ -153,82 +153,94 @@ class Pengajuan extends CI_Controller{
 	
 	public function detail($id=null,$prop=null){
 		$model = $this->Pengajuan_model;
-		if(!isset($id)){
-			redirect('pengajuan');
-		}elseif (isset($id) && $this->session->userdata('level') == '2') {
-			$data['pengajuans'] = $model->get_select_pengajuan2($id);
-			if($this->input->method() == "post" && $prop == null){
-				$model->insert_proposal($id);
-			}
-			if($this->input->method() == "post" && isset($prop)){
-				$model->update_proposal($prop);
-				redirect('pengajuan/detail/'.$id);
-			}
-			$ProposalCheck = $model->is_there_proposal($id);
-
-			if(!$ProposalCheck){
-				$data['status_proposal'] = 'belum';
-			}else{
-
-				$data['status_proposal'] = 'sudah';
-
-				$data['proposal'] = $ProposalCheck;
-				if($ProposalCheck["revisi"] != NULL){
-
-					$data['penguji1'] = $model->searchDosenBy($ProposalCheck["id_penguji1"]);
-					$data['penguji2'] = $model->searchDosenBy($ProposalCheck["id_penguji2"]);
-					$data['penguji3'] = $model->searchDosenBy($ProposalCheck["id_penguji3"]);
-					$data['nilai_total'] = $model->getNilaiProposal($id);
-					
-					$data['cariDosbing1'] = $model->get_dosen($data['pengajuans']['pembimbing1']);
-					$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
-					$data["checkKompre"] = $this->_isHaveKompre($id);
-					if($this->_isHaveKompre($id) == "ya"){
-					
-						$data["kompreData"] = $this->_KompreMahasiswa();
-					
-					}
-					$cektesis = $model->isBimbinganDone();
-
-					if(!$cektesis){
-						$data['tesis_is'] = 'tidak';
-					}else{
-
-						$data['tesis_is'] = 'ada';
-						$data["checkThesis"] = $this->_cekTesis($id);
-						if($this->_cekTesis($id) == "ya"){
-							$data['thesis'] = $this->_ThesisMahasiswa();
-						}
-					}
-					$data["model"] = $model;
-				}
-			}
-			$data['title'] = 'Detail Pengajuan';
-			$data['pengajuan'] = $model->get_select_pengajuan2($id);
-			if($prop =='cetak'){
-				$body = $this->load->view('pengajuan/cetak_detail_mahasiswa',$data,TRUE);
-				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
-				$head = $this->load->view('layout/cetak',$data,TRUE);
-				$users= new \Mpdf\Mpdf(['format' => 'Legal']);
-		        $users->showImageErrors = true;
-		        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
-		        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
-		        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
-		        $users->Output($data['title'].'.pdf', 'D');
-			}
-			
+		$data["model"] = $model;
+		if($this->session->userdata('level') == 1){
+			$data['title'] = 'Detail Bimbingan';
 			$data['nama'] = $this->session->userdata('nama');
-			$this->load->view('layout/mahasiswa/header',$data);
-			$this->load->view('pengajuan/detail_mahasiswa',$data);
-			if($data['pengajuan']['nim'] != $this->session->userdata('username')) redirect('pengajuan');
-		}
-		else{
-			redirect('beranda');
+			$dosen = $this->session->userdata('id');
+			$data['pengajuan'] = $model->get_pengajuan_by($dosen,$id);
+			if(!$data['pengajuan']) redirect('pengajuan'); 
+			$this->load->view('layout/dosen/header',$data);
+			$this->load->view('pengajuan/detail_dosen',$data);
+		}elseif($this->session->userdata('level') == 2){
+			if(!isset($id)){
+				redirect('pengajuan');
+			}elseif (isset($id) && $this->session->userdata('level') == '2') {
+				$data['pengajuans'] = $model->get_select_pengajuan2($id);
+				if($this->input->method() == "post" && $prop == null){
+					$model->insert_proposal($id);
+				}
+				if($this->input->method() == "post" && isset($prop)){
+					$model->update_proposal($prop);
+					redirect('pengajuan/detail/'.$id);
+				}
+				$ProposalCheck = $model->is_there_proposal($id);
+
+				if(!$ProposalCheck){
+					$data['status_proposal'] = 'belum';
+				}else{
+
+					$data['status_proposal'] = 'sudah';
+
+					$data['proposal'] = $ProposalCheck;
+					if($ProposalCheck["revisi"] != NULL){
+
+						$data['penguji1'] = $model->searchDosenBy($ProposalCheck["id_penguji1"]);
+						$data['penguji2'] = $model->searchDosenBy($ProposalCheck["id_penguji2"]);
+						$data['penguji3'] = $model->searchDosenBy($ProposalCheck["id_penguji3"]);
+						$data['nilai_total'] = $model->getNilaiProposal($id);
+						
+						$data['cariDosbing1'] = $model->get_dosen($data['pengajuans']['pembimbing1']);
+						$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
+						$data["checkKompre"] = $this->_isHaveKompre($id);
+						if($this->_isHaveKompre($id) == "ya"){
+						
+							$data["kompreData"] = $this->_KompreMahasiswa();
+						
+						}
+						$cektesis = $model->isBimbinganDone();
+
+						if(!$cektesis){
+							$data['tesis_is'] = 'tidak';
+						}else{
+
+							$data['tesis_is'] = 'ada';
+							$data["checkThesis"] = $this->_cekTesis($id);
+							if($this->_cekTesis($id) == "ya"){
+								$data['thesis'] = $this->_ThesisMahasiswa();
+							}
+						}
+						
+					}
+				}
+				$data['title'] = 'Detail Pengajuan';
+				$data['pengajuan'] = $model->get_select_pengajuan2($id);
+				if($prop =='cetak'){
+					$body = $this->load->view('pengajuan/cetak_detail_mahasiswa',$data,TRUE);
+					$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+					$head = $this->load->view('layout/cetak',$data,TRUE);
+					$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+			        $users->showImageErrors = true;
+			        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+			        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
+			        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
+			        $users->Output($data['title'].'.pdf', 'D');
+				}
+				
+				$data['nama'] = $this->session->userdata('nama');
+				$this->load->view('layout/mahasiswa/header',$data);
+				$this->load->view('pengajuan/detail_mahasiswa',$data);
+				if($data['pengajuan']['nim'] != $this->session->userdata('username')) redirect('pengajuan');
+			}
+			else{
+				redirect('beranda');
+			}
 		}
 	}
 
 	public function penentuan_pembimbing($cetak = null)
 	{
+		if($this->session->userdata('level') != 0) redirect('beranda');
 		
 		$data['pengajuans'] = $this->_ProposalComplete();
 		$data['title'] = 'Penentuan Pembimbing';
@@ -300,7 +312,7 @@ class Pengajuan extends CI_Controller{
 		$mpdf->WriteHTML($html);
 		$mpdf->Output();
 	}
-	public function cetak($type = null)
+	public function cetak($type = null,$pengajuanID =null)
 	{
 		$model = $this->Pengajuan_model;
 		$data['title'] = 'Daftar Pengajuan';
@@ -319,13 +331,22 @@ class Pengajuan extends CI_Controller{
 				}else{
 					$cetak  = $this->load->view('proposal/cetak_list_dosen',$data,TRUE);
 				}
-			}elseif($type == 'bimbingan'){
+			}elseif($type == 'bimbingan' && !isset($pengajuanID)){
 				$data['title'] = 'DAFTAR BIMBINGAN';
 				$data['pengajuans']=$model->get_pengajuan_by($dosen);
 				if(!$data['pengajuans']){
 					redirect('pengajuan');
 				}else{
 					$cetak  = $this->load->view('pengajuan/cetak_list_dosen',$data,TRUE);
+				}
+				
+			}elseif($type == 'bimbingan' && isset($pengajuanID)){
+				$data['title'] = 'DETAIL BIMBINGAN';
+				$data['pengajuan']=$model->get_pengajuan_by($dosen,$pengajuanID);
+				if(!$data['pengajuan']){
+					redirect('pengajuan');
+				}else{
+					$cetak  = $this->load->view('pengajuan/cetak_detail_dosen',$data,TRUE);
 				}
 				
 			}elseif($type == "komprehensif"){
@@ -436,6 +457,75 @@ class Pengajuan extends CI_Controller{
 		$data = $model->searchDosenBy($id);
 
 		return $data["nama"];
+	}
+
+	private function _cekPembimbing($pengajuanID,$type)
+	{
+		$model = $this->Pengajuan_model;
+		$isPembimbing1 = $model->isPembimbing1($pengajuanID);
+		$isPembimbing2 = $model->isPembimbing2($pengajuanID);
+		if(!$isPembimbing1){
+			if($isPembimbing2 && $type=='kompre'){
+				return 'acc_sidang_kompre2';
+			}elseif($isPembimbing2 && $type=='thesis'){
+				return 'acc_bab_pembimbing2';
+			}
+		}elseif($type=='kompre'){
+			return 'acc_sidang_kompre1';
+		}elseif($type=='thesis'){
+			return 'acc_bab_pembimbing1';
+		}
+
+		return 'notfound';
+	}
+
+	public function izinKompre($pengajuanID,$batal = null)
+	{
+		$type = 'kompre';
+		$model = $this->Pengajuan_model;
+		if($this->session->userdata('level') == 1){
+			if($this->_cekPembimbing($pengajuanID,$type) != 'notfound' && !isset($batal)){
+				$data = array(
+					$this->_cekPembimbing($pengajuanID,$type)	=> 'ya',
+				);
+				$model->accSidang($pengajuanID,$data);
+
+			}elseif($this->_cekPembimbing($pengajuanID,$type) != 'notfound' && $batal='batal'){
+				$data = array(
+					$this->_cekPembimbing($pengajuanID,$type) => NULL,
+				);
+				$model->accSidang($pengajuanID,$data);
+
+			}
+			redirect('pengajuan/detail/'.$pengajuanID);
+			
+		}else{
+			redirect('beranda');
+		}
+	}
+	public function izinThesis($pengajuanID,$batal = null)
+	{
+		$type = 'thesis';
+		$model = $this->Pengajuan_model;
+		if($this->session->userdata('level') == 1){
+			if($this->_cekPembimbing($pengajuanID,$type) != 'notfound' && !isset($batal)){
+				$data = array(
+					$this->_cekPembimbing($pengajuanID,$type)	=> 'ya',
+				);
+				$model->accSidang($pengajuanID,$data);
+
+			}elseif($this->_cekPembimbing($pengajuanID,$type) != 'notfound' && $batal='batal'){
+				$data = array(
+					$this->_cekPembimbing($pengajuanID,$type)	=> NULL,
+				);
+				$model->accSidang($pengajuanID,$data);
+
+			}
+			redirect('pengajuan/detail/'.$pengajuanID);
+			
+		}else{
+			redirect('beranda');
+		}
 	}
 
 }

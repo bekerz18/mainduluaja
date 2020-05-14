@@ -156,7 +156,7 @@
                     <div class="tab-pane fade" id="data-proposal" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
                         <br>
                        <dl class="row">
-                        <dt class="col-sm-2">PROPOSAL</dt>
+                        <dt class="col-sm-2">FILE PENDUKUNG</dt>
                         <dd class="col-sm-10">: <a href="<?php echo base_url('uploads/proposal/').$proposal['id'].'.pdf';?>" target="_blank">Klik Untuk Melihat</a></dd>
                          <dt class="col-sm-2"><?php if($proposal['revisi'] == 'ya'){ echo 'DITOLAK PADA';}else{ echo 'DIKIRIM';}?></dt>
                              <dd class="col-sm-10"> : <?php echo date("l, d F Y H:i:s", strtotime($proposal["last_update"]));?></dd>
@@ -214,62 +214,69 @@
                       <div class="tab-pane fade" id="daftar-sidang-kompre" role="tabpanel" aria-labelledby="tab-sidang-kompre">
                         <br>
                           <?php if($cariDosbing1['nama'] != null){?>
-                          <?php if($checkKompre == "belum"){?>
+                            <?php if($pengajuan['sidang_kompre1'] == 'ya' && $pengajuan['sidang_kompre2'] == 'ya'){?>
+                            <?php if($checkKompre == "belum"){?>
+                              <div class="text-center">
+                                <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3);?>">
+                                  <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
+                                </a>
+                              </div>
+                            <?php }elseif($checkKompre == "tidak"){?>
+                              <div class="text-center">
+                                <a href="#" disabled>
+                                  <button type="button" class="btn btn-lg btn-primary" disabled>Pendaftaran Dalam Proses</button>
+                                </a>
+                              </div>
+                            <?php }elseif($checkKompre == "ya"){?>
+                              <dl class="row">
+                                <dt class="col-sm-2">TANGGAL DAFTAR</dt>
+                                <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></dd>
+                                  
+                                <dt class="col-sm-2">TANGGAL DITERIMA</dt>
+                                <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></dd>
+
+                                <dt class="col-sm-2">TANGGAL SIDANG</dt>
+                                <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></dd>
+
+                                <dt class="col-sm-2">PENGUJI 1</dt>
+                                <dd class="col-sm-10">: <?php echo $kompreData["penguji1"];?></dd>
+
+                                <dt class="col-sm-2">PENGUJI 2</dt>
+                                <dd class="col-sm-10">: <?php echo $kompreData["penguji2"];?></dd>
+
+                                <dt class="col-sm-2">PENGUJI 3</dt>
+                                <dd class="col-sm-10">: <?php echo $kompreData["penguji3"];?></dd>
+
+                                <dt class="col-sm-2">NILAI </dt>
+                                <dd class="col-sm-10">: 
+                                  <?php
+                                    $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                                    if($nilai["nilai"] == NULL){
+                                      echo 'Belum Ada';
+                                    }else{
+                                      echo number_format($nilai['nilai'],2);
+                                       if(number_format($nilai['nilai'],2) < 75){
+                                      echo ' Revisi';?>
+                                      <dt class="col-sm-4">
+                                      <div class="text-center">
+                                      <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3).'/re';?>">
+                                        <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
+                                      </a>
+                                    </div>
+                                  </dt>
+                                    <?php } } ?>
+                                      
+                                    </dd>
+
+                              </dl>
+                            <?php }?>
+                          <?php } else{?>
                             <div class="text-center">
-                              <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3);?>">
-                                <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
-                              </a>
-                            </div>
-                          <?php }elseif($checkKompre == "tidak"){?>
-                            <div class="text-center">
-                              <a href="#" disabled>
-                                <button type="button" class="btn btn-lg btn-primary" disabled>Pendaftaran Dalam Proses</button>
-                              </a>
-                            </div>
-                          <?php }elseif($checkKompre == "ya"){?>
-                            <dl class="row">
-                              <dt class="col-sm-2">TANGGAL DAFTAR</dt>
-                              <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></dd>
                                 
-                              <dt class="col-sm-2">TANGGAL DITERIMA</dt>
-                              <dd class="col-sm-10">: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></dd>
-
-                              <dt class="col-sm-2">TANGGAL SIDANG</dt>
-                              <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></dd>
-
-                              <dt class="col-sm-2">PENGUJI 1</dt>
-                              <dd class="col-sm-10">: <?php echo $kompreData["penguji1"];?></dd>
-
-                              <dt class="col-sm-2">PENGUJI 2</dt>
-                              <dd class="col-sm-10">: <?php echo $kompreData["penguji2"];?></dd>
-
-                              <dt class="col-sm-2">PENGUJI 3</dt>
-                              <dd class="col-sm-10">: <?php echo $kompreData["penguji3"];?></dd>
-
-                              <dt class="col-sm-2">NILAI </dt>
-                              <dd class="col-sm-10">: 
-                                <?php
-                                  $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
-                                  if($nilai["nilai"] == NULL){
-                                    echo 'Belum Ada';
-                                  }else{
-                                    echo number_format($nilai['nilai'],2);
-                                     if(number_format($nilai['nilai'],2) < 75){
-                                    echo ' Revisi';?>
-                                    <dt class="col-sm-4">
-                                    <div class="text-center">
-                                    <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3).'/re';?>">
-                                      <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
-                                    </a>
-                                  </div>
-                                </dt>
-                                  <?php } } ?>
-                                    
-                                  </dd>
-
-                            </dl>
-                          <?php }?>
-                        <?php }?>
+                                  <button type="button" class="btn btn-lg btn-primary" disabled>Daftar Sidang Kompre</button>
+                                
+                              </div>
+                        <?php }}?>
 
 
                       </div>

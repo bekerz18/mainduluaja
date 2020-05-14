@@ -96,20 +96,23 @@
                     <table id="table-bimbingan" class="table table-bordered table-striped">
                       <thead>
                       <tr class="text-center">
-                        <th>NO</th>
+                        <th width="10px">NO</th>
                         <th>NAMA</th>
-                        <th>NIM</th>
                         <th>PRODI</th>
                         <th>JUDUL</th>
+                        <th>OPSI</th>
                       </tr>
                       <tbody id="data-bimbingans">
                          <?php $no = 1; foreach ($pengajuans as $pengajuan):?>
-                          <tr>
-                            <td class="text-center"><?php echo $no++;?></td>
-                            <td><?php echo $pengajuan['nama'];?></td>
-                            <td><?php echo $pengajuan['nim'];?></td>
+                          <tr class="text-center">
+                            <td><?php echo $no++;?></td>
+                            <td><?php echo $pengajuan['nama'].'<br>'.$pengajuan['nim'];?></td>
                             <td><?php echo $pengajuan['nama_prodi'];?></td>
                             <td><?php echo $pengajuan['judul'];?></td>
+                            <td><a class="text-info text-md" href="<?php echo base_url('pengajuan/detail/').$pengajuan['id_pengajuan'];?>">
+                            Detail</a>
+                            
+                          </td>
                         </tr>
                         <?php endforeach;?>
                       </tbody>

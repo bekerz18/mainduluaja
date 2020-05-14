@@ -50,11 +50,14 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function get_select_pengajuan2($id)
 	{
-		return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id=$id")->row_array();
+		return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, pengajuan.acc_sidang_kompre2 as sidang_kompre2, pengajuan.acc_sidang_kompre1 as sidang_kompre1, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id=$id")->row_array();
 	}
-	public function get_pengajuan_by($dosen)
+	public function get_pengajuan_by($dosen,$id=null)
 	{
-		return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id_pembimbing1=$dosen OR pengajuan.id_pembimbing2=$dosen")->result_array();
+		if(isset($id)){
+			return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, pengajuan.acc_sidang_kompre2 as sidang_kompre2, pengajuan.acc_sidang_kompre1 as sidang_kompre1, pengajuan.acc_bab_pembimbing1 as acc_thesis1,pengajuan.acc_bab_pembimbing2 as acc_thesis2, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id_pembimbing1=$dosen OR pengajuan.id_pembimbing2=$dosen AND pengajuan.id=$id")->row_array();
+		}
+		return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, pengajuan.acc_sidang_kompre2 as sidang_kompre2, pengajuan.acc_sidang_kompre1 as sidang_kompre1, pengajuan.acc_bab_pembimbing1 as acc_thesis1,pengajuan.acc_bab_pembimbing2 as acc_thesis2, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id_pembimbing1=$dosen OR pengajuan.id_pembimbing2=$dosen")->result_array();
 	}
 	public function update($id,$data)
 	{
@@ -194,6 +197,24 @@ class Pengajuan_model extends CI_Model {
 	{
 		$id = $this->session->userdata('id');
 		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul,thesis.nilai_1 as nilai_1, thesis.nilai_2 as nilai_2, thesis.nilai_3 as nilai_3,(thesis.nilai_1+thesis.nilai_2+thesis.nilai_3)/ 3 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE thesis.id_penguji1=$id OR thesis.id_penguji2=$id OR thesis.id_penguji3=$id  ORDER BY tgl_daftar DESC")->result_array();
+	}
+	public function isPembimbing1($id)
+	{
+		$pembimbing = $this->session->userdata('id');
+
+		return $this->db->query("SELECT id_pembimbing1 FROM pengajuan WHERE id_pembimbing1 =$pembimbing AND id=$id")->row_array();
+	}
+	public function isPembimbing2($id)
+	{
+		$pembimbing = $this->session->userdata('id');
+
+		return $this->db->query("SELECT id_pembimbing1 FROM pengajuan WHERE id_pembimbing2 =$pembimbing AND id=$id")->row_array();
+	}
+
+	public function accSidang($id,$data)
+	{
+		$this->db->where('id',$id);
+		return $this->db->update('pengajuan',$data);
 	}
 
 }
