@@ -342,6 +342,7 @@
                    
                     
                       <div class="tab-pane fade" id="data-tesis" role="tabpanel" aria-labelledby="custom-content-above-tesis-tab-tab">
+                        <?php if(!isset($status_kompre)){?>
                         <?php if($tesis_is == 'ada'){?>
                         <br>
                         <?php if($checkThesis == "belum"){?>
@@ -431,7 +432,7 @@
 
                           </dl>
                         <?php }?>
-                        <?php }?>
+                        <?php } }?>
                       </div>
                       
                     <?php }?>
