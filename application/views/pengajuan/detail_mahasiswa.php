@@ -218,8 +218,9 @@
                                           }
 
                                       } ?>
-                                      </dd>
+                                      
                                       <?php }?>
+                                      </dd>
                           
                         <?php }elseif($proposal['revisi'] == 'ya'){ ?>
                           <dd class="col-sm-10">: <strong class="text-danger">Proposal Ditolak</strong></dd>

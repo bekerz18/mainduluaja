@@ -79,10 +79,10 @@
               echo "E";
             }
           }?>
-            
+            <?php }?>
           </td>
         </tr>
-        <?php }?>
+        
      <?php if($proposal['revisi'] == 'tidak' && $checkKompre == "ya"){?>
       <tr>
         <th colspan="2"><strong>DATA KOMPREHENSIF</strong></th>
