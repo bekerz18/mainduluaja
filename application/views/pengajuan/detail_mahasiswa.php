@@ -200,7 +200,9 @@
                           if($proposal["nilai_tampil"] == 'ya'){?>
                                       <dt class="col-sm-2">KETERANGAN</dt>
                                       <dd class="col-sm-10"> : <?php
-                                          if(number_format($nilai_total['nilai'],2) >= 86 && number_format($nilai_total['nilai'],2) <= 100){
+                                      if($proposal["nilai_1"] == NULL || $proposal["nilai_2"] == NULL || $proposal["nilai_3"] == NULL) {
+                                        echo 'Belum ada';
+                                      }else if(number_format($nilai_total['nilai'],2) >= 86 && number_format($nilai_total['nilai'],2) <= 100){
                                             echo "A";
                                           }else if(number_format($nilai_total['nilai'],2) >= 76 && number_format($nilai_total['nilai'],2) <= 85){
                                             echo "B";
@@ -210,8 +212,6 @@
                                             echo "D";
                                           }else if(number_format($nilai_total['nilai'],2) <= 55){
                                             echo "E";
-                                          }else{
-                                            echo "Belum Ada";
                                           }?>
                                       </dd>
                                       <?php }?>
