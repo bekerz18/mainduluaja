@@ -183,7 +183,8 @@ class Pengajuan extends CI_Controller{
 					$data['status_proposal'] = 'sudah';
 
 					$data['proposal'] = $ProposalCheck;
-					
+
+					if($ProposalCheck['revisi'] != NULL){
 
 						$data['penguji1'] = $model->searchDosenBy($ProposalCheck["id_penguji1"]);
 						$data['penguji2'] = $model->searchDosenBy($ProposalCheck["id_penguji2"]);
@@ -192,6 +193,7 @@ class Pengajuan extends CI_Controller{
 						
 						$data['cariDosbing1'] = $model->get_dosen($data['pengajuans']['pembimbing1']);
 						$data['cariDosbing2'] = $model->get_dosen($data['pengajuans']['pembimbing2']);
+					}
 						$data["checkKompre"] = $this->_isHaveKompre($id);
 						if($this->_isHaveKompre($id) == "ya"){
 						

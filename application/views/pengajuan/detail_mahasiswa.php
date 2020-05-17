@@ -167,6 +167,7 @@
                           <dd class="col-sm-10">: <strong class="text-success">Proposal Diterima</strong> Pada <?php echo date('l , d F Y H:i:s', strtotime($proposal['acc_seminar']));?></dd>
                           <dt class="col-sm-2"><strong>TANGGAL SEMINAR</strong></dt>
                           <dd class="col-sm-10">: <?php echo date('l , d F Y', strtotime($proposal['tgl_seminar']));?></dd>
+                          
                           <!-- Penguji 1 -->
                           <dt class="col-sm-2"><strong>PENGUJI 1</strong></dt>
                           <dd class="col-sm-10">: <?php echo $penguji1['nama'];?></dd>
@@ -196,7 +197,7 @@
                           </dd>
                           <?php }}}?>
                           <?php
-                          $nilai = $model->nilaiKompre($proposal["id_pengajuan"]);
+                          $nilai = $model->getNilaiProposal($proposal["id_pengajuan"]);
                           if($proposal["nilai_tampil"] == 'ya'){?>
                                       <dt class="col-sm-2">KETERANGAN</dt>
                                       <dd class="col-sm-10"> : <?php
