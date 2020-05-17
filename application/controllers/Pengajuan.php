@@ -183,7 +183,7 @@ class Pengajuan extends CI_Controller{
 					$data['status_proposal'] = 'sudah';
 
 					$data['proposal'] = $ProposalCheck;
-					if($ProposalCheck["revisi"] != NULL){
+					
 
 						$data['penguji1'] = $model->searchDosenBy($ProposalCheck["id_penguji1"]);
 						$data['penguji2'] = $model->searchDosenBy($ProposalCheck["id_penguji2"]);
@@ -197,7 +197,7 @@ class Pengajuan extends CI_Controller{
 						
 							$data["kompreData"] = $this->_KompreMahasiswa();
 						
-						}
+						
 						$cektesis = $model->isBimbinganDone();
 
 						if(!$cektesis){
