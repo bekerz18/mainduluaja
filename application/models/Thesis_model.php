@@ -17,6 +17,10 @@ class Thesis_model extends CI_Model {
 	{
 		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul, (thesis.nilai_1+thesis.nilai_2+thesis.nilai_3)/ 3 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa ORDER BY tgl_daftar DESC")->result_array();
 	}
+	public function getAllCetak($FirstDate,$LastDate)
+	{
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul, (thesis.nilai_1+thesis.nilai_2+thesis.nilai_3)/ 3 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE thesis.tgl_daftar BETWEEN '$FirstDate' AND '$LastDate' ORDER BY tgl_daftar DESC")->result_array();
+	}
 
 	public function registerByMhs($pengajuanID)
 	{
@@ -51,7 +55,7 @@ class Thesis_model extends CI_Model {
 	}
 	public function getThesis($thesisID)
 	{
-		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, thesis.nilai_1 as nilai1, thesis.nilai_2 as nilai2, thesis.nilai_3 as nilai3,pengajuan.judul as judul FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE thesis.id = '$thesisID'")->result_array();
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, thesis.nilai_1 as nilai1, thesis.nilai_2 as nilai2, thesis.nilai_3 as nilai3,pengajuan.judul as judul, thesis.nilai_tampil FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE thesis.id = '$thesisID'")->result_array();
 	}
 	public function updateThesis($data)
 	{
@@ -74,7 +78,6 @@ class Thesis_model extends CI_Model {
         $config['allowed_types']        = 'pdf';
         $config['file_name']            = $id;
         $config['overwrite']			= true;
-        $config['max_size']             = 50000;
         
         $this->load->library('upload', $config);
         if ($this->upload->do_upload('thesis')) {

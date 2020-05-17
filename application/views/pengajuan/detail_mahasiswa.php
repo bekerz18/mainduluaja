@@ -156,7 +156,7 @@
                     <div class="tab-pane fade" id="data-proposal" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
                         <br>
                        <dl class="row">
-                        <dt class="col-sm-2">FILE PENDUKUNG</dt>
+                        <dt class="col-sm-2">PROPOSAL</dt>
                         <dd class="col-sm-10">: <a href="<?php echo base_url('uploads/proposal/').$proposal['id'].'.pdf';?>" target="_blank">Klik Untuk Melihat</a></dd>
                          <dt class="col-sm-2"><?php if($proposal['revisi'] == 'ya'){ echo 'DITOLAK PADA';}else{ echo 'DIKIRIM';}?></dt>
                              <dd class="col-sm-10"> : <?php echo date("l, d F Y H:i:s", strtotime($proposal["last_update"]));?></dd>
@@ -180,7 +180,7 @@
                           <dt class="col-sm-2"><strong>NILAI</strong></dt>
                           <dd class="col-sm-10">: <?php if($proposal["nilai_1"] == NULL || $proposal["nilai_2"] == NULL || $proposal["nilai_3"] == NULL) { echo 'Belum ada';}else{
                             if($proposal['nilai_tampil'] != 'ya'){
-                              echo 'Belum ada';
+                              echo 'Sedang diproses';
                             }else{
                             echo number_format($nilai_total['nilai'],2).'</dd>';if(number_format($nilai_total['nilai'],2) < 75){?>
                             <dt class="col-sm-2">UPLOAD REVISI</dt>
@@ -195,7 +195,24 @@
                             <?php echo form_close();?>
                           </dd>
                           <?php }}}?>
-                          
+                          <?php
+                          $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                          if($proposal["nilai_tampil"] == 'ya'){?>
+                                      <dt class="col-sm-2">KETERANGAN</dt>
+                                      <dd class="col-sm-10"> : <?php
+                                          if(number_format($nilai_total['nilai'],2) >= 86 && number_format($nilai_total['nilai'],2) <= 100){
+                                            echo "A";
+                                          }else if(number_format($nilai_total['nilai'],2) >= 76 && number_format($nilai_total['nilai'],2) <= 85){
+                                            echo "B";
+                                          }else if(number_format($nilai_total['nilai'],2) >= 66 && number_format($nilai_total['nilai'],2) <= 75){
+                                            echo "C";
+                                          }else if(number_format($nilai_total['nilai'],2) >= 56 && number_format($nilai_total['nilai'],2) <= 65){
+                                            echo "D";
+                                          }else if(number_format($nilai_total['nilai'],2) <= 55){
+                                            echo "E";
+                                          }?>
+                                      </dd>
+                                      <?php }?>
                         <?php }elseif($proposal['revisi'] == 'ya'){ ?>
                           <dd class="col-sm-10">: <strong class="text-danger">Proposal Ditolak</strong></dd>
                           <dt class="col-sm-2">KETERANGAN</dt>
@@ -258,9 +275,16 @@
                                     if($nilai["nilai"] == NULL){
                                       echo 'Belum Ada';
                                     }else{
+                                      if($kompreData["nilai_tampil"] != "ya"){
+                                        echo 'Sedang diproses';
+                                      }else{
                                       echo number_format($nilai['nilai'],2);
                                        if(number_format($nilai['nilai'],2) < 75){
                                       echo ' Revisi';?>
+
+                                      
+                                    
+                                
                                       <dt class="col-sm-4">
                                       <div class="text-center">
                                       <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3).'/re';?>">
@@ -268,9 +292,29 @@
                                       </a>
                                     </div>
                                   </dt>
-                                    <?php } } ?>
+                                    <?php } } }?>
                                       
                                     </dd>
+                                    <?php
+                                      $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+
+                                      if($kompreData["nilai_tampil"] == 'ya'){?>
+
+                                      <dt class="col-sm-2">KETERANGAN</dt>
+                                      <dd class="col-sm-10"> : <?php
+                                          if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                                            echo "A";
+                                          }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) <= 85){
+                                            echo "B";
+                                          }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) <= 75){
+                                            echo "C";
+                                          }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) <= 65){
+                                            echo "D";
+                                          }else if(number_format($nilai['nilai'],2) <= 55){
+                                            echo "E";
+                                          }?>
+                                      </dd>
+                                      <?php }?>
 
                               </dl>
                             <?php }?>
@@ -304,10 +348,10 @@
                           <div class="text-center">
                                 <?php echo form_open_multipart ('thesis/register/'.$this->uri->segment(3));?>
                                 <div class="form-group">
-                                   <div class="custom-file">
-                                    <input type="file" class="form-control" id="thesis" name="thesis"  accept="application/pdf" required="">
-                                    <label class="custom-file-label" for="thesis">Cari Thesis</label>
-                                  </div>
+                                   <label for="thesis">Cari Thesis</label>
+                                    <input type="file" class="form-control" id="thesis" name="thesis"  id="thesis" accept="application/pdf" required="">
+                                    
+                                  
                                 </div>
                                 <div class="form-group">
                                    <button type="submi" class="btn btn-lg btn-primary">Daftar Sidang Thesis</button>
@@ -349,14 +393,41 @@
                                 if($nilai["nilai"] == NULL){
                                   echo 'Belum Ada';
                                 }else{
+                            if($thesis['nilai_tampil'] != 'ya'){
+                              echo 'Sedang diproses';
+                            }else{
                                   echo number_format($nilai['nilai'],2);
                                     if(number_format($nilai['nilai'],2) < 75){
                                     echo ' Revisi';
                                   }
                                 }
+                              }
                                 ?>
                                   
                                 </dd>
+                                <?php
+                                $nilai = $model->nilaiThesis($thesis["id_pengajuan"]);
+
+                                if($thesis['nilai_tampil'] == 'ya'){?>
+
+                                <dt class="col-sm-2">KETERANGAN</dt>
+                                <dd class="col-sm-10"> : <?php
+                                    if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                                      echo "A";
+                                    }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) < 86){
+                                      echo "B";
+                                    }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) < 76){
+                                      echo "C";
+                                    }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) < 66){
+                                      echo "D";
+                                    }else if(number_format($nilai['nilai'],2) <= 55){
+                                      echo "E";
+                                    }
+                                  }
+                                ?>
+                              </dd>
+                                
+
 
                           </dl>
                         <?php }?>
@@ -424,7 +495,7 @@
 
                       <?php if($pengajuan["status"] == "terima" && $status_proposal == 'belum'):?>
                          
-                      <dt class="col-sm-2">FILE PENDUKUNG</dt>
+                      <dt class="col-sm-2">PROPOSAL</dt>
                         : <dd class="col-sm-3">
                           <?php echo form_open_multipart ();?>
                              

@@ -164,7 +164,7 @@ class BackendC extends CI_Controller{
         $users= new \Mpdf\Mpdf(['format' => 'Legal']);
         $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
         $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-        $users->Output($data['title'].'pdf ', 'D');
+        $users->Output($data['title'].'.pdf', 'D');
 		
 	}
 }

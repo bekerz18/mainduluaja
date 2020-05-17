@@ -10,7 +10,11 @@ class Proposal_model extends CI_Model {
 
 	public function getAll()
 	{
-		return $this->db->query("SELECT proposal.id as id_proposal,proposal.revisi as status_proposal,proposal.last_update as last_update, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,proposal.tgl_seminar as seminar, pengajuan.judul as judul_proposal,proposal.id_penguji1 as penguji1, proposal.id_penguji2 as penguji2, proposal.id_penguji3 as penguji3, (proposal.nilai_1+proposal.nilai_2+proposal.nilai_3)/3 AS nilai  FROM proposal INNER JOIN pengajuan ON pengajuan.id=proposal.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa ORDER BY proposal.id DESC")->result_array();
+		return $this->db->query("SELECT proposal.id as id_proposal,proposal.revisi as status_proposal,proposal.last_update as last_update, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,proposal.tgl_seminar as seminar, pengajuan.judul as judul_proposal,proposal.id_penguji1 as penguji1, proposal.id_penguji2 as penguji2, proposal.id_penguji3 as penguji3, (proposal.nilai_1+proposal.nilai_2+proposal.nilai_3)/3 AS nilai,proposal.nilai_1, proposal.nilai_2, proposal.nilai_3  FROM proposal INNER JOIN pengajuan ON pengajuan.id=proposal.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa ORDER BY proposal.id DESC")->result_array();
+	}
+	public function getAllCetak($FirstDate,$LastDate)
+	{
+		return $this->db->query("SELECT proposal.id as id_proposal,proposal.revisi as status_proposal,proposal.last_update as last_update, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,proposal.tgl_seminar as seminar, pengajuan.judul as judul_proposal,proposal.id_penguji1 as penguji1, proposal.id_penguji2 as penguji2, proposal.id_penguji3 as penguji3, (proposal.nilai_1+proposal.nilai_2+proposal.nilai_3)/3 AS nilai,proposal.nilai_1, proposal.nilai_2, proposal.nilai_3  FROM proposal INNER JOIN pengajuan ON pengajuan.id=proposal.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE proposal.last_update BETWEEN '$FirstDate' AND '$LastDate' ORDER BY proposal.id DESC")->result_array();
 	}
 	public function getByIdJson($id)
 	{

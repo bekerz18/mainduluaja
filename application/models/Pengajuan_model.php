@@ -34,6 +34,10 @@ class Pengajuan_model extends CI_Model {
 	{
 		return $this->db->query("SELECT pengajuan.status as status,pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.prodi as prodi,mahasiswa.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa ORDER BY id_pengajuan DESC")->result();
 	}
+	public function get_pengajuan_cetak($tglpengajuan_awal,$tglpengajuan_akhir)
+	{
+		return $this->db->query("SELECT pengajuan.status as status,pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.id as id_pengajuan, mahasiswa.nama as nama, mahasiswa.username as username,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.prodi as prodi,mahasiswa.konsentrasi as konsentrasi, pengajuan.judul as judul FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa WHERE pengajuan.tglpengajuan BETWEEN '$tglpengajuan_awal' AND '$tglpengajuan_akhir'  ORDER BY id_pengajuan DESC")->result();
+	}
 
 	public function delete_pengajuan($id)
 	{
@@ -100,7 +104,6 @@ class Pengajuan_model extends CI_Model {
         $config['allowed_types']        = 'pdf';
         $config['file_name']            = $id;
         $config['overwrite']			= true;
-        $config['max_size']             = 50000;
         
         $this->load->library('upload', $config);
         if ($this->upload->do_upload('proposal')) {
@@ -149,7 +152,7 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function getProposalDone()
 	{
-		return $this->db->query("SELECT id_pengajuan FROM proposal WHERE revisi='tidak' AND nilai_1 IS NOT NULL AND nilai_2 IS NOT NULL AND nilai_3 IS NOT NULL GROUP BY id_pengajuan HAVING SUM(nilai_1+nilai_2+nilai_3)/3 >= 75")->result_array();
+		return $this->db->query("SELECT id_pengajuan FROM proposal WHERE revisi='tidak' AND nilai_1 IS NOT NULL AND nilai_2 IS NOT NULL AND nilai_3 IS NOT NULL AND penentuan='ya' GROUP BY id_pengajuan HAVING SUM(nilai_1+nilai_2+nilai_3)/3 >= 75")->result_array();
 	}
 	public function checkIsHave()
 	{
@@ -164,13 +167,13 @@ class Pengajuan_model extends CI_Model {
 	public function getKompreMahasiswa()
 	{
 		$id = $this->session->userdata('id');
-		return $this->db->query("SELECT komprehensif.id, komprehensif.id_pengajuan, komprehensif.status, komprehensif.tgl_daftar,komprehensif.tgl_terima,komprehensif.tgl_sidang,komprehensif.id_penguji1,komprehensif.id_penguji2, komprehensif.id_penguji3 FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
+		return $this->db->query("SELECT komprehensif.id, komprehensif.id_pengajuan, komprehensif.status, komprehensif.tgl_daftar,komprehensif.tgl_terima,komprehensif.tgl_sidang,komprehensif.id_penguji1,komprehensif.id_penguji2, komprehensif.id_penguji3,komprehensif.nilai_tampil FROM komprehensif INNER JOIN pengajuan ON pengajuan.id = komprehensif.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
 
 	}
 	public function getthesisMahasiswa()
 	{
 		$id = $this->session->userdata('id');
-		return $this->db->query("SELECT thesis.id, thesis.id_pengajuan, thesis.status, thesis.tgl_daftar,thesis.tgl_terima,thesis.tgl_sidang,thesis.id_penguji1,thesis.id_penguji2, thesis.id_penguji3 FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
+		return $this->db->query("SELECT thesis.id, thesis.id_pengajuan, thesis.status, thesis.tgl_daftar,thesis.tgl_terima,thesis.tgl_sidang,thesis.id_penguji1,thesis.id_penguji2, thesis.id_penguji3,thesis.nilai_tampil FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan WHERE pengajuan.id_mahasiswa=$id")->row_array();
 
 	}
 	public function getKompreByDosen()
@@ -216,6 +219,25 @@ class Pengajuan_model extends CI_Model {
 	{
 		$this->db->where('id',$id);
 		return $this->db->update('pengajuan',$data);
+	}
+	public function delete_penentuan($id_pengajuan)
+	{
+		if($this->delete_pembimbing($id_pengajuan) == 'berhasil'){
+			$this->db->where('id_pengajuan',$id_pengajuan);
+			$this->db->set('penentuan','tidak');
+			return $this->db->update('proposal');
+		}
+		
+	}
+
+	private function delete_pembimbing($id_pengajuan)
+	{
+		$this->db->where('id',$id_pengajuan);
+		$this->db->set('id_pembimbing1',NULL);
+		$this->db->set('id_pembimbing2',NULL);
+		if($this->db->update('pengajuan')){
+			return 'berhasil';
+		}
 	}
 
 }

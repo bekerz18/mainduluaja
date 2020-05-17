@@ -57,10 +57,21 @@
             echo 'Belum';
           }?>
       </td>
-      <td><?php if($proposal["nilai"] == NULL){
+      <td class="center"><?php if($proposal["nilai"] == NULL){
                       echo 'Belum Ada';
                     }else{
-                      echo number_format($proposal["nilai"],2);
+                      echo number_format($proposal["nilai"],2).'<br>';
+                      if(number_format($proposal['nilai'],2) >= 86 && number_format($proposal['nilai'],2) <= 100){
+                        echo "A";
+                      }else if(number_format($proposal['nilai'],2) >= 76 && number_format($proposal['nilai'],2) < 86){
+                        echo "B";
+                      }else if(number_format($proposal['nilai'],2) >= 66 && number_format($proposal['nilai'],2) < 76){
+                        echo "C";
+                      }else if(number_format($proposal['nilai'],2) >= 56 && number_format($proposal['nilai'],2) < 66){
+                        echo "D";
+                      }else if(number_format($proposal['nilai'],2) <= 55){
+                        echo "E";
+                      }
                     }
                     ?>
                     </td>
@@ -68,3 +79,10 @@
     <?php endforeach;?>
   </tbody>
 </table>
+<?php
+  $tanggalFirst = date("l, d F Y",strtotime(explode(" ", $range)[0]));
+  $tanggalLast = date("l, d F Y",strtotime(explode(" ", $range)[2]));
+?>
+<br>
+<span class="font-italic">Dari <?php echo $tanggalFirst;?></span><br>
+<span class="font-italic">Sampai <?php echo $tanggalLast;?></span>

@@ -80,6 +80,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>
               </li>
               <!-- End Level two -->
+              <li>
+            <a href="<?php echo base_url('riwayat-bimbingan');?>" class="dropdown-item">Riwayat Bimbingan</a>
+          </li>
             </ul>
           </li>
           <!-- Pengajuan -->

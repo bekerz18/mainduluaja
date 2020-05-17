@@ -37,11 +37,9 @@
                 Gagal menghapus data.
               </div>
             <?php }?>
-             <a href="<?php echo base_url('komprehensif/cetak');?>" target="_blank">
-              <button type="button" class="btn btn-info">
-                <i class="fas fa-print"></i> Cetak
-              </button>
-            </a>
+             <button type="button" id="btn-cta-cetak" class="btn btn-info">
+              <i class="fas fa-print"></i> Cetak
+            </button>
             <table id="table-data" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
@@ -83,10 +81,21 @@
                   <td>
                     <?php echo date("l, d F Y H:i:s",strtotime($data["tgl_daftar"]));?>
                   </td>
-                  <td><?php if($data["nilai"] == NULL){
+                  <td class="text-center"><?php if($data["nilai"] == NULL){
                     echo 'Belum Ada';
                   }else{
-                    echo number_format($data["nilai"],2);
+                    echo number_format($data["nilai"],2).'<br>';
+                    if(number_format($data['nilai'],2) >= 86 && number_format($data['nilai'],2) <= 100){
+                      echo "A";
+                    }else if(number_format($data['nilai'],2) >= 76 && number_format($data['nilai'],2) < 86){
+                      echo "B";
+                    }else if(number_format($data['nilai'],2) >= 66 && number_format($data['nilai'],2) < 76){
+                      echo "C";
+                    }else if(number_format($data['nilai'],2) >= 56 && number_format($data['nilai'],2) < 66){
+                      echo "D";
+                    }else if(number_format($data['nilai'],2) <= 55){
+                      echo "E";
+                    }
                   }
                   ?>
                 </td>
@@ -96,7 +105,9 @@
               </tbody>
             </table>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
         <!-- /.content -->
         <!-- Start Modal Details -->
           <div class="modal fade" id="modal-detail-kompre">
@@ -140,22 +151,27 @@
                           <input type="date" name="tgl_sidang" id="tgl_sidang" class="form-control form-control-md" min='<?php echo date('Y-m-d');?>'>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji1">PENGUJI 1</label>
+                          <label for="Penguji1">PENGUJI 1</label> <span id="nilai_1"></span>
                           <select id="penguji1" data-placeholder="Silahkan Pililh Penguji 1" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                             <option></option>
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji2">PENGUJI 2</label>
+                          <label for="Penguji2">PENGUJI 2</label> <span id="nilai_2"></span>
                           <select id="penguji2" data-placeholder="Silahkan Pililh Penguji 2" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                              <option></option>
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji3">PENGUJI 3</label>
+                          <label for="Penguji3">PENGUJI 3</label> <span id="nilai_3"></span>
                           <select id="penguji3" data-placeholder="Silahkan Pililh Penguji 3" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                              <option></option>
                           </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="nilai_tampil">TAMPILKAN NILAI</label>
+                          <input type="radio" value="ya" id="nilai_tampil_ya" name="nilai_tampil">YA
+                          <input type="radio" value="tidak" id="nilai_tampil_tidak" name="nilai_tampil">TIDAK
                         </div>
                         <div class="form-group" id="acc">
 
@@ -174,6 +190,47 @@
             <!-- /.modal-dialog -->
           </div>
           <!-- End Modal Details -->
+          <!-- Modal Cetak -->
+        <div class="modal fade" id="modal-cetak">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <?php echo form_open('komprehensif/cetak');?>
+              <div class="modal-header">
+                <h4 class="modal-title">Cetak</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label>Tanggal:</label>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservation" name="tanggal_range" required>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <!-- /.form group -->
+              </div>
+
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btn-cetak" type="submit" class="btn btn-primary">Cetak</button>
+              </div>
+            </div>
+            <?php echo form_close();?>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      <!-- End ModalCetak -->
       </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -197,6 +254,11 @@
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js');?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <!-- DataTables -->
@@ -246,7 +308,16 @@
         url : '<?php echo base_url('komprehensif/getkompre/');?>'+$kompreID,
         dataType :'json',
         success: function(data){
+          if(data[0].nilai_tampil == 'ya'){
+            $("#nilai_tampil_ya"). prop("checked", true);
+          }else{
+            $("#nilai_tampil_tidak"). prop("checked", true);
+          }
+          let nilai1 = data[0].nilai1;
+          let nilai2 = data[0].nilai2;
+          let nilai3 = data[0].nilai3;
           if(data[0].status_komprehensif == "ya"){
+
             
             jQuery("#elacc").remove();
             jQuery("#acc").append('<div id="elacc"><label for="tglacc">Tanggal ACC Sidang</label><br><strong id="tglacc"></strong></div>');
@@ -266,6 +337,18 @@
           }else if(data[0].prodi == "hukum"){
             jQuery("#prodi").val("Hukum");
           }
+          if(nilai1 == null){
+            nilai1 = 'Belum ada';
+          }
+          if(nilai2 == null){
+            nilai2 = 'Belum ada';
+          }
+          if(nilai3 == null){
+            nilai3 = 'Belum ada';
+          }
+          jQuery("#nilai_1").text('Nilai : '+nilai1);
+          jQuery("#nilai_2").text('Nilai : '+nilai2);
+          jQuery("#nilai_3").text('Nilai : '+nilai3);
           jQuery("#tgl_daftar").val(new Date(data[0].tgl_daftar).toLocaleString(['ban', 'id']))
           jQuery("#modal-detail-kompre").modal();
           
@@ -318,10 +401,11 @@
       });
     }
     function updateKompre(id,tanggal,penguji1,penguji2,penguji3){
+      let $nilai_tampil = $("input[name='nilai_tampil']:checked"). val();
       $.ajax({
         type: 'POST',
         url : '<?php echo base_url('komprehensif/updateKompre/');?>',
-        data: {tanggal:tanggal,penguji1:penguji1,penguji2:penguji2,penguji3:penguji3},
+        data: {nilai_tampil:$nilai_tampil,tanggal:tanggal,penguji1:penguji1,penguji2:penguji2,penguji3:penguji3},
         success:function(data){
           Swal.fire(
           'Berhasil!',
@@ -380,6 +464,10 @@
       });
     }
     jQuery(".select2").select2();
+    $('#reservation').daterangepicker();
+    $("#btn-cta-cetak").click(function(){
+      $("#modal-cetak").modal();
+    });
   });
 </script>
 </body>

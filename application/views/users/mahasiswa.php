@@ -291,7 +291,7 @@
       }
     });
 
-    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
     $("#table-mahasiswa").on("click",".ubah-user",function(){
       var id = $(this).data('id');

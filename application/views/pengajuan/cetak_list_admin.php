@@ -30,3 +30,10 @@
     <?php endforeach;?>
   </tbody>
 </table>
+<?php
+  $tanggalFirst = date("l, d F Y",strtotime(explode(" ", $range)[0]));
+  $tanggalLast = date("l, d F Y",strtotime(explode(" ", $range)[2]));
+?>
+<br>
+<span class="font-italic">Dari <?php echo $tanggalFirst;?></span><br>
+<span class="font-italic">Sampai <?php echo $tanggalLast;?></span>

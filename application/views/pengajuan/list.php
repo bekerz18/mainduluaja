@@ -14,6 +14,7 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
+
     </section>
     <!-- Main content -->
     <section class="content">
@@ -57,11 +58,10 @@
                 Gagal mengubah data.
               </div>
             <?php }?>
-            <a href="<?php echo base_url('pengajuan/cetak');?>" target="_blank">
-              <button type="button" class="btn btn-info">
-                <i class="fas fa-print"></i> Cetak
-              </button>
-            </a>
+            <button type="button" id="btn-cta-cetak" class="btn btn-info">
+              <i class="fas fa-print"></i> Cetak
+            </button>
+            
             <table id="data-pengajuan" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
@@ -92,72 +92,118 @@
                       ?> 
                     </td>
                     <td class="text-center">
-                      <a class="detail-pengajuan text-info text-md" data-id="<?php echo $pengajuan->id_pengajuan;?>">Detail</a>   <a class="text-success text-md" href="pengajuan/cetak/<?php echo $pengajuan->id_pengajuan;?>">Cetak</a>   <a class="text-danger text-md" href="pengajuan/hapus/<?php echo $pengajuan->id_pengajuan;?>">Hapus</a>
+                      <a class="detail-pengajuan text-info text-md" data-id="<?php echo $pengajuan->id_pengajuan;?>">Detail</a>   <a class="text-danger text-md" href="pengajuan/hapus/<?php echo $pengajuan->id_pengajuan;?>">Hapus</a>
                     </td>
                   </tr>
                 <?php endforeach;?>
               </tbody>
             </table>
           </div>
-        </section>
-        <!-- Modal Detail -->
-        <div class="modal fade" id="modal-detail">
-          <div class="modal-dialog modal-lg">
+        </div>
+      </div>
+
+
+    </section>
+    
+      <!-- Modal Cetak -->
+        <div class="modal fade" id="modal-cetak">
+          <div class="modal-dialog modal-md">
             <div class="modal-content">
+              <?php echo form_open('pengajuan/cetak');?>
               <div class="modal-header">
-                <h4 class="modal-title">Data Pengajuan</h4>
-                <button type="button" class="close closed" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title">Cetak</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <input type="hidden" id="id_pengajuan">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="nim">NIM :</label>
-                      <input type="text" id="nim" class="form-control form-control-md" readonly>
+                
+                  <div class="form-group">
+                    <label>Tanggal Pengajuan:</label>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservation" name="tanggal_pengajuan_range" required>
                     </div>
-                    <div class="form-group">
-                      <label for="username-ubah">NAMA :</label>
-                      <input type="text" id="nama" class="form-control form-control-md" readonly>
-                    </div>
-                    <div class="form-group">
-                      <label for="prodi">PROGRAM STUDI :</label>
-                      <input type="text" id="prodi" class="form-control form-control-md" readonly>
-                    </div>
-                    <div class="form-group">
-                      <label for="konsentrasi">KONSENTRASI :</label>
-                      <input type="text" id="konsentrasi" class="form-control form-control-md" readonly>
-                    </div>
-                    <div class="form-group">
-                      <label for="tglpengajuan">TANGGAL PENGAJUAN :</label>
-                      <input type="text" id="tglpengajuan" class="form-control form-control-md" readonly>
-                    </div>
-                    <div id="area-respon" class="form-group">
-                    </div>
+                    <!-- /.input group -->
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="judul">JUDUL :</label>
-                      <input type="text" id="judul" class="form-control form-control-md" readonly>
-                    </div>
-                    <div class="form-group">
-                      <label for="latarbelakang">LATAR BELAKANG :</label>
-                      <textarea id="latarbelakang" class="form-control form-control-md" readonly></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="tujuan">TUJUAN :</label>
-                      <textarea id="tujuan" class="form-control form-control-md" readonly></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="status">STATUS :</label>
-                      <select id="status" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
-                      </select>
-                    </div>
+                  <!-- /.form group -->
+              </div>
+
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btn-cetak" type="submit" class="btn btn-primary">Cetak</button>
+              </div>
+            </div>
+            <?php echo form_close();?>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      <!-- End ModalCetak -->
+        <!-- Modal Detail -->
+      <div class="modal fade" id="modal-detail">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Data Pengajuan</h4>
+              <button type="button" class="close closed" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="id_pengajuan">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="nim">NIM :</label>
+                    <input type="text" id="nim" class="form-control form-control-md" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="username-ubah">NAMA :</label>
+                    <input type="text" id="nama" class="form-control form-control-md" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="prodi">PROGRAM STUDI :</label>
+                    <input type="text" id="prodi" class="form-control form-control-md" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="konsentrasi">KONSENTRASI :</label>
+                    <input type="text" id="konsentrasi" class="form-control form-control-md" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="tglpengajuan">TANGGAL PENGAJUAN :</label>
+                    <input type="text" id="tglpengajuan" class="form-control form-control-md" readonly>
+                  </div>
+                  <div id="area-respon" class="form-group">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="judul">JUDUL :</label>
+                    <input type="text" id="judul" class="form-control form-control-md" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="latarbelakang">LATAR BELAKANG :</label>
+                    <textarea id="latarbelakang" class="form-control form-control-md" readonly></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="tujuan">TUJUAN :</label>
+                    <textarea id="tujuan" class="form-control form-control-md" readonly></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="status">STATUS :</label>
+                    <select id="status" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
+                    </select>
+                  </div>
                   <div class="form-group">
                     <label for="alasan">ALASAN DITOLAK :</label>
-                     <textarea id="alasan" class="form-control form-control-md" placeholder="Cantumkan Alasan, Bilamana Pengajuan Ditolak"></textarea>
+                    <textarea id="alasan" class="form-control form-control-md" placeholder="Cantumkan Alasan, Bilamana Pengajuan Ditolak"></textarea>
                   </div> 
                 </div>
               </div> 
@@ -170,10 +216,11 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal -->
-        <!-- End Modal Detail -->
+      <!-- /.modal -->
+      <!-- End Modal Detail -->
+        
         <!-- /.content -->
-      </div>
+  </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
@@ -198,6 +245,11 @@
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js');?>"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js');?>"></script>
 <!-- Bootstrap 4 -->
@@ -206,13 +258,16 @@
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
+
+
 <script>
   $(function () {
     const $btnSaveDetail = $("#simpan-detail");
-   
+   //Date range picker
+    $('#reservation').daterangepicker();
     $('.select2').select2();
 
-    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#data-pengajuan').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
 
     $("#pengajuan").on("click",".detail-pengajuan",function(){
@@ -359,6 +414,10 @@
         }
       });
     }
+
+    $("#btn-cta-cetak").click(function(){
+      $("#modal-cetak").modal();
+    });
 
   });
 </script>

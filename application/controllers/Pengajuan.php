@@ -238,7 +238,7 @@ class Pengajuan extends CI_Controller{
 		}
 	}
 
-	public function penentuan_pembimbing($cetak = null)
+	public function penentuan_pembimbing($cetak = null,$id=null)
 	{
 		if($this->session->userdata('level') != 0) redirect('beranda');
 		
@@ -254,6 +254,12 @@ class Pengajuan extends CI_Controller{
 	        $users->WriteHtml($head,\Mpdf\HTMLParserMode::HTML_BODY);
 	        $users->WriteHtml($body,\Mpdf\HTMLParserMode::HTML_BODY);
 	        $users->Output($data['title'].'.pdf', 'D');
+		}else if($cetak='hapus' && isset($id)){
+			$model = $this->Pengajuan_model;
+			$delete = $model->delete_penentuan($id);
+			
+			redirect('penentuan-pembimbing');
+
 		}else{
 			$data['nama'] = $this->session->userdata('nama');
 			$this->load->view('layout/admin/header',$data);
@@ -314,11 +320,27 @@ class Pengajuan extends CI_Controller{
 	}
 	public function cetak($type = null,$pengajuanID =null)
 	{
+		$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
 		$model = $this->Pengajuan_model;
 		$data['title'] = 'Daftar Pengajuan';
 		if($this->session->userdata('level')==0){
-			$data['pengajuans'] = $model->get_pengajuan();
-			$cetak  = $this->load->view('pengajuan/cetak_list_admin',$data,TRUE);
+			
+			if($this->input->method() == "post"){
+				$tanggalRange = $this->input->post('tanggal_pengajuan_range');
+				$tanggalFirst = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[0]));
+				$tanggalLast = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[2]));
+				$data["range"] = $tanggalRange;
+				$data['pengajuans'] = $model->get_pengajuan_cetak($tanggalFirst,$tanggalLast);
+				
+				$cetak  = $this->load->view('pengajuan/cetak_list_admin',$data,TRUE);
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+		        $users->showImageErrors = true;
+		        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+		        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+		        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+		        $users->Output($data['title'].'.pdf', 'D');
+			}
 		}elseif($this->session->userdata('level')==1){
 			$data['model'] = $model;
 			$dosen = $this->session->userdata('id');
@@ -368,20 +390,27 @@ class Pengajuan extends CI_Controller{
 				}
 
 			}
+			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        $users->showImageErrors = true;
+	        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->Output($data['title'].'.pdf', 'D');
 		}elseif($this->session->userdata('level')==2){
 			$data['pengajuans'] = $model->get_pengajuanmhs();
 			$cetak  = $this->load->view('pengajuan/cetak_list_mahasiswa',$data,TRUE);
+			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        $users->showImageErrors = true;
+	        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->Output($data['title'].'.pdf', 'D');
 		}
 
 
-		$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
-		$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
-		$users= new \Mpdf\Mpdf(['format' => 'Legal']);
-        $users->showImageErrors = true;
-        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
-        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
-        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-        $users->Output($data['title'].'.pdf', 'D');
 	}
 
 	private function _isHaveKompre($pengajuanID)
@@ -421,6 +450,7 @@ class Pengajuan extends CI_Controller{
 			'id_penguji1' => $dataKompre["id_penguji1"],
 			'id_penguji2' => $dataKompre["id_penguji2"],
 			'id_penguji3' => $dataKompre["id_penguji3"],
+			'nilai_tampil' => $dataKompre["nilai_tampil"],
 			'penguji1' => $this->_getDosen($dataKompre["id_penguji1"]),
 			'penguji2' => $this->_getDosen($dataKompre["id_penguji2"]),
 			'penguji3' => $this->_getDosen($dataKompre["id_penguji3"])
@@ -443,6 +473,7 @@ class Pengajuan extends CI_Controller{
 			'id_penguji1' => $dataThesis["id_penguji1"],
 			'id_penguji2' => $dataThesis["id_penguji2"],
 			'id_penguji3' => $dataThesis["id_penguji3"],
+			'nilai_tampil' => $dataThesis["nilai_tampil"],
 			'penguji1' => $this->_getDosen($dataThesis["id_penguji1"]),
 			'penguji2' => $this->_getDosen($dataThesis["id_penguji2"]),
 			'penguji3' => $this->_getDosen($dataThesis["id_penguji3"])

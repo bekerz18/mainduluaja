@@ -37,18 +37,16 @@
                 Gagal menghapus data.
               </div>
             <?php }?>
-            <a href="<?php echo base_url('proposal/cetak');?>" target="_blank">
-              <button type="button" class="btn btn-info">
-                <i class="fas fa-print"></i> Cetak
-              </button>
-            </a>
+            <button type="button" id="btn-cta-cetak" class="btn btn-info">
+              <i class="fas fa-print"></i> Cetak
+            </button>
             <table id="table-proposal" class="table table-bordered table-striped">
               <thead>
                 <tr class="text-center">
                   <th>NO</th>
                   <th>NAMA</th>
                   <th>JUDUL</th>
-                  <th>TERAKHIR DIUBAH</th>
+                  <th>DIAJUKAN</th>
                   <th>STATUS</th>
                   <th>NILAI</th>
                   <th>OPSI</th>
@@ -72,10 +70,21 @@
                       }
                       ?>
                     </td>
-                    <td><?php if($proposal["nilai"] == NULL){
+                    <td class="text-center"><?php if($proposal["nilai"] == NULL){
                       echo 'Belum Ada';
                     }else{
-                      echo number_format($proposal["nilai"],2);
+                      echo number_format($proposal["nilai"],2).'<br>';
+                      if(number_format($proposal['nilai'],2) >= 86 && number_format($proposal['nilai'],2) <= 100){
+                        echo "A";
+                      }else if(number_format($proposal['nilai'],2) >= 76 && number_format($proposal['nilai'],2) < 86){
+                        echo "B";
+                      }else if(number_format($proposal['nilai'],2) >= 66 && number_format($proposal['nilai'],2) < 76){
+                        echo "C";
+                      }else if(number_format($proposal['nilai'],2) >= 56 && number_format($proposal['nilai'],2) < 66){
+                        echo "D";
+                      }else if(number_format($proposal['nilai'],2) <= 55){
+                        echo "E";
+                      }
                     }
                     ?>
                     </td>
@@ -85,7 +94,10 @@
               </tbody>
             </table>
           </div>
-          <!-- Start Modal Details -->
+        </div>
+      </div>
+    </section>
+    <!-- Start Modal Details -->
           <div class="modal fade" id="modal-detail-proposal">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -126,19 +138,19 @@
                           <input type="date" name="tglseminar" id="tglseminar" class="form-control form-control-md" min='<?php echo date('Y-m-d');?>'>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji1">PENGUJI 1</label>
+                          <label for="Penguji1">PENGUJI 1</label> <span id="nilai_1"></span>
                           <select id="penguji1" data-placeholder="Silahkan Pililh Penguji 1" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                             <option></option>
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji2">PENGUJI 2</label>
+                          <label for="Penguji2">PENGUJI 2</label> <span id="nilai_2"></span>
                           <select id="penguji2" data-placeholder="Silahkan Pililh Penguji 2" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                              <option></option>
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji3">PENGUJI 3</label>
+                          <label for="Penguji3">PENGUJI 3</label> <span id="nilai_3"></span>
                           <select id="penguji3" data-placeholder="Silahkan Pililh Penguji 3" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                              <option></option>
                           </select>
@@ -165,7 +177,47 @@
             <!-- /.modal-dialog -->
           </div>
           <!-- End Modal Details -->
-        </section>
+        <!-- Modal Cetak -->
+        <div class="modal fade" id="modal-cetak">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <?php echo form_open('proposal/cetak');?>
+              <div class="modal-header">
+                <h4 class="modal-title">Cetak</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label>Tanggal:</label>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservation" name="tanggal_range" required>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <!-- /.form group -->
+              </div>
+
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btn-cetak" type="submit" class="btn btn-primary">Cetak</button>
+              </div>
+            </div>
+            <?php echo form_close();?>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      <!-- End ModalCetak -->
         <!-- /.content -->
       </div>
   <!-- /.content-wrapper -->
@@ -192,7 +244,11 @@
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
-
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js');?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
 <!-- SweetAlert2 -->
@@ -208,7 +264,7 @@
 
     $btnSimpanProposal.click(function(){validasi()});
    
-    $('#table-proposal').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#table-proposal').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
     $("#data-proposal").on('click','.detail-proposal',function(){
       let $id = $(this).data('id');
@@ -227,6 +283,9 @@
         url : '<?php echo base_url('proposal/getproposal/');?>'+$id,
         dataType: 'json',
         success: function(data){
+          let nilai1 = data[0].nilai1;
+          let nilai2 = data[0].nilai2;
+          let nilai3 = data[0].nilai3;
           if(data[0].nilai_tampil == 'ya'){
             $("#nilai_tampil_ya"). prop("checked", true);
           }else{
@@ -257,6 +316,18 @@
           $("#proposal").attr("href","<?php echo base_url('uploads/proposal/');?>"+data[0].id_proposal+".pdf");
           $("#id_proposal").val(data[0].id_proposal);
           $("#modal-detail-proposal").modal();
+          if(nilai1 == null){
+            nilai1 = 'Belum ada';
+          }
+          if(nilai2 == null){
+            nilai2 = 'Belum ada';
+          }
+          if(nilai3 == null){
+            nilai3 = 'Belum ada';
+          }
+          jQuery("#nilai_1").text('Nilai : '+nilai1);
+          jQuery("#nilai_2").text('Nilai : '+nilai2);
+          jQuery("#nilai_3").text('Nilai : '+nilai3);
         },error: function(data){
           alert('Gagal membuka detail');
         }
@@ -390,6 +461,10 @@
         }
       });
     }
+    $('#reservation').daterangepicker();
+    $("#btn-cta-cetak").click(function(){
+      $("#modal-cetak").modal();
+    });
   });
 </script>
 </body>

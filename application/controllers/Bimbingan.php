@@ -16,8 +16,10 @@ class Bimbingan extends CI_Controller {
 
 	public function bimbingan($pembimbing=null,$id=null,$id_bimbingan=null,$id_pengajuan=null)
 	{
+		$data["controller"] = $this;
 		$data["nama"] = $this->session->userdata('nama');
 		$model = $this->Bimbingan_model;
+		$data["model"] = $model;
 		$data["chatisEnd"] = $model->isChatDone($id);
 		// $data['bimbinganisdone'] = $this->_cekisAcc($id);
 		if($this->session->userdata('level') == 0){
@@ -120,7 +122,8 @@ class Bimbingan extends CI_Controller {
 	private function isDoneByMahasiswa($pembimbing){
 		$model = $this->Bimbingan_model;
 		$data = $model->CheckIsByMahasiswa($pembimbing);
-		if(!$data){
+		$data2 = $model->checkBimbingan4($pembimbing);
+		if(!$data2){
 			return 'belum';
 		}
 
@@ -163,11 +166,15 @@ class Bimbingan extends CI_Controller {
 		
 	}
 
-	private function _getDataBimbinganAdmin($bimbingan)
+	private function _getDataBimbinganAdmin($bimbingan,$FirstDate=null,$LastDate=null)
 	{
 		
 		$model = $this->Bimbingan_model;
-		$datas = $model->getBimbinganAdmin($bimbingan);
+		if($FirstDate == null){
+			$datas = $model->getBimbinganAdmin($bimbingan);
+		}else{
+			$datas = $model->getBimbinganAdminCetak($bimbingan,$FirstDate,$LastDate);
+		}
 		$newDatas = array();
 		$no=0;
 		foreach($datas as $data){
@@ -184,6 +191,8 @@ class Bimbingan extends CI_Controller {
 					'nim_mahasiswa' => $data["nim_mahasiswa"],
 					'prodi' => $data["prodi"],
 					'judul' => $data["judul"],
+					'id_pembimbing1' => $data["id_pembimbing1"],
+					'id_pembimbing2' => $data["id_pembimbing2"],
 					'pembimbing' => $dosen["nama"]
 				));
 
@@ -253,21 +262,78 @@ class Bimbingan extends CI_Controller {
 	}
 	public function cetak($pembimbing=null)
 	{
+		$model = $this->Bimbingan_model;
 		if($this->session->userdata('level') == 0){
-			$model = $this->Bimbingan_model;
-			$data['bimbingans'] = $this->_getDataBimbinganAdmin($pembimbing);
+			if($this->input->method() == "post"){
+				
+				$data["model"] = $model;
+				$tanggalRange = $this->input->post('tanggal_range');
+				$FirstDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[0]));
+				$LastDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[2]));
+				$data["range"] = $tanggalRange;
+				$data['bimbingans'] = $this->_getDataBimbinganAdmin($pembimbing,$FirstDate,$LastDate);
+				$data["title"] = "Data Bimbingan ".$pembimbing;
+				$cetak = $this->load->view('bimbingan/admin/cetak_bimbingan_1',$data,TRUE);
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        	$users->showImageErrors = true;
+	        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->Output($data['title'].'.pdf', 'D');
+				
+	        }
+		}else if($this->session->userdata('level') == 2){
+			$idMahasiswa = $this->session->userdata('id');
+			$data['bimbingans'] = $model->getBimbinganMahasiswa($pembimbing,$idMahasiswa);
 			$data["title"] = "Data Bimbingan ".$pembimbing;
-			$cetak = $this->load->view('bimbingan/admin/cetak_bimbingan_1',$data,TRUE);
+			$cetak = $this->load->view('bimbingan/mahasiswa/cetak',$data,TRUE);
 			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
 			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
 			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
-        	$users->showImageErrors = true;
-        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
-        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
-        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-        	$users->Output($data['title'], 'I');
+	        $users->showImageErrors = true;
+	        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->Output($data['title'].'.pdf', 'D');
 		}else{
 			redirect('beranda');
+		}
+	}
+	public function cetak_dosen($pembimbing)
+	{
+		if($this->session->userdata('level') == 1){
+			if($this->input->method() == "post"){
+
+				if($pembimbing == "1" || $pembimbing == "2"){
+					$model = $this->Bimbingan_model;
+					$data["model"] = $model;
+					$tanggalRange = $this->input->post('tanggal_range');
+					$FirstDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[0]));
+					$LastDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[2]));
+					$data["range"] = $tanggalRange;
+					$dosen = $this->session->userdata('id');
+					$data["title"] = "Daftar Bimbingan Pembimbing".$pembimbing;
+					$data["pembimbing"] = $pembimbing;
+					if($pembimbing == "1"){
+						$data['bimbingans'] = $model->getBimbinganDosen($pembimbing,$dosen);
+					}else{
+						$data['bimbingans'] = $model->getBimbinganDosen2($pembimbing,$dosen);
+					}
+					
+					$cetak = $this->load->view('bimbingan/dosen/cetak',$data,TRUE);
+					$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+					$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+					$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+		        	$users->showImageErrors = true;
+		        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+		        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+		        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+		        	$users->Output($data['title'].'.pdf', 'D');
+		        }
+				
+			}
 		}
 	}
 }

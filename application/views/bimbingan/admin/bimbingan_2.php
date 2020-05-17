@@ -37,37 +37,56 @@
                 Gagal menghapus data.
               </div>
             <?php }?>
-            <a href="<?php echo base_url('bimbingan/cetak/2');?>" target="_blank">
-              <button type="button" class="btn btn-info">
-                <i class="fas fa-print"></i> Cetak
-              </button>
-            </a>
+            <button type="button" id="btn-cta-cetak" class="btn btn-info">
+              <i class="fas fa-print"></i> Cetak
+            </button>
             <table id="table-bimbingan" class="table table-bordered table-striped">
-              <thead>
+               <thead>
                 <tr class="text-center">
-                  <th>NO</th>
-                  <th>NAMA</th>
-                  <th>PRODI</th>
-                  <th>JUDUL</th>
-                  <th>BIMBINGAN BAB</th>
-                  <th>STATUS</th>
-                  <th>PEMBIMBING</th>
-                  <th>OPSI</th>
+                  <th class="align-middle" rowspan="2">NO</th>
+                  <th class="align-middle" rowspan="2">NAMA</th>
+                  <th class="align-middle" rowspan="2">PRODI</th>
+                  <th class="align-middle" rowspan="2">JUDUL</th>
+                  <th class="align-middle" rowspan="2">BIMBINGAN BAB</th>
+                  <th colspan="2">STATUS</th>
+                  <th colspan="2">DOSEN PEMBIMBING</th>
+                  <th class="align-middle" rowspan="2">OPSI</th>
+                </tr>
+                <tr>
+                  <th class="text-center align-middle">PEMBIMBING 1</th>
+                  <th class="text-center align-middle">PEMBIMBING 2</th>
+                  <th class="text-center align-middle">PEMBIMBING 1</th>
+                  <th class="text-center align-middle">PEMBIMBING 2</th>
                 </tr>
               </thead>
               <tbody id="pengajuan">
                 <?php $no = 1; foreach ($bimbingans as $bimbingan):  ?>
+                <?php
+                $Pembimbing1 = $model->getNameDosen($bimbingan["id_pembimbing1"]);
+                 $getBimbingan1 = $model->get_info_bimbingan1($bimbingan["id_pengajuan"],$bimbingan["bab"]);
+                 $status='';
+                 if(!$getBimbingan1){
+                  $status = 'Belum melakukan bimbingan';
+                 }else if($getBimbingan1["status"] =="belum"){
+                  $status = 'Sedang dalam bimbingan';
+                }
+                  else if($getBimbingan1["status"] == "sudah"){
+                    $status = '<span class="text-success">Sudah diacc</span><br>Pada '.date("l, d F Y H:i:s", strtotime($getBimbingan1["tgl_acc"]));
+                  }
+                 
+                ?>
                   <tr>
-                    <td class="text-center"><?php echo $no++;?></td>
-                    <td class="text-center"><?php echo $bimbingan["nama_mahasiswa"].'<br>'.$bimbingan['nim_mahasiswa'];?></td>
-                    <td class="text-center">
+                    <td class="text-center align-middle"><?php echo $no++;?></td>
+                    <td class="text-center align-middle"><?php echo $bimbingan["nama_mahasiswa"].'<br>'.$bimbingan['nim_mahasiswa'];?></td>
+                    <td class="text-center align-middle">
                     	<?php if($bimbingan["prodi"] == "adpend"){echo "Administrasi Pendidikan";
                     }elseif($bimbingan["prodi"] == "manajemen"){
                     	echo "Manajemen";
                     }elseif($bimbingan["prodi"] == "hukum"){echo "Hukum";}?></td>
                     <td><?php echo $bimbingan["judul"];?></td>
-                    <td class="text-center"><?php echo $bimbingan["bab"];?></td>
-                    <td class="text-center">
+                    <td class="text-center align-middle"><?php echo $bimbingan["bab"];?></td>
+                    <td class="text-center align-middle"><?php echo $status;?></td>
+                    <td class="text-center align-middle">
                       <?php if($bimbingan["status"] == "sudah"){
                         echo '<span class="text-success">Sudah diacc</span><br>Pada '.date("l, d F Y H:i:s", strtotime($bimbingan["tgl_acc"]));
                       }elseif($bimbingan["status"] == "belum"){
@@ -75,8 +94,9 @@
                       };?>
                         
                       </td>
-                    <td><?php echo $bimbingan['pembimbing'];?></td>
-                    <td class="text-center">
+                    <td class="text-center align-middle"><?php echo $Pembimbing1["nama"];?></td>
+                    <td class="text-center align-middle"><?php echo $bimbingan['pembimbing'];?></td>
+                    <td class="text-center align-middle">
                     	<a href="<?php echo base_url('bimbingan/bimbingan/2/').$bimbingan["id_bimbingan"];?>"class="detail-bimbingan text-info" data-id="<?php echo $bimbingan["id_bimbingan"];?>">Detail</a>   <a href="<?php echo base_url('bimbingan/delete/2/').$bimbingan["id_bimbingan"];?>" class="text-danger">Hapus</a>
                     </td>
                   </tr>
@@ -84,7 +104,9 @@
               </tbody>
             </table>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
         <!-- /.content -->
         <!-- Modal Detail -->
         <div class="modal fade" id="modal-mulai">
@@ -113,6 +135,47 @@
         </div>
         <!-- /.modal -->
         <!-- End Modal Detail -->
+        <!-- Modal Cetak -->
+        <div class="modal fade" id="modal-cetak">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <?php echo form_open('bimbingan/cetak/2');?>
+              <div class="modal-header">
+                <h4 class="modal-title">Cetak</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label>Tanggal:</label>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservation" name="tanggal_range" required>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <!-- /.form group -->
+              </div>
+
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btn-cetak" type="submit" class="btn btn-primary">Cetak</button>
+              </div>
+            </div>
+            <?php echo form_close();?>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+      <!-- End ModalCetak -->
       </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -138,12 +201,21 @@
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js');?>"></script>
 
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
 <script>
   jQuery(function(){
     jQuery('#table-bimbingan').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": true, "responsive": true, });
+    $('#reservation').daterangepicker();
+    $("#btn-cta-cetak").click(function(){
+      $("#modal-cetak").modal();
+    });
   });
 </script>
 </body>

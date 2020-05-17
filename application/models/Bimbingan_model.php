@@ -10,7 +10,11 @@ class Bimbingan_model extends CI_Model {
 
 	public function getBimbinganAdmin($pembimbing)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' order by bimbingan.status desc")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa,pengajuan.id_pembimbing1,pengajuan.id_pembimbing2, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' order by bimbingan.status desc")->result_array();
+	}
+	public function getBimbinganAdminCetak($pembimbing,$FirstDate,$LastDate)
+	{
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa,pengajuan.id_pembimbing1,pengajuan.id_pembimbing2, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND bimbingan.tgl_acc BETWEEN '$FirstDate' AND '$LastDate' order by bimbingan.status desc")->result_array();
 	}
 	public function getDosen($bimbingan,$idpengajuan)
 	{
@@ -24,15 +28,15 @@ class Bimbingan_model extends CI_Model {
 	}
 	public function getBimbinganDosen($pembimbing,$dosen)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing1=$dosen order by bimbingan.status desc")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc, bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing1=$dosen order by bimbingan.status asc")->result_array();
 	}
 	public function getBimbinganDosen2($pembimbing,$dosen)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc,  bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing2=$dosen order by bimbingan.status desc")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc,  bimbingan.id_pengajuan as id_pengajuan, mahasiswa.nama as nama_mahasiswa, mahasiswa.username as nim_mahasiswa, mahasiswa.prodi as prodi,pengajuan.judul as judul FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing' AND pengajuan.id_pembimbing2=$dosen order by bimbingan.status asc")->result_array();
 	}
 	public function getBimbinganMahasiswa($pembimbing,$mahasiswa)
 	{
-		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.pembimbing as pembimbing, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing'AND pengajuan.id_mahasiswa=$mahasiswa order by bimbingan.status desc")->result_array();
+		return $this->db->query("SELECT bimbingan.id as id_bimbingan, bimbingan.pembimbing as pembimbing, bimbingan.bab as bab, bimbingan.status as status,bimbingan.tgl_acc as tgl_acc FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.pembimbing='$pembimbing'AND pengajuan.id_mahasiswa=$mahasiswa order by bimbingan.bab desc")->result_array();
 	}
 	public function checkBimbingan($bimbingan,$mahasiswa)
 	{
@@ -66,19 +70,16 @@ class Bimbingan_model extends CI_Model {
 	{
 		$config['upload_path']          = './uploads/bimbingan/';
         $config['allowed_types']        = 'pdf';
+        $config['encrypt_name']			= true;
         $config['file_name']            = $id;
         $config['overwrite']			= true;
-        $config['max_size']             = 50000;
         
         $this->load->library('upload', $config);
         if ($this->upload->do_upload('file')) {
         	$this->session->set_flashdata('file_uploaded','Berhasil Mengirim Proposal!');
         	return $this->upload->data("file_name");
-        }else{
-        	$this->session->set_flashdata('file_failed','Gagal Mengirim Proposal!');
         }
-
-        return $id.'.pdf';
+        return NULL;
 	}
 
 	public function getBimbinganDetail($id)
@@ -100,7 +101,7 @@ class Bimbingan_model extends CI_Model {
 
 	public function getDetailsPengajuan($bimbingan)
 	{
-		return $this->db->query("SELECT mahasiswa.username AS nim_mahasiswa, mahasiswa.nama AS nama_mahasiswa, mahasiswa.prodi AS prodi, pengajuan.judul AS judul, pengajuan.latarbelakang AS latarbelakang, pengajuan.tujuan AS tujuan, proposal.file AS proposal FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN proposal ON proposal.id_pengajuan=pengajuan.id INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.id='$bimbingan'")->row_array();
+		return $this->db->query("SELECT mahasiswa.username AS nim_mahasiswa, mahasiswa.nama AS nama_mahasiswa, mahasiswa.prodi AS prodi,pengajuan.id as id_pengajuan, pengajuan.judul AS judul, pengajuan.latarbelakang AS latarbelakang, pengajuan.tujuan AS tujuan, proposal.file AS proposal FROM bimbingan INNER JOIN pengajuan ON pengajuan.id = bimbingan.id_pengajuan INNER JOIN proposal ON proposal.id_pengajuan=pengajuan.id INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE bimbingan.id='$bimbingan'")->row_array();
 	}
 	public function accBimbingan($id)
 	{
@@ -147,6 +148,10 @@ class Bimbingan_model extends CI_Model {
 		return $this->db->get('pengajuan')->row_array();
 		
 	}
+	public function checkBimbingan4($pembimbing){
+		$mahasiswa = $this->session->userdata('id');
+		return $this->db->query("SELECT bimbingan.bab, bimbingan.status FROM bimbingan INNER JOIN pengajuan ON pengajuan.id=bimbingan.id_pengajuan WHERE pengajuan.id_mahasiswa=$mahasiswa AND pengajuan.status='terima' AND bimbingan.bab='4' AND bimbingan.pembimbing='$pembimbing'")->row_array();
+	}
 	public function isChatDone($id){
 		$this->db->where('id',$id);
 		return $this->db->get('bimbingan')->row_array();
@@ -158,5 +163,23 @@ class Bimbingan_model extends CI_Model {
 		$this->db->where('acc_bab_pembimbing2','ya');
 		return $this->db->get('pengajuan')->row_array();
 	}
-	
+	public function get_info_bimbingan2($PengajuanID,$bab)
+	{
+		return $this->db->query("SELECT bimbingan.status, bimbingan.tgl_acc FROM bimbingan WHERE bimbingan.id_pengajuan=$PengajuanID AND bimbingan.pembimbing='2' AND bimbingan.bab='$bab'")->row_array();
+	}
+	public function get_info_bimbingan1($PengajuanID,$bab)
+	{
+		return $this->db->query("SELECT bimbingan.status, bimbingan.tgl_acc FROM bimbingan WHERE bimbingan.id_pengajuan=$PengajuanID AND bimbingan.pembimbing='1' AND bimbingan.bab='$bab'")->row_array();
+	}
+	public function getNameDosen($DosenID)
+	{
+		return $this->db->query("SELECT nama FROM dosen WHERE id=$DosenID")->row_array();
+	}
+	public function getBabBimbinganOther($IDBimbingan,$pembimbing){
+		return $this->db->query("SELECT bimbingan.bab FROM bimbingan WHERE bimbingan.id='$IDBimbingan' AND bimbingan.pembimbing='$pembimbing'")->row_array();
+	}
+	public function getIDBimbinganOther($bab,$pembimbing)
+	{
+		return $this->db->query("SELECT bimbingan.id, bimbingan.status FROM bimbingan WHERE bimbingan.bab='$bab' AND bimbingan.pembimbing <> '$pembimbing'")->row_array();
+	}
 }

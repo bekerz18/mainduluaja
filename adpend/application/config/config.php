@@ -524,4 +524,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 // Composer
-$config['composer_autoload'] = 'vendor/autoload.php';
+$config['composer_autoload'] = '../vendor/autoload.php';

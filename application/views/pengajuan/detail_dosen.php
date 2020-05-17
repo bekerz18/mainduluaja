@@ -108,7 +108,7 @@
                             <?php if($this->session->userdata('id') != $pengajuan['pembimbing2']){
                               if($pengajuan['sidang_kompre2'] == 'ya'){
                                 echo $pembimbing2['nama'].' <button type="button" class="btn btn-sm btn-success">Sudah menerima</button>';
-                              }elseif($pengajuan['sidang_kompre1'] == null){
+                              }elseif($pengajuan['sidang_kompre2'] == null){
                                 echo $pembimbing2['nama'].' Belum menerima';
                               }
                             }?>
@@ -151,7 +151,7 @@
                             <?php if($this->session->userdata('id') != $pengajuan['pembimbing2']){
                               if($pengajuan['acc_thesis2'] == 'ya'){
                                 echo $pembimbing2['nama'].' <button type="button" class="btn btn-sm btn-success">Sudah menerima</button>';
-                              }elseif($pengajuan['acc_thesis1'] == null){
+                              }elseif($pengajuan['acc_thesis2'] == null){
                                 echo $pembimbing2['nama'].' Belum menerima';
                               }
                             }?>

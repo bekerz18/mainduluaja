@@ -71,7 +71,8 @@ class Thesis extends CI_Controller {
 					'tgl_sidang'	=> $this->input->post('tanggal'),
 					'id_penguji1'	=> $this->input->post('penguji1'),
 					'id_penguji2'	=> $this->input->post('penguji2'),
-					'id_penguji3'	=> $this->input->post('penguji3')
+					'id_penguji3'	=> $this->input->post('penguji3'),
+					'nilai_tampil'	=> $this->input->post('nilai_tampil')
 				);
 				$update = $model->updateThesis($data);
 				if($update){
@@ -118,20 +119,27 @@ class Thesis extends CI_Controller {
 
 	public function cetak(){
 		if($this->session->userdata('level') == 0){
-			$model = $this->Thesis_model;
-			$data['model'] = $model;
-			$data['thesis'] = $model->getAll();
-			
-			$data['title'] = 'Daftar Thesis';
-			$cetak = $this->load->view('thesis/cetak_admin',$data,TRUE);
-			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
-			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
-			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
-        	$users->showImageErrors = true;
-        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
-        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
-        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-        	$users->Output($data['title'], 'I');
+			if($this->input->method() == "post"){
+				$model = $this->Thesis_model;
+				$data['model'] = $model;
+				$tanggalRange = $this->input->post('tanggal_range');
+				$FirstDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[0]));
+				$LastDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[2]));
+				$data["range"] = $tanggalRange;
+
+				$data['thesis'] = $model->getAllCetak($FirstDate,$LastDate);
+				
+				$data['title'] = 'Daftar Thesis';
+				$cetak = $this->load->view('thesis/cetak_admin',$data,TRUE);
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        	$users->showImageErrors = true;
+	        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->Output($data['title'].'.pdf', 'D');
+	        }
 		}else{
 			redirect('beranda');
 		}

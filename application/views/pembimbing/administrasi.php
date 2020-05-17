@@ -104,7 +104,7 @@
         $("#data-pembimbing").dataTable().fnClearTable();
         $("#data-pembimbing").dataTable().fnDestroy();
         $PembAdmin.html($datas);
-        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+        $('#data-pembimbing').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
       },error : function(data){
         alert('Gagal mengambil data');
       }

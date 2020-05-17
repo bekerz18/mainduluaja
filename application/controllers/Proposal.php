@@ -113,19 +113,25 @@ class Proposal extends CI_Controller{
 	public function cetak()
 	{
 		if($this->session->userdata('level') == 0){
-			$model = $this->Proposal_model;
-			$data['model'] = $model;
-			$data['title'] = 'Daftar Proposal';
-			$data['proposals'] = $model->getAll();
-			$cetak = $this->load->view('proposal/cetak',$data,TRUE);
-			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
-			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
-			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
-        	$users->showImageErrors = true;
-        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
-        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
-        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
-        	$users->Output($data['title'], 'I');
+			if($this->input->method() == "post"){
+				$model = $this->Proposal_model;
+				$data['model'] = $model;
+				$data['title'] = 'Daftar Proposal';
+				$tanggalRange = $this->input->post('tanggal_range');
+				$FirstDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[0]));
+				$LastDate = date("Y-m-d",strtotime(explode(" ", $tanggalRange)[2]));
+				$data["range"] = $tanggalRange;
+				$data['proposals'] = $model->getAllCetak($FirstDate,$LastDate);
+				$cetak = $this->load->view('proposal/cetak',$data,TRUE);
+				$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+				$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+				$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        	$users->showImageErrors = true;
+	        	$users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        	$users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        	$users->Output($data['title'].'.pdf', 'D');
+	        }
 		}else{
 			redirect('beranda');
 		}

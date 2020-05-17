@@ -63,7 +63,7 @@
                     <td class="text-center"><?php echo $pengajuan["judul"];?></td>
                     <td><?php if($pengajuan['pembimbing1'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing1'];}?></td>
                     <td><?php if($pengajuan['pembimbing2'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing2'];}?></td>
-                    <td class="text-center"><a class="details-penentuan text-info" data-id="<?php echo $pengajuan["id_pengajuan"];?>">Details</a></td>
+                    <td class="text-center"><a class="details-penentuan text-info" data-id="<?php echo $pengajuan["id_pengajuan"];?>">Details</a>   <a class="text-danger" href="<?php echo base_url('pengajuan/penentuan_pembimbing/hapus/').$pengajuan["id_pengajuan"];?>">Hapus</a></td>
                   </tr>
                 <?php endforeach;?>
               </tbody>
@@ -171,7 +171,7 @@
   $(function () {
     var $idPengajuan='';
     $(".select2").select2();
-    $('#table-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+    $('#table-pengajuan').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
 
     $("#data-pengajuans").on("click",".details-penentuan",function(){
       let id = $(this).data('id');
@@ -312,7 +312,7 @@
             $('#table-pengajuan').dataTable().fnClearTable();
             $('#table-pengajuan').dataTable().fnDestroy();
             $("#data-pengajuans").html(datas);
-            $('#table-pengajuan').DataTable({ "paging": true, "lengthChange": false, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
+            $('#table-pengajuan').DataTable({ "paging": true, "lengthChange": true, "searching": true, "ordering": true, "info": true, "autoWidth": false, "responsive": true, });
           },error: function(data){
             console.log("Gagal Mengambil Data Penentuan");
           }
