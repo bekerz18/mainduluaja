@@ -182,4 +182,33 @@ class Bimbingan_model extends CI_Model {
 	{
 		return $this->db->query("SELECT bimbingan.id, bimbingan.status FROM bimbingan WHERE bimbingan.bab='$bab' AND bimbingan.pembimbing <> '$pembimbing'")->row_array();
 	}
+	public function getPengajuan()
+	{
+		$id = $this->session->userdata('id');
+
+		return $this->db->query("SELECT pengajuan.id,pengajuan.tglpengajuan,pengajuan.tglditerima FROM pengajuan WHERE id_mahasiswa=$id AND pengajuan.status='terima'")->row_array();
+	}
+	public function getProposal($id)
+	{
+		$this->db->where('id_pengajuan',$id);
+		return $this->db->get('proposal')->row_array();
+	}
+	public function getKompre($id)
+	{
+		$this->db->where('id_pengajuan',$id);
+		return $this->db->get('komprehensif')->row_array();
+	}
+	public function getRiwayatBimbinganDetail($id)
+	{
+		return $this->db->query("SELECT bimbingan_detail.id_bimbingan, bimbingan.pembimbing,bimbingan.bab,bimbingan_detail.tanggal FROM bimbingan INNER JOIN bimbingan_detail ON bimbingan_detail.id_bimbingan=bimbingan.id WHERE bimbingan.id_pengajuan=$id ORDER BY bimbingan_detail.tanggal ASC")->result_array();
+	}
+	public function getBimAcc($id)
+	{
+		return $this->db->query("SELECT bimbingan.tgl_acc,bimbingan.bab,bimbingan.pembimbing FROM bimbingan WHERE bimbingan.status='sudah' AND bimbingan.id='$id'")->row_array();
+	}
+	public function getThesis($id)
+	{
+		$this->db->where('id_pengajuan',$id);
+		return $this->db->get('thesis')->row_array();
+	}
 }

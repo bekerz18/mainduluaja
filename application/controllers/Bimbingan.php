@@ -336,4 +336,117 @@ class Bimbingan extends CI_Controller {
 			}
 		}
 	}
+	public function riwayat($cetak=null)
+	{
+		if($this->session->userdata('level') != 2) redirect('beranda');
+
+		if($this->_getPengajuan() != 'nothing'){
+			$data['model'] = $this->Bimbingan_model;
+			$data['pengajuan'] = $this->_getPengajuan();
+			if($this->_getProposal($data['pengajuan']['id']) != 'nothing'){
+				$data['proposal'] = $this->_getProposal($data['pengajuan']['id']);
+				if($this->_getKompre($data['pengajuan']['id']) != 'nothing'){
+					$data['kompre'] = $this->_getKompre($data['pengajuan']['id']);
+				}else{
+					$data['kompre'] = 'nothing';
+				}
+				if($this->_getRiwayatBimbinganDetail($data['pengajuan']['id']) != 'nothing'){
+					$data['bimDets'] = $this->_getRiwayatBimbinganDetail($data['pengajuan']['id']);
+					if($this->_getThesis($data['pengajuan']['id']) != 'nothing'){
+						$data['thesis'] = $this->_getThesis($data['pengajuan']['id']);
+					}else{
+						$data['thesis'] = 'nothing';
+					}
+				}else{
+					$data['bimDets'] = 'nothing';
+				}	
+			}else{
+				$data['proposal'] = 'nothing';
+			}
+		}else{
+			$data['pengajuan'] = 'nothing';
+		}
+		$data["title"] = "Riwayat Bimbingan";
+		$data["nama"] = $this->session->userdata('nama');
+		$this->load->view('layout/mahasiswa/header',$data);
+		$this->load->view('bimbingan/mahasiswa/riwayat',$data);
+
+		if($cetak == 'cetak'){
+			$cetak = $this->load->view('bimbingan/mahasiswa/cetak_riwayat',$data,TRUE);
+			$style = file_get_contents(base_url('assets/dist/css/cetak.css'));
+			$cetak_head = $this->load->view('layout/cetak',$data,TRUE);
+			$users= new \Mpdf\Mpdf(['format' => 'Legal']);
+	        $users->showImageErrors = true;
+	        $users->WriteHTML($style,\Mpdf\HTMLParserMode::HEADER_CSS);
+	        $users->WriteHtml($cetak_head,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->WriteHtml($cetak,\Mpdf\HTMLParserMode::HTML_BODY);
+	        $users->Output($data['title'].'.pdf', 'D');
+		}
+
+
+	}
+
+	private function _getPengajuan()
+	{
+		$model = $this->Bimbingan_model;
+
+		$pengajuan = $model->getPengajuan();
+
+		if(!$pengajuan){
+			return 'nothing';
+		}
+
+		return $pengajuan;
+	}
+
+	private function _getProposal($id)
+	{
+		$model = $this->Bimbingan_model;
+
+		$proposal = $model->getProposal($id);
+
+		if(!$proposal){
+			return 'nothing';
+		}
+
+		return $proposal;
+	}
+
+	private function _getKompre($id)
+	{
+		$model = $this->Bimbingan_model;
+
+		$komprehensif = $model->getKompre($id);
+
+		if(!$komprehensif){
+			return 'nothing';
+		}
+
+		return $komprehensif;
+	}
+
+	private function _getRiwayatBimbinganDetail($id)
+	{
+		$model = $this->Bimbingan_model;
+
+		$bimDet = $model->getRiwayatBimbinganDetail($id);
+
+		if(!$bimDet){
+			return 'nothing';
+		}
+
+		return $bimDet;
+	}
+	private function _getThesis($id)
+	{
+		$model = $this->Bimbingan_model;
+
+		$thesis = $model->getThesis($id);
+
+		if(!$thesis){
+			return 'nothing';
+		}
+
+		return $thesis;
+	}
 }
