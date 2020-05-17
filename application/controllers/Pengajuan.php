@@ -23,9 +23,9 @@ class Pengajuan extends CI_Controller{
 		if(!$checkIsHave){
 			$validasi = $this->form_validation;
 		
-			$validasi->set_rules('nim','NIM','required|trim');
+			$validasi->set_rules('nim','NIM','required');
 			$validasi->set_rules('nama','Nama','required|trim');
-			$validasi->set_rules('judul','Judul','required|trim');
+			$validasi->set_rules('judul','Judul','required|trim|is_unique[pengajuan.judul]');
 			$validasi->set_rules('latarbelakang','latarbelakang','required|trim');
 			$validasi->set_rules('tujuan','tujuan','required|trim');
 

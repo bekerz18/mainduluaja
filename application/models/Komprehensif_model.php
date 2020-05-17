@@ -36,6 +36,7 @@ class Komprehensif_model extends CI_Model {
 			'id_penguji3'	=> NULL,
 			'nilai_1'	=> NULL,
 			'nilai_2'	=> NULL,
+			'nilai_tampil' => NULL,
 			'nilai_3'	=> NULL);
 
 		return $this->db->update('komprehensif',$data);

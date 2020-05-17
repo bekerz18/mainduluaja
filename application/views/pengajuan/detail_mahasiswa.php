@@ -184,19 +184,7 @@
                               echo 'Sedang diproses';
                             }else{
                             echo number_format($nilai_total['nilai'],2).'</dd>';if(number_format($nilai_total['nilai'],2) < 75){?>
-                            <dt class="col-sm-2">UPLOAD REVISI</dt>
-                             <dd class="col-sm-10">
-                            <form action="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/'.$proposal['id'];?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                             
-                                <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
-                                
-                             
-                              <button type="submit" class="btn btn-primary">Upload Proposal</button>
-                              <?php echo form_error('proposal');?>
-                            <?php echo form_close();?>
-                          </dd>
-                          <?php }}}?>
-                          <?php
+                            <?php
                           $nilai = $model->getNilaiProposal($proposal["id_pengajuan"]);
                           if($proposal["nilai_tampil"] == 'ya'){?>
                                       <dt class="col-sm-2">KETERANGAN</dt>
@@ -216,6 +204,19 @@
                                           }?>
                                       </dd>
                                       <?php }?>
+                            <dt class="col-sm-2">UPLOAD REVISI</dt>
+                             <dd class="col-sm-10">
+                            <form action="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/'.$proposal['id'];?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                             
+                                <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
+                                
+                             
+                              <button type="submit" class="btn btn-primary">Upload Proposal</button>
+                              <?php echo form_error('proposal');?>
+                            <?php echo form_close();?>
+                          </dd>
+                          <?php }}}?>
+                          
                         <?php }elseif($proposal['revisi'] == 'ya'){ ?>
                           <dd class="col-sm-10">: <strong class="text-danger">Proposal Ditolak</strong></dd>
                           <dt class="col-sm-2">KETERANGAN</dt>
@@ -284,19 +285,6 @@
                                       echo number_format($nilai['nilai'],2);
                                        if(number_format($nilai['nilai'],2) < 75){
                                       echo ' Revisi';?>
-
-                                      
-                                    
-                                
-                                      <dt class="col-sm-4">
-                                      <div class="text-center">
-                                      <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3).'/re';?>">
-                                        <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
-                                      </a>
-                                    </div>
-                                  </dt>
-                                    <?php } } }?>
-                                      
                                     </dd>
                                     <?php
                                       $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
@@ -318,6 +306,21 @@
                                           }?>
                                       </dd>
                                       <?php }?>
+
+                                      
+                                    
+                                
+                                      <dt class="col-sm-4">
+                                      <div class="text-center">
+                                      <a href="<?php echo base_url('komprehensif/register/').$this->uri->segment(3).'/re';?>">
+                                        <button type="button" class="btn btn-lg btn-primary">Daftar Sidang Kompre</button>
+                                      </a>
+                                    </div>
+                                  </dt>
+                                    <?php } } }?>
+                                      
+                                    </dd>
+                                    
 
                               </dl>
                             <?php }?>

@@ -43,8 +43,8 @@
                     <input type="text" class="form-control form-control-lg" id="nama" name="nama" placeholder="Silahkan Masukan Nama" value="<?php if($this->session->userdata('level') == 2) echo $this->session->userdata('nama');?>" readonly>
                   </div>
                   <div class="form-group">
-                    <label for="judul">Judul Tugas Akhir<?php echo form_error('judul',' <span class="text-danger">');?></label>
-                    <input type="text" class="form-control form-control-lg" id="judul" name="judul" placeholder="Silahkan Masukan Judul Tugas Akhir" required>
+                    <label for="judul">Judul Thesis<?php echo form_error('judul',' <span class="text-danger">');?></label>
+                    <input type="text" class="form-control form-control-lg" id="judul" name="judul" placeholder="Silahkan Masukan Judul Thesis" required>
                   </div>
                   <div class="form-group">
                     <label for="latarbelakang">Latar Belakang<?php echo form_error('latarbelakang',' <span class="text-danger">');?></label>
