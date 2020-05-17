@@ -196,7 +196,7 @@
                           </dd>
                           <?php }}}?>
                           <?php
-                          $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                          $nilai = $model->nilaiKompre($proposal["id_pengajuan"]);
                           if($proposal["nilai_tampil"] == 'ya'){?>
                                       <dt class="col-sm-2">KETERANGAN</dt>
                                       <dd class="col-sm-10"> : <?php

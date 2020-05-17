@@ -211,6 +211,8 @@ class Pengajuan extends CI_Controller{
 							}
 						}
 						
+					}else{
+						$data["status_kompre"] = "belum";
 					}
 				}
 				$data['title'] = 'Detail Pengajuan';
