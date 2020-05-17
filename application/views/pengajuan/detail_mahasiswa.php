@@ -210,6 +210,8 @@
                                             echo "D";
                                           }else if(number_format($nilai_total['nilai'],2) <= 55){
                                             echo "E";
+                                          }else{
+                                            echo "Belum Ada";
                                           }?>
                                       </dd>
                                       <?php }?>
