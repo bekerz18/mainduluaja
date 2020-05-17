@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 11, 2020 at 11:24 AM
+-- Generation Time: May 18, 2020 at 06:30 AM
 -- Server version: 10.3.22-MariaDB-cll-lve
 -- PHP Version: 7.3.6
 
@@ -42,14 +42,14 @@ CREATE TABLE `bimbingan` (
 --
 
 INSERT INTO `bimbingan` (`id`, `id_pengajuan`, `pembimbing`, `bab`, `status`, `tgl_acc`) VALUES
-('5eb8bd0d11657', 12, '1', '1', 'sudah', '2020-05-11 02:50:12'),
-('5eb8bd6f77f1c', 12, '1', '2', 'sudah', '2020-05-11 02:51:46'),
-('5eb8bded74f95', 12, '1', '3', 'sudah', '2020-05-11 02:53:04'),
-('5eb8be2687fa2', 12, '1', '4', 'sudah', '2020-05-11 02:54:10'),
-('5eb8beb69bcf1', 12, '2', '1', 'sudah', '2020-05-11 02:56:45'),
-('5eb8befe497f4', 12, '2', '2', 'sudah', '2020-05-11 02:57:51'),
-('5eb8bf3d9a642', 12, '2', '3', 'sudah', '2020-05-11 02:59:01'),
-('5eb8bfa6bf6ea', 12, '2', '4', 'sudah', '2020-05-11 03:01:21');
+('5ec0e2f1eb5b2', 1, '1', '1', 'sudah', '2020-05-17 07:09:37'),
+('5ec0e3506fafd', 1, '1', '2', 'sudah', '2020-05-17 07:10:43'),
+('5ec0e357b9778', 1, '2', '1', 'sudah', '2020-05-17 07:13:07'),
+('5ec0e39d7535e', 1, '1', '3', 'sudah', '2020-05-17 07:11:48'),
+('5ec0e3c3d6431', 1, '1', '4', 'sudah', '2020-05-17 07:12:40'),
+('5ec0e41b0dd8a', 1, '2', '2', 'sudah', '2020-05-17 07:14:09'),
+('5ec0e45c65e34', 1, '2', '3', 'sudah', '2020-05-17 07:14:54'),
+('5ec0e47cbb258', 1, '2', '4', 'sudah', '2020-05-17 07:15:23');
 
 -- --------------------------------------------------------
 
@@ -72,15 +72,11 @@ CREATE TABLE `bimbingan_detail` (
 --
 
 INSERT INTO `bimbingan_detail` (`id`, `id_bimbingan`, `file`, `tanggal`, `deskripsi`, `id_pengguna`, `level`) VALUES
-('5eb8bd4b99839', '5eb8bd0d11657', '5eb8bd4b99839.pdf', '2020-05-11 02:49:47', 'khghkgh', 7, '2'),
-('5eb8bda093f29', '5eb8bd6f77f1c', '5eb8bda093f29.pdf', '2020-05-11 02:51:12', 'bab 2', 7, '2'),
-('5eb8be0022a21', '5eb8bded74f95', '5eb8be0022a21.pdf', '2020-05-11 02:52:48', 'bab 3', 7, '2'),
-('5eb8be4916245', '5eb8be2687fa2', '5eb8be4916245.pdf', '2020-05-11 02:54:01', 'bab 4', 7, '2'),
-('5eb8bee2361dd', '5eb8beb69bcf1', '5eb8bee2361dd.pdf', '2020-05-11 02:56:34', 'bab 1', 7, '2'),
-('5eb8bf1356a52', '5eb8befe497f4', '5eb8bf1356a52.pdf', '2020-05-11 02:57:23', 'bab 2', 7, '2'),
-('5eb8bf527716e', '5eb8bf3d9a642', '5eb8bf527716e.pdf', '2020-05-11 02:58:26', 'bab 3', 7, '2'),
-('5eb8bfc430956', '5eb8bfa6bf6ea', '5eb8bfc430956.pdf', '2020-05-11 03:00:20', 'dtd', 42, '1'),
-('5eb8bfe99528b', '5eb8bfa6bf6ea', '5eb8bfe99528b.pdf', '2020-05-11 03:00:57', 'ads', 7, '2');
+('5ec0e2fd5dc33', '5ec0e2f1eb5b2', 'a5072ed38681d95f0ec401efad1dc62c.pdf', '2020-05-17 07:08:45', 'a', 1, '2'),
+('5ec0e3299f94d', '5ec0e2f1eb5b2', 'd63c9264280272e50e73a770677e1b61.pdf', '2020-05-17 07:09:29', 's', 61, '1'),
+('5ec0e35f0fcc4', '5ec0e357b9778', NULL, '2020-05-17 07:10:23', 's', 1, '2'),
+('5ec0e3a3c4a36', '5ec0e39d7535e', NULL, '2020-05-17 07:11:31', 'd', 1, '2'),
+('5ec0e3e55357f', '5ec0e3c3d6431', NULL, '2020-05-17 07:12:37', 'm', 61, '1');
 
 -- --------------------------------------------------------
 
@@ -178,15 +174,17 @@ CREATE TABLE `komprehensif` (
   `id_penguji3` int(11) DEFAULT NULL,
   `nilai_1` int(11) DEFAULT NULL,
   `nilai_2` int(11) DEFAULT NULL,
-  `nilai_3` int(11) DEFAULT NULL
+  `nilai_3` int(11) DEFAULT NULL,
+  `nilai_tampil` enum('ya','tidak') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `komprehensif`
 --
 
-INSERT INTO `komprehensif` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`) VALUES
-(4, 12, 'ya', '2020-05-11 03:02:13', '2020-05-11 03:04:36', '2020-05-11', 36, 38, 40, 90, 89, 78);
+INSERT INTO `komprehensif` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_tampil`) VALUES
+(1, 1, 'ya', '2020-05-17 07:06:43', '2020-05-17 23:23:01', '2020-05-19', 20, 29, 19, 87, 88, 89, 'tidak'),
+(2, 3, 'ya', '2020-05-17 23:22:29', '2020-05-17 23:23:01', '2020-05-19', 20, 29, 19, 77, 88, 90, 'tidak');
 
 -- --------------------------------------------------------
 
@@ -211,7 +209,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `konsentrasi`, `prodi`, `email`, `handphone`) VALUES
-(7, 'sanditha', 'Wanita', '43200', 'f8db36f4eb09c494a1619ebe4d8db028', 'hukum perdata', 'hukum', '', '');
+(1, 'Didit Mustofa', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'Manajemen Pemasaran', 'manajemen', '', ''),
+(2, 'kokom komariyah', 'Wanita', '111', '698d51a19d8a121ce581499d7b701668', 'Pendidikan luar negeri', 'adpend', '', '');
 
 -- --------------------------------------------------------
 
@@ -232,15 +231,19 @@ CREATE TABLE `pengajuan` (
   `id_pembimbing1` int(11) DEFAULT NULL,
   `id_pembimbing2` int(11) DEFAULT NULL,
   `acc_bab_pembimbing1` enum('ya','belum') DEFAULT NULL,
-  `acc_bab_pembimbing2` enum('ya','belum') DEFAULT NULL
+  `acc_bab_pembimbing2` enum('ya','belum') DEFAULT NULL,
+  `acc_sidang_kompre1` enum('ya','tidak') DEFAULT NULL,
+  `acc_sidang_kompre2` enum('ya','tidak') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengajuan`
 --
 
-INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`, `acc_bab_pembimbing1`, `acc_bab_pembimbing2`) VALUES
-(12, 7, 'sistem manajemen pemasaran berbasis aplikasi', '2020-05-11 02:31:00', '2020-05-11 02:32:00', 'terima', 'drdg', 'dtff', NULL, 33, 42, 'ya', 'ya');
+INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`, `acc_bab_pembimbing1`, `acc_bab_pembimbing2`, `acc_sidang_kompre1`, `acc_sidang_kompre2`) VALUES
+(1, 1, 'Galeri Foto', '2020-05-17 06:56:40', '2020-05-17 06:56:52', 'terima', 'Galeri Foto', 'Galeri Foto', NULL, 61, 51, 'ya', 'ya', 'ya', 'ya'),
+(2, 2, 'sistem untuk', '2020-05-17 23:10:43', '2020-05-17 23:11:04', 'tolak', 'sdfghjkl', 'QWERTYUIO', 'dfgh', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 2, 'fghjgh', '2020-05-17 23:11:36', '2020-05-17 23:11:54', 'terima', 'fghjkjg', 'dfghjk', NULL, 22, 15, NULL, NULL, 'ya', 'ya');
 
 -- --------------------------------------------------------
 
@@ -358,18 +361,18 @@ CREATE TABLE `proposal` (
   `nilai_3` int(11) DEFAULT NULL,
   `revisi` enum('ya','tidak') DEFAULT NULL,
   `ket_revisi` text DEFAULT NULL,
-  `last_update` timestamp NULL DEFAULT NULL
+  `last_update` timestamp NULL DEFAULT NULL,
+  `nilai_tampil` enum('ya','tidak') DEFAULT NULL,
+  `penentuan` enum('tidak','ya') NOT NULL DEFAULT 'ya'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `proposal`
 --
 
-INSERT INTO `proposal` (`id`, `id_pengajuan`, `file`, `tgl_seminar`, `acc_seminar`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `revisi`, `ket_revisi`, `last_update`) VALUES
-('5eb8ba25cdcde', 12, '5eb8ba25cdcde.pdf', '2020-05-11', '2020-05-11 02:37:09', 39, 45, 35, 89, 90, 88, 'tidak', NULL, '2020-05-11 02:36:21'),
-('5eb8ba635b600', 12, '5eb8ba635b600.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-11 02:37:23'),
-('5eb8bbdf2332b', 12, '5eb8bbdf2332b.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-11 02:43:43'),
-('5eb8bcdcdaf72', 12, '5eb8bcdcdaf72.pdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-11 02:47:56');
+INSERT INTO `proposal` (`id`, `id_pengajuan`, `file`, `tgl_seminar`, `acc_seminar`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `revisi`, `ket_revisi`, `last_update`, `nilai_tampil`, `penentuan`) VALUES
+('5ec0e04aeb3aa', 1, '5ec0e04aeb3aa.pdf', '2020-05-17', '2020-05-17 06:58:49', 65, 63, 54, 76, 74, 75, 'tidak', NULL, '2020-05-17 06:58:26', 'ya', 'ya'),
+('5ec1c4f736c8d', 3, '5ec1c4f736c8d.pdf', '2020-05-18', '2020-05-17 23:17:52', 28, 23, 26, 77, 88, 88, 'tidak', NULL, '2020-05-17 23:12:55', 'ya', 'ya');
 
 -- --------------------------------------------------------
 
@@ -390,15 +393,16 @@ CREATE TABLE `thesis` (
   `nilai_1` int(11) DEFAULT NULL,
   `nilai_2` int(11) DEFAULT NULL,
   `nilai_3` int(11) DEFAULT NULL,
-  `file` varchar(100) NOT NULL
+  `file` varchar(100) NOT NULL,
+  `nilai_tampil` enum('ya','tidak') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `thesis`
 --
 
-INSERT INTO `thesis` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `file`) VALUES
-('5eb8c1f084788', 12, 'ya', '2020-05-11 03:09:36', '2020-05-11 03:10:21', '2020-05-11', 39, 45, 35, 80, 88, 88, '5eb8c1f084788.pdf');
+INSERT INTO `thesis` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `file`, `nilai_tampil`) VALUES
+('5ec0e4be6b98c', 1, 'ya', '2020-05-17 07:16:14', '2020-05-17 07:16:37', '2020-05-17', 65, 63, 54, 74, 74, 74, '5ec0e4be6b98c.pdf', 'ya');
 
 -- --------------------------------------------------------
 
@@ -533,19 +537,19 @@ ALTER TABLE `dosen`
 -- AUTO_INCREMENT for table `komprehensif`
 --
 ALTER TABLE `komprehensif`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `prodi`
