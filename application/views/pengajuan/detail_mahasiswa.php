@@ -184,7 +184,20 @@
                               echo 'Sedang diproses';
                             }else{
                             echo number_format($nilai_total['nilai'],2).'</dd>';if(number_format($nilai_total['nilai'],2) < 75){?>
-                            <?php
+                            
+                            <dt class="col-sm-2">UPLOAD REVISI</dt>
+                             <dd class="col-sm-10">
+                            <form action="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/'.$proposal['id'];?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                             
+                                <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
+                                
+                             
+                              <button type="submit" class="btn btn-primary">Upload Proposal</button>
+                              <?php echo form_error('proposal');?>
+                            <?php echo form_close();?>
+                          </dd>
+                          <?php }}}?>
+                          <?php
                           $nilai = $model->getNilaiProposal($proposal["id_pengajuan"]);
                           if($proposal["nilai_tampil"] == 'ya'){?>
                                       <dt class="col-sm-2">KETERANGAN</dt>
@@ -204,18 +217,6 @@
                                           }?>
                                       </dd>
                                       <?php }?>
-                            <dt class="col-sm-2">UPLOAD REVISI</dt>
-                             <dd class="col-sm-10">
-                            <form action="<?php echo base_url('pengajuan/detail/').$this->uri->segment(3).'/'.$proposal['id'];?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                             
-                                <input type="file" class="form-control" id="proposal" name="proposal"  accept="application/pdf">
-                                
-                             
-                              <button type="submit" class="btn btn-primary">Upload Proposal</button>
-                              <?php echo form_error('proposal');?>
-                            <?php echo form_close();?>
-                          </dd>
-                          <?php }}}?>
                           
                         <?php }elseif($proposal['revisi'] == 'ya'){ ?>
                           <dd class="col-sm-10">: <strong class="text-danger">Proposal Ditolak</strong></dd>
@@ -286,26 +287,6 @@
                                        if(number_format($nilai['nilai'],2) < 75){
                                       echo ' Revisi';?>
                                     </dd>
-                                    <?php
-                                      $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
-
-                                      if($kompreData["nilai_tampil"] == 'ya'){?>
-
-                                      <dt class="col-sm-2">KETERANGAN</dt>
-                                      <dd class="col-sm-10"> : <?php
-                                          if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
-                                            echo "A";
-                                          }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) <= 85){
-                                            echo "B";
-                                          }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) <= 75){
-                                            echo "C";
-                                          }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) <= 65){
-                                            echo "D";
-                                          }else if(number_format($nilai['nilai'],2) <= 55){
-                                            echo "E";
-                                          }?>
-                                      </dd>
-                                      <?php }?>
 
                                       
                                     
@@ -320,6 +301,29 @@
                                     <?php } } }?>
                                       
                                     </dd>
+                                    <?php
+                                    $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+                                    if($kompreData['nilai_tampil'] == 'ya'){?>
+                                      <dt class="col-sm-2">KETERANGAN</dt>
+                                      <dd class="col-sm-10"> : <?php
+                                      if($nilai["nilai"] == NULL){
+                                        echo 'Belum Ada';
+                                      }else{
+                                          if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                                            echo "A";
+                                          }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) < 86){
+                                            echo "B";
+                                          }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) < 76){
+                                            echo "C";
+                                          }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) < 66){
+                                            echo "D";
+                                          }else if(number_format($nilai['nilai'],2) <= 55){
+                                            echo "E";
+                                          }
+                                        }
+                                      }
+                                    ?>
+                                  </dd>
                                     
 
                               </dl>
@@ -419,7 +423,10 @@
 
                                 <dt class="col-sm-2">KETERANGAN</dt>
                                 <dd class="col-sm-10"> : <?php
-                                    if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                                if($nilai["nilai"] == NULL){
+                                    echo 'Belum Ada';
+                                  }
+                                    else if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
                                       echo "A";
                                     }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) < 86){
                                       echo "B";

@@ -59,6 +59,28 @@
         <td>: <?php echo $proposal['ket_revisi'];?></td>
       </tr>
     <?php }?>
+    <?php
+    $nilai = $model->getNilaiProposal($proposal["id_pengajuan"]);
+      if($proposal["nilai_tampil"] == 'ya'){?>
+        <tr>
+          <th>KETERANGAN</th>
+          <td> : <?php
+                                      if($proposal["nilai_1"] == NULL || $proposal["nilai_2"] == NULL || $proposal["nilai_3"] == NULL) {
+                                        echo 'Belum ada';
+                                      }else if(number_format($nilai_total['nilai'],2) >= 86 && number_format($nilai_total['nilai'],2) <= 100){
+                                            echo "A";
+                                          }else if(number_format($nilai_total['nilai'],2) >= 76 && number_format($nilai_total['nilai'],2) <= 85){
+                                            echo "B";
+                                          }else if(number_format($nilai_total['nilai'],2) >= 66 && number_format($nilai_total['nilai'],2) <= 75){
+                                            echo "C";
+                                          }else if(number_format($nilai_total['nilai'],2) >= 56 && number_format($nilai_total['nilai'],2) <= 65){
+                                            echo "D";
+                                          }else if(number_format($nilai_total['nilai'],2) <= 55){
+                                            echo "E";
+                                          }?>
+                                      </td>
+                                    </tr>
+                                      <?php }?>
      <?php if($proposal['revisi'] == 'tidak' && $checkKompre == "ya"){?>
       <tr>
         <th colspan="2"><strong>DATA KOMPREHENSIF</strong></th>
@@ -67,102 +89,139 @@
         <th>NIM</th>
         <td>: <?php echo $pengajuan["nim"];?></td>
       </tr>
-      <tr><th>TANGGAL DAFTAR</th>
-                            <td>: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></td></tr>
-                              
-                            <tr><th>TANGGAL DITERIMA</th>
-                            <td>: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></td></tr>
-
-                            <tr><th>TANGGAL SIDANG</th>
-                            <td>: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></td></tr>
-
-                            <tr><th>PENGUJI 1</th>
-                            <td>: <?php echo $kompreData["penguji1"];?></td></tr>
-
-                            <tr><th>PENGUJI 2</th>
-                            <td>: <?php echo $kompreData["penguji2"];?></td></tr>
-
-                            <tr><th>PENGUJI 3</th>
-                            <td>: <?php echo $kompreData["penguji3"];?></td></tr>
-
-                            <tr><th>NILAI </th>
-                            <td>: 
-                              <?php
-                                $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
-                                if($nilai["nilai"] == NULL){
-                                  echo 'Belum Ada';
-                                }else{
-                                  echo number_format($nilai['nilai'],2);
-                                }
-                                if(number_format($nilai['nilai'],2) < 75){
-                                  echo ' Revisi';
-                                }?>
-                                  
-                                </td></tr>
-
-     <?php }?>
-    <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
       <tr>
-        <th colspan="2"><strong>DATA PEMBIMBING</strong></th></tr>
-        <tr><th>PEMBIMBING 1</th>
-        <td>: <?php echo $cariDosbing1['nama'];?></td></tr>
-        <tr><th>PEMBIMBING 2</th>
-        <td>: <?php echo $cariDosbing2['nama'];?></td></tr>
+        <th>TANGGAL DAFTAR</th>
+        <td>: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_daftar"]));?></td></tr>
+        <tr><th>TANGGAL DITERIMA</th>
+        <td>: <?php echo date("l, d F Y H:i:s",strtotime($kompreData["tgl_terima"]));?></td></tr>
+        <tr><th>TANGGAL SIDANG</th><td>: <?php echo date("l, d F Y",strtotime($kompreData["tgl_sidang"]));?></td></tr>
+        <tr><th>PENGUJI 1</th><td>: <?php echo $kompreData["penguji1"];?></td></tr>
+        <tr><th>PENGUJI 2</th><td>: <?php echo $kompreData["penguji2"];?></td></tr>
+        <tr><th>PENGUJI 3</th><td>: <?php echo $kompreData["penguji3"];?></td></tr>
+        <tr><th>NILAI </th><td>: 
+          <?php
+            $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+            if($nilai["nilai"] == NULL){
+              echo 'Belum Ada';
+            }else{
+              echo number_format($nilai['nilai'],2);
+            }
+              if(number_format($nilai['nilai'],2) < 75){
+                echo ' Revisi';
+              }?>
+            </td>
+            </tr>
+          <?php }?>
+          <?php
+          $nilai = $model->nilaiKompre($kompreData["id_pengajuan"]);
+          if($kompreData["nilai_tampil"] == 'ya'){?>
+            <tr>
+              <th><strong>KETERANGAN</strong></th>
+                <td> : <?php
+                if($nilai["nilai"] == NULL){
+                  echo 'Belum Ada';
+                  }else if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                    echo "A";
+                  }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) <= 85){
+                    echo "B";
+                  }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) <= 75){
+                    echo "C";
+                  }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) <= 65){
+                    echo "D";
+                  }else if(number_format($nilai['nilai'],2) <= 55){
+                    echo "E";
+                  }?>
+                  </td>
+                </tr>
+              <?php }?>
+          <?php if($pengajuans['pembimbing1'] != NULL && $pengajuans['pembimbing2'] != NULL){?>
+            <tr>
+              <th colspan="2"><strong>DATA PEMBIMBING</strong></th></tr>
+              <tr><th>PEMBIMBING 1</th>
+                <td>: <?php echo $cariDosbing1['nama'];?></td></tr>
+                <tr><th>PEMBIMBING 2</th>
+                  <td>: <?php echo $cariDosbing2['nama'];?></td>
+                </tr>
+              <?php }?>
+
+              <?php if($tesis_is == 'ada'){?>
+    <tr>
+      <th colspan="2"><strong>DATA THESIS</strong></th>
+    </tr>
+    <?php if($checkThesis == "ya"){?>
+      <tr>
+        <th>TANGGAL DAFTAR</th>
+        <td>: <?php echo date("l, d F Y H:i:s",strtotime($thesis["tgl_daftar"]));?></td>
       </tr>
-    <?php }?>
+      <tr>
+        <th>TANGGAL DITERIMA</th>
+        <td>: <?php echo date("l, d F Y H:i:s",strtotime($thesis["tgl_terima"]));?></td>
+      </tr>
+      <tr>
+        <th>TANGGAL SIDANG</th>
+        <td>: <?php echo date("l, d F Y",strtotime($thesis["tgl_sidang"]));?></td>
+      </tr>
+      <tr>
+        <th>PENGUJI 1</th>
+        <td>: <?php echo $thesis["penguji1"];?></td>
+      </tr>
+      <tr>
+        <th>PENGUJI 2</th>
+        <td>: <?php echo $thesis["penguji2"];?></td>
+      </tr>
+      <tr>
+        <th>PENGUJI 3</th>
+        <td>: <?php echo $thesis["penguji3"];?></td>
+      </tr>
+      <tr>
+        <th>NILAI </th>
+        <td>: 
+          <?php
+            $nilai = $model->nilaiThesis($thesis["id_pengajuan"]);
+            if($nilai["nilai"] == NULL){
+              echo 'Belum Ada';
+            }else{
+              if($thesis['nilai_tampil'] != 'ya'){
+                echo 'Sedang diproses';
+              }else{
+                echo number_format($nilai['nilai'],2);
+                if(number_format($nilai['nilai'],2) < 75){
+                  echo ' Revisi';
+                }
+              }
+            }
+            ?>
+            </td>
+          </tr>
+
+          <?php
+          $nilai = $model->nilaiThesis($thesis["id_pengajuan"]);
+          if($thesis['nilai_tampil'] == 'ya'){?>
+            <tr>
+              <th>KETERANGAN</th>
+              <td> :
+                <?php
+                if($nilai["nilai"] == NULL){
+                    echo 'Belum Ada';
+                  }
+                  else if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                    echo "A";
+                  }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) < 86){
+                    echo "B";
+                  }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) < 76){
+                    echo "C";
+                  }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) < 66){
+                        echo "D";
+                  }else if(number_format($nilai['nilai'],2) <= 55){
+                    echo "E";
+                  }
+                }
+                ?>
+                </td>
+            </tr>
+          <?php }?>
+        <?php }?>
   
 <?php endif;?>
-<?php if($pengajuan['status'] == 'belum' || $pengajuan['status'] == 'tolak' || $pengajuan['status'] == 'terima' && $status_proposal == 'belum'):?>
-  <tr>
-    <th colspan="2"><strong>DATA PENGAJUAN</strong></th>
-  </tr>
-  <tr>
-    <th>NIM</th>
-    <td>: <?php echo $pengajuan["nim"];?></td>
-  </tr>
-  <tr>
-    <th>NAMA</th>
-    <td>: <?php echo $pengajuan["nama"];?></td>
-  </tr>
-  <tr>
-    <th>PENGAJUAN</th>
-    <td>: <?php echo date("l, d F Y H:i:s", strtotime($pengajuan["tglpengajuan"]));?></td>
-  </tr>
-  <tr>
-    <th>STATUS</th>
-    <td>: <?php
-    if($pengajuan["status"] == "belum"){
-      echo '<strong class="text-warning">Sedang diproses</strong>';
-    }elseif($pengajuan["status"] == "tolak"){
-      echo '<strong class="text-danger">Ditolak</strong> Pada '.date("l, d F Y H:i:s", strtotime($pengajuan["tglditerima"]));
-    }elseif($pengajuan["status"] == "terima"){
-      echo '<strong class="text-success">Diterima</strong> Pada ' .date("l, d F Y H:i:s", strtotime($pengajuan["tglditerima"]));
-    }
-    ?></td>
-  </tr>
-  <?php if($pengajuan["status"] == "tolak"):?>
-    <tr>
-      <th>ALASAN</th>
-      <td>: <?php echo $pengajuan["alasan"];?></td>
-    </tr>
-  <?php endif;?>
-  <tr>
-    <th>JUDUL</th>
-    <td>: <?php echo $pengajuan["judul"];?></td>
-  </tr>
-  <tr>
-    <th>LATAR BELAKANG</th>
-    <td>: <?php echo $pengajuan["latarbelakang"];?></td>
-  </tr>
-  <tr>
-    <th>TUJUAN</th>
-    <td>: <?php echo $pengajuan["tujuan"];?></td>
-  </tr>
-  <?php if($pengajuan["status"] == "terima" && $status_proposal == 'belum'){?>
-    <tr>
-      <th colspan="2" class="text-warning">KIRIM PROPOSAL!</th>
-    </tr>
-  <?php } ?>
-<?php endif;?>                    
 
 </table>
