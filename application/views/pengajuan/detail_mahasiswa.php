@@ -198,23 +198,26 @@
                           </dd>
                           <?php }}}?>
                           <?php
-                          $nilai = $model->getNilaiProposal($proposal["id_pengajuan"]);
+                          
                           if($proposal["nilai_tampil"] == 'ya'){?>
                                       <dt class="col-sm-2">KETERANGAN</dt>
                                       <dd class="col-sm-10"> : <?php
                                       if($proposal["nilai_1"] == NULL || $proposal["nilai_2"] == NULL || $proposal["nilai_3"] == NULL) {
                                         echo 'Belum ada';
-                                      }else if(number_format($nilai['nilai'],2) >= 86 && number_format($nilai['nilai'],2) <= 100){
+                                      }else{
+                                        if(number_format($nilai_total['nilai'],2) >= 86 && number_format($nilai_total['nilai'],2) <= 100){
                                             echo "A";
-                                          }else if(number_format($nilai['nilai'],2) >= 76 && number_format($nilai['nilai'],2) <= 85){
+                                          }else if(number_format($nilai_total['nilai'],2) >= 76 && number_format($nilai_total['nilai'],2) <= 85){
                                             echo "B";
-                                          }else if(number_format($nilai['nilai'],2) >= 66 && number_format($nilai['nilai'],2) <= 75){
+                                          }else if(number_format($nilai_total['nilai'],2) >= 66 && number_format($nilai_total['nilai'],2) <= 75){
                                             echo "C";
-                                          }else if(number_format($nilai['nilai'],2) >= 56 && number_format($nilai['nilai'],2) <= 65){
+                                          }else if(number_format($nilai_total['nilai'],2) >= 56 && number_format($nilai_total['nilai'],2) <= 65){
                                             echo "D";
-                                          }else if(number_format($nilai['nilai'],2) <= 55){
+                                          }else if(number_format($nilai_total['nilai'],2) <= 55){
                                             echo "E";
-                                          }?>
+                                          }
+
+                                      } ?>
                                       </dd>
                                       <?php }?>
                           
