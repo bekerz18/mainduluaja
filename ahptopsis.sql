@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 18, 2020 at 06:30 AM
+-- Generation Time: May 21, 2020 at 06:35 AM
 -- Server version: 10.3.22-MariaDB-cll-lve
 -- PHP Version: 7.3.6
 
@@ -49,7 +49,15 @@ INSERT INTO `bimbingan` (`id`, `id_pengajuan`, `pembimbing`, `bab`, `status`, `t
 ('5ec0e3c3d6431', 1, '1', '4', 'sudah', '2020-05-17 07:12:40'),
 ('5ec0e41b0dd8a', 1, '2', '2', 'sudah', '2020-05-17 07:14:09'),
 ('5ec0e45c65e34', 1, '2', '3', 'sudah', '2020-05-17 07:14:54'),
-('5ec0e47cbb258', 1, '2', '4', 'sudah', '2020-05-17 07:15:23');
+('5ec0e47cbb258', 1, '2', '4', 'sudah', '2020-05-17 07:15:23'),
+('5ec1caa4ee6e1', 3, '1', '1', 'sudah', '2020-05-17 23:43:15'),
+('5ec1caca37d62', 3, '2', '1', 'sudah', '2020-05-17 23:44:25'),
+('5ec1cc93cb18a', 3, '2', '2', 'sudah', '2020-05-17 23:45:48'),
+('5ec1ccbe11169', 3, '2', '3', 'sudah', '2020-05-17 23:46:50'),
+('5ec1ccf6e6822', 3, '2', '4', 'sudah', '2020-05-17 23:47:31'),
+('5ec1cd7e46aa7', 3, '1', '2', 'sudah', '2020-05-17 23:49:40'),
+('5ec1cdb232dad', 3, '1', '3', 'sudah', '2020-05-17 23:50:38'),
+('5ec1cdd4afbbc', 3, '1', '4', 'sudah', '2020-05-17 23:51:07');
 
 -- --------------------------------------------------------
 
@@ -76,7 +84,12 @@ INSERT INTO `bimbingan_detail` (`id`, `id_bimbingan`, `file`, `tanggal`, `deskri
 ('5ec0e3299f94d', '5ec0e2f1eb5b2', 'd63c9264280272e50e73a770677e1b61.pdf', '2020-05-17 07:09:29', 's', 61, '1'),
 ('5ec0e35f0fcc4', '5ec0e357b9778', NULL, '2020-05-17 07:10:23', 's', 1, '2'),
 ('5ec0e3a3c4a36', '5ec0e39d7535e', NULL, '2020-05-17 07:11:31', 'd', 1, '2'),
-('5ec0e3e55357f', '5ec0e3c3d6431', NULL, '2020-05-17 07:12:37', 'm', 61, '1');
+('5ec0e3e55357f', '5ec0e3c3d6431', NULL, '2020-05-17 07:12:37', 'm', 61, '1'),
+('5ec1caba91e16', '5ec1caa4ee6e1', 'c3b85538982c92070dd078aebeb5e6a7.pdf', '2020-05-17 23:37:30', 'Bb 1', 2, '2'),
+('5ec1cad7b805e', '5ec1caca37d62', NULL, '2020-05-17 23:37:59', 'Bab 1', 2, '2'),
+('5ec1cc9ca087f', '5ec1cc93cb18a', NULL, '2020-05-17 23:45:32', 'Bb2', 2, '2'),
+('5ec1ccd3218ab', '5ec1ccbe11169', NULL, '2020-05-17 23:46:27', 'Bb3', 2, '2'),
+('5ec1cd87ca621', '5ec1cd7e46aa7', NULL, '2020-05-17 23:49:27', '2', 2, '2');
 
 -- --------------------------------------------------------
 
@@ -183,8 +196,8 @@ CREATE TABLE `komprehensif` (
 --
 
 INSERT INTO `komprehensif` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_tampil`) VALUES
-(1, 1, 'ya', '2020-05-17 07:06:43', '2020-05-17 23:23:01', '2020-05-19', 20, 29, 19, 87, 88, 89, 'tidak'),
-(2, 3, 'ya', '2020-05-17 23:22:29', '2020-05-17 23:23:01', '2020-05-19', 20, 29, 19, 77, 88, 90, 'tidak');
+(1, 1, 'ya', '2020-05-17 07:06:43', '2020-05-17 23:32:37', '2020-05-19', 20, 29, 19, 87, 88, 89, 'ya'),
+(2, 3, 'ya', '2020-05-17 23:22:29', '2020-05-17 23:32:37', '2020-05-19', 20, 29, 19, 77, 88, 90, 'ya');
 
 -- --------------------------------------------------------
 
@@ -210,7 +223,8 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id`, `nama`, `gender`, `username`, `password`, `konsentrasi`, `prodi`, `email`, `handphone`) VALUES
 (1, 'Didit Mustofa', 'Pria', '123', '202cb962ac59075b964b07152d234b70', 'Manajemen Pemasaran', 'manajemen', '', ''),
-(2, 'kokom komariyah', 'Wanita', '111', '698d51a19d8a121ce581499d7b701668', 'Pendidikan luar negeri', 'adpend', '', '');
+(2, 'kokom komariyah', 'Wanita', '111', '698d51a19d8a121ce581499d7b701668', 'Pendidikan luar negeri', 'adpend', '', ''),
+(3, 'Jojo', 'Pria', '222', 'bcbe3365e6ac95ea2c0343a2395834dd', 'hukum perdata', 'hukum', '', '');
 
 -- --------------------------------------------------------
 
@@ -243,7 +257,7 @@ CREATE TABLE `pengajuan` (
 INSERT INTO `pengajuan` (`id`, `id_mahasiswa`, `judul`, `tglpengajuan`, `tglditerima`, `status`, `latarbelakang`, `tujuan`, `keterangan`, `id_pembimbing1`, `id_pembimbing2`, `acc_bab_pembimbing1`, `acc_bab_pembimbing2`, `acc_sidang_kompre1`, `acc_sidang_kompre2`) VALUES
 (1, 1, 'Galeri Foto', '2020-05-17 06:56:40', '2020-05-17 06:56:52', 'terima', 'Galeri Foto', 'Galeri Foto', NULL, 61, 51, 'ya', 'ya', 'ya', 'ya'),
 (2, 2, 'sistem untuk', '2020-05-17 23:10:43', '2020-05-17 23:11:04', 'tolak', 'sdfghjkl', 'QWERTYUIO', 'dfgh', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 2, 'fghjgh', '2020-05-17 23:11:36', '2020-05-17 23:11:54', 'terima', 'fghjkjg', 'dfghjk', NULL, 22, 15, NULL, NULL, 'ya', 'ya');
+(3, 2, 'fghjgh', '2020-05-17 23:11:36', '2020-05-17 23:11:54', 'terima', 'fghjkjg', 'dfghjk', NULL, 22, 15, 'ya', 'ya', 'ya', 'ya');
 
 -- --------------------------------------------------------
 
@@ -393,6 +407,7 @@ CREATE TABLE `thesis` (
   `nilai_1` int(11) DEFAULT NULL,
   `nilai_2` int(11) DEFAULT NULL,
   `nilai_3` int(11) DEFAULT NULL,
+  `nilai_pembimbing` int(11) DEFAULT NULL,
   `file` varchar(100) NOT NULL,
   `nilai_tampil` enum('ya','tidak') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -401,8 +416,9 @@ CREATE TABLE `thesis` (
 -- Dumping data for table `thesis`
 --
 
-INSERT INTO `thesis` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `file`, `nilai_tampil`) VALUES
-('5ec0e4be6b98c', 1, 'ya', '2020-05-17 07:16:14', '2020-05-17 07:16:37', '2020-05-17', 65, 63, 54, 74, 74, 74, '5ec0e4be6b98c.pdf', 'ya');
+INSERT INTO `thesis` (`id`, `id_pengajuan`, `status`, `tgl_daftar`, `tgl_terima`, `tgl_sidang`, `id_penguji1`, `id_penguji2`, `id_penguji3`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_pembimbing`, `file`, `nilai_tampil`) VALUES
+('5ec0e4be6b98c', 1, 'ya', '2020-05-17 07:16:14', '2020-05-18 04:18:12', '2020-05-18', 28, 23, 29, 74, 74, 74, NULL, '5ec0e4be6b98c.pdf', 'tidak'),
+('5ec1ce7b2fcb9', 3, 'ya', '2020-05-17 23:53:31', '2020-05-18 04:18:12', '2020-05-18', 28, 23, 29, 70, NULL, NULL, NULL, '5ec1ce7b2fcb9.pdf', 'tidak');
 
 -- --------------------------------------------------------
 
@@ -543,7 +559,7 @@ ALTER TABLE `komprehensif`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pengajuan`
