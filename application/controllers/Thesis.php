@@ -144,5 +144,19 @@ class Thesis extends CI_Controller {
 			redirect('beranda');
 		}
 	}
+	
+	public function nilai_pembimbing($id)
+	{
+		if($this->session->userdata('level') != 1)redirect('beranda');
+		if($this->input->method() =="post"){
+			
+				$model = $this->Thesis_model;
+				$nilai = $this->input->post('nilai');
+				$update = $model->update_nilai_pembimbing($id,$nilai);
+			
+		}
+
+		redirect('pengajuan/detail/'.$id);
+	}
 
 }

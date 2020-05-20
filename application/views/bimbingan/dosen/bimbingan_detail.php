@@ -40,10 +40,12 @@
             <div class="row">
                <?php if($chatisEnd["status"] !="sudah"){?>
               <a href="<?php echo base_url('bimbingan/acc/').$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6);?>">
-                <button type="button" class="btn btn-md btn-success">ACC</button>
+                <button type="button" class="btn btn-md btn-outline-success">ACC</button>
               </a>
             <?php }else{?>
-              <button type="button" class="btn btn-md btn-success">Sudah diacc</button>
+              <a href="<?php echo base_url('bimbingan/batal_acc/').$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6);?>">
+                <button type="button" class="btn btn-md btn-success">Batal ACC</button>
+              </a>
             <?php }?>
             </div>
             <br>

@@ -449,4 +449,17 @@ class Bimbingan extends CI_Controller {
 
 		return $thesis;
 	}
+	public function batal_acc($pembimbing=null,$id=null,$bab=null,$pengajuan=null)
+	{
+		if($this->session->userdata('level') != 1){
+			redirect('beranda');
+		}else if(!isset($bab) || !isset($pengajuan)){
+			redirect('data-bimbingan-'.$pembimbing);
+		}else{
+			$model = $this->Bimbingan_model;
+			$update = $model->batal_accBimbingan($id);
+			
+			redirect('bimbingan/bimbingan/'.$pembimbing.'/'.$id.'/'.$bab.'/'.$pengajuan);
+		}
+	}
 }

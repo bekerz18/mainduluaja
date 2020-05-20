@@ -159,6 +159,7 @@ class Pengajuan extends CI_Controller{
 			$data['nama'] = $this->session->userdata('nama');
 			$dosen = $this->session->userdata('id');
 			$data['pengajuan'] = $model->get_pengajuan_by($dosen,$id);
+			$data['nilai_thesis'] = $model->get_nilai_pembimbing($id);
 			if(!$data['pengajuan']) redirect('pengajuan'); 
 			$this->load->view('layout/dosen/header',$data);
 			$this->load->view('pengajuan/detail_dosen',$data);

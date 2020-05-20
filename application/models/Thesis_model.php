@@ -15,7 +15,7 @@ class Thesis_model extends CI_Model {
 
 	public function getAll()
 	{
-		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul, (thesis.nilai_1+thesis.nilai_2+thesis.nilai_3)/ 3 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa ORDER BY tgl_daftar DESC")->result_array();
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul, (thesis.nilai_1+thesis.nilai_2+thesis.nilai_3+nilai_pembimbing)/ 4 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa ORDER BY tgl_daftar DESC")->result_array();
 	}
 	public function getAllCetak($FirstDate,$LastDate)
 	{
@@ -88,6 +88,13 @@ class Thesis_model extends CI_Model {
 	public function cariDosen($id)
 	{
 		return $this->db->query("SELECT nama FROM dosen where id=$id")->row_array();
+	}
+	public function update_nilai_pembimbing($id,$nilai)
+	{
+		$this->db->where('id_pengajuan',$id);
+		$this->db->set('nilai_pembimbing',$nilai);
+
+		return $this->db->update('thesis');
 	}
 
 }

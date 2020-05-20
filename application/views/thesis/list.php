@@ -361,16 +361,35 @@
     function getPenguji($prodi,penguji1,penguji2,penguji3){
       
       var datas='';
+      var datas1='';
       $.ajax({
         type: 'GET',
         url: '<?php echo base_url('proposal/jsonpenguji/');?>'+$prodi,
         dataType: 'json',
         success: function(data){
           if(penguji1 == 'no'){
+            for(var i=0; i < 10; i++){
+              datas1 += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
+            }
+            $("#penguji1").html('<option></option>'+datas1);
+          }else{
+            var dosen1='';
+            for(var i=0; i < 10; i++){
+              if(data[i].id_dosen == penguji1){
+                dosens1 += '<option value="'+data[i].id_dosen+'" selected>'+data[i].nama+'</option>';
+              }else{
+                dosens1 += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
+              }
+            }
+            $("#penguji1").html('<option></option>'+dosens1);
+          }
+
+
+          if(penguji1 == 'no'){
             for(var i=0; i < data.length; i++){
               datas += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>'
             }
-            $("#penguji1").html('<option></option>'+datas);
+            
             $("#penguji2").html('<option></option>'+datas);
             $("#penguji3").html('<option></option>'+datas);
           }else{
@@ -378,11 +397,7 @@
             var dosens2='';
             var dosens3='';
             for(var i=0; i < data.length; i++){
-              if(data[i].id_dosen == penguji1){
-                dosens1 += '<option value="'+data[i].id_dosen+'" selected>'+data[i].nama+'</option>';
-              }else{
-                dosens1 += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
-              }
+              
               if(data[i].id_dosen == penguji2){
                 dosens2 += '<option value="'+data[i].id_dosen+'" selected>'+data[i].nama+'</option>';
               }else{
@@ -394,7 +409,7 @@
                 dosens3 += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
               }
             }
-            $("#penguji1").html('<option></option>'+dosens1);
+           
             $("#penguji2").html('<option></option>'+dosens2);
             $("#penguji3").html('<option></option>'+dosens3);
           }

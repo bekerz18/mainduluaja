@@ -110,6 +110,13 @@ class Bimbingan_model extends CI_Model {
 		$this->db->set('tgl_acc',date("Y-m-d H:i:s"));
 		return $this->db->update('bimbingan');
 	}
+	public function batal_accBimbingan($id)
+	{
+		$this->db->where('id',$id);
+		$this->db->set('status','belum');
+		$this->db->set('tgl_acc',NULL);
+		return $this->db->update('bimbingan');
+	}
 	public function completeBimbingans()
 	{
 		return $this->db->query("SELECT id_pengajuan FROM bimbingan WHERE bab='4' AND status='sudah' AND pembimbing='1' OR pembimbing='2' GROUP BY id_pengajuan")->result_array();
