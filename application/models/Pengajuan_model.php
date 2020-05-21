@@ -185,7 +185,7 @@ class Pengajuan_model extends CI_Model {
 		return $this->db->query("SELECT sum(nilai_1+nilai_2+nilai_3)/3 as nilai FROM komprehensif WHERE id_pengajuan=$pengajuanID")->row_array();
 	}
 	public function nilaiThesis($pengajuanID){
-		return $this->db->query("SELECT sum(nilai_1+nilai_2+nilai_3)/3 as nilai FROM thesis WHERE id_pengajuan=$pengajuanID")->row_array();
+		return $this->db->query("SELECT sum(nilai_1+nilai_2+nilai_3+nilai_pembimbing)/4 as nilai FROM thesis WHERE id_pengajuan=$pengajuanID")->row_array();
 	}
 	public function isBimbinganDone()
 	{
@@ -200,7 +200,7 @@ class Pengajuan_model extends CI_Model {
 	public function getThesisByDosen()
 	{
 		$id = $this->session->userdata('id');
-		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul,thesis.nilai_1 as nilai_1, thesis.nilai_2 as nilai_2, thesis.nilai_3 as nilai_3,(thesis.nilai_1+thesis.nilai_2+thesis.nilai_3)/ 3 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE thesis.id_penguji1=$id OR thesis.id_penguji2=$id OR thesis.id_penguji3=$id  ORDER BY tgl_daftar DESC")->result_array();
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul,thesis.nilai_1 as nilai_1, thesis.nilai_2 as nilai_2, thesis.nilai_3 as nilai_3,(thesis.nilai_1+thesis.nilai_2+thesis.nilai_3+thesis.nilai_pembimbing)/ 4 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa WHERE thesis.id_penguji1=$id OR thesis.id_penguji2=$id OR thesis.id_penguji3=$id  ORDER BY tgl_daftar DESC")->result_array();
 	}
 	public function isPembimbing1($id)
 	{
