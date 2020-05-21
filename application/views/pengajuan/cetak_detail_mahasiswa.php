@@ -165,7 +165,7 @@
         <td>: <?php echo date("l, d F Y",strtotime($thesis["tgl_sidang"]));?></td>
       </tr>
       <tr>
-        <th>PENGUJI 1</th>
+        <th>PEMBIMBING </th>
         <td>: <?php echo $thesis["penguji1"];?></td>
       </tr>
       <tr>

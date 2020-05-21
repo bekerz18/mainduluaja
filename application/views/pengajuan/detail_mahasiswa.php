@@ -392,7 +392,7 @@
                             <dt class="col-sm-2">TANGGAL SIDANG</dt>
                             <dd class="col-sm-10">: <?php echo date("l, d F Y",strtotime($thesis["tgl_sidang"]));?></dd>
 
-                            <dt class="col-sm-2">PENGUJI 1</dt>
+                            <dt class="col-sm-2">PEMBIMBING</dt>
                             <dd class="col-sm-10">: <?php echo $thesis["penguji1"];?></dd>
 
                             <dt class="col-sm-2">PENGUJI 2</dt>
