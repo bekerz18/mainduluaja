@@ -412,7 +412,7 @@
                           <input type="text" name="tgl_sidang_thesis" id="tgl_sidang_thesis" class="form-control form-control-md" value="tgl_sidang_thesis">
                         </div>
                         <div class="form-group">
-                          <label for="nama_penguji1_thesis">PENGUJI 1</label><br>
+                          <label for="nama_penguji1_thesis">DOSEN PEMBIMBING</label><br>
                           <span id="nama_penguji1_thesis" class="text-md">nama_penguji1_thesis</span>
                             <div id="nilai_1_thesis"></div>
                             <span id="nilai_penguji1_thesis" class="text-md font-italic">NILAI: </span>

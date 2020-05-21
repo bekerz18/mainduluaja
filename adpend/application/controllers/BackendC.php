@@ -133,6 +133,8 @@ class BackendC extends CI_Controller{
 				}
 			}elseif ($type == 3) {
 				echo json_encode($model->get_rank_all());
+			}elseif ($type == 10) {
+				echo json_encode($model->get_rank_10());
 			}
 			
 		}else{

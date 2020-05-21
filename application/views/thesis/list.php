@@ -151,8 +151,8 @@
                           <input type="date" name="tgl_sidang" id="tgl_sidang" class="form-control form-control-md" min='<?php echo date('Y-m-d');?>'>
                         </div>
                         <div class="form-group">
-                          <label for="Penguji1">PENGUJI 1</label> <span id="nilai_1"></span>
-                          <select id="penguji1" data-placeholder="Silahkan Pililh Penguji 1" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
+                          <label for="pembimbing">DOSEN PEMBIMBING</label> <span id="nilai_1"></span>
+                          <select id="pembimbing" data-placeholder="Silahkan Pililh Dosen Pembimbing" class="form-control form-control-md select2" data-placeholder="Silahkan pilih Status" style="width: 100%;" required>
                             <option></option>
                           </select>
                         </div>
@@ -282,7 +282,7 @@
     function validasi(){
       let $id = jQuery("#id_thesis").val();
       let $tanggal = jQuery("#tgl_sidang").val();
-      let $penguji1 = jQuery("#penguji1").val();
+      let $penguji1 = jQuery("#pembimbing").val();
       let $penguji2 = jQuery("#penguji2").val();
       let $penguji3 = jQuery("#penguji3").val();
       let $nilai_tampil = $("input[name='nilai_tampil']:checked"). val();
@@ -367,25 +367,9 @@
         url: '<?php echo base_url('proposal/jsonpenguji/');?>'+$prodi,
         dataType: 'json',
         success: function(data){
-          if(penguji1 == 'no'){
-            for(var i=0; i < 10; i++){
-              datas1 += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
-            }
-            $("#penguji1").html('<option></option>'+datas1);
-          }else{
-            var dosen1='';
-            for(var i=0; i < 10; i++){
-              if(data[i].id_dosen == penguji1){
-                dosens1 += '<option value="'+data[i].id_dosen+'" selected>'+data[i].nama+'</option>';
-              }else{
-                dosens1 += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
-              }
-            }
-            $("#penguji1").html('<option></option>'+dosens1);
-          }
-
 
           if(penguji1 == 'no'){
+            GetPembimbing($prodi,0);
             for(var i=0; i < data.length; i++){
               datas += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>'
             }
@@ -393,6 +377,7 @@
             $("#penguji2").html('<option></option>'+datas);
             $("#penguji3").html('<option></option>'+datas);
           }else{
+            GetPembimbing($prodi,penguji1);
             var dosens1='';
             var dosens2='';
             var dosens3='';
@@ -483,6 +468,32 @@
     jQuery("#btn-cta-cetak").click(function(){
       jQuery("#modal-cetak").modal();
     });
+    function GetPembimbing(prodi,id){
+        var api = '<?php echo base_url();?>'+prodi+'/BackendC/rank/10';
+        var datas='';
+        
+        $.ajax({
+          type : 'GET',
+          url : api,
+          datatype: 'json',
+          success:function(data){
+            var posts = JSON.parse(data);
+            $.each(posts, function() {
+              if(id == this.id){
+                datas += '<option value="'+ this.id + '" selected>' + this.nama_dosen + '</li>' ;
+              }else{
+                datas += '<option value="'+ this.id + '">' + this.nama_dosen + '</li>' ;
+              }
+              
+            });
+            console.log(datas);
+            $("#pembimbing").html('<option></option>'+datas);
+          },error:function(data){
+            alert('mohon maaf, data tidak bisa diambil'); 
+            console.log('tidak dapat mengambil data');
+          }
+        });
+      }
   });
 </script>
 </body>

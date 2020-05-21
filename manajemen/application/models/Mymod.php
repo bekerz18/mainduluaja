@@ -21,6 +21,9 @@ class Mymod extends CI_Model{
     public function get_rank_all(){
         return $this->db->query("SELECT hasil_rank.alternatif_kode as kode_dosen, alternatif.alternatif_nama as nama_dosen, hasil_rank.hr_value as nilai FROM hasil_rank INNER JOIN alternatif ON alternatif.alternatif_kode=hasil_rank.alternatif_kode ORDER by nilai DESC")->result_array();
     }
+    public function get_rank_10(){
+        return $this->db->query("SELECT alternatif.users_id as id, hasil_rank.alternatif_kode as kode_dosen, alternatif.alternatif_nama as nama_dosen, hasil_rank.hr_value as nilai FROM hasil_rank INNER JOIN alternatif ON alternatif.alternatif_kode=hasil_rank.alternatif_kode ORDER by nilai DESC LIMIT 10")->result_array();
+    }
      public function get_all(){
         return $this->db->get('alternatif')->result();
     }
