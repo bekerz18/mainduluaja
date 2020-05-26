@@ -157,18 +157,7 @@
                             }?>
                           </td>
                       </tr>
-                      <?php if($this->session->userdata('id') == $pengajuan['pembimbing1']){?>
-                        <tr>
-                          <th>NILAI</th>
-                          <?php echo form_open('thesis/nilai_pembimbing/'.$this->uri->segment(3));?>
-                          <td>: 
-                          <input type="number" min="0" max="100" value="<?php if($nilai_thesis['nilai_pembimbing'] != NULL) echo $nilai_thesis['nilai_pembimbing'];?>" name="nilai" required>
-                          <button type="submit" class="btn btn-sm btn-primary">Simpan</button>  
-                          </td>
-                          <?php echo form_close();?>
-                          
-                        </tr>
-                      <?php }?>
+                     
                   </table>
                 </div>
               </div>

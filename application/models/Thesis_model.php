@@ -15,7 +15,7 @@ class Thesis_model extends CI_Model {
 
 	public function getAll()
 	{
-		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul, (thesis.nilai_1+thesis.nilai_2+thesis.nilai_3+thesis.nilai_pembimbing)/ 4 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa ORDER BY tgl_daftar DESC")->result_array();
+		return $this->db->query("SELECT mahasiswa.nama AS nama_mahasiswa, mahasiswa.username AS nim_mahasiswa, mahasiswa.prodi AS prodi, thesis.id AS id_thesis, thesis.status AS status_thesis, thesis.tgl_daftar AS tgl_daftar, thesis.tgl_terima AS tgl_terima, thesis.tgl_sidang AS tgl_sidang, thesis.id_penguji1 AS id_penguji1, thesis.id_penguji2 AS id_penguji2, thesis.id_penguji3 AS id_penguji3, pengajuan.judul as judul, (thesis.nilai_1+thesis.nilai_2+thesis.nilai_3)/3 AS nilai FROM thesis INNER JOIN pengajuan ON pengajuan.id = thesis.id_pengajuan INNER JOIN mahasiswa ON mahasiswa.id = pengajuan.id_mahasiswa ORDER BY tgl_daftar DESC")->result_array();
 	}
 	public function getAllCetak($FirstDate,$LastDate)
 	{
@@ -30,6 +30,7 @@ class Thesis_model extends CI_Model {
 			'file'	=> $this->_upload($id),
 			'id_pengajuan' => $pengajuanID,
 			'status'=> 'tidak',
+			'id_penguji1'=> $this->_getPembimbing1($pengajuanID),
 			'tgl_daftar' => date("Y-m-d H:i:s"));
 		if($data['file'] == 'no'){
 			$this->session->set_flashdata('gagal_kompre_thesis','Gagal Mengirim Thesis!');
@@ -37,6 +38,13 @@ class Thesis_model extends CI_Model {
 			return $this->db->insert('thesis',$data);
 		}
 		
+	}
+	private function _getPembimbing1($pengajuanID){
+		$this->db->where('id',$pengajuanID);
+		$this->db->select('id_pembimbing1');
+		$get = $this->db->get('pengajuan')->row_array();
+
+		return $get["id_pembimbing1"];
 	}
 	public function checkAcc($mahasiswaID)
 	{

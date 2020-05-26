@@ -300,7 +300,7 @@
           );
       }
       else{
-        updateThesis($id,$tanggal,$penguji1,$penguji2,$penguji3,$nilai_tampil);
+        updateThesis($id,$tanggal,$penguji2,$penguji3,$nilai_tampil);
       }
     }
     function getThesis($thesisID){
@@ -314,14 +314,14 @@
           }else{
             $("#nilai_tampil_tidak"). prop("checked", true);
           }
-          if(data[0].status_thesis == "ya"){
+          if(data[0].status_thesis == "ya"){``
             
             jQuery("#elacc").remove();
             jQuery("#acc").append('<div id="elacc"><label for="tglacc">Tanggal ACC Sidang</label><br><strong id="tglacc"></strong></div>');
             jQuery("#tglacc").text(new Date(data[0].tgl_terima).toLocaleString(['ban', 'id']));
             getPenguji(data[0].prodi,data[0].id_penguji1,data[0].id_penguji2,data[0].id_penguji3);
           }else{
-            getPenguji(data[0].prodi,'no');
+            getPenguji(data[0].prodi,data[0].id_penguji1,'no');
           }
           let nilai1 = data[0].nilai1;
           let nilai2 = data[0].nilai2;
@@ -367,17 +367,24 @@
         url: '<?php echo base_url('proposal/jsonpenguji/');?>'+$prodi,
         dataType: 'json',
         success: function(data){
+          for(var i=0; i < data.length; i++){
+              if(data[i].id_dosen == penguji1){
+                $("#pembimbing").html('<option value="'+data[i].id_dosen+'" selected>'+data[i].nama+'</option>');
+                $("#pembimbing").attr("disabled",true);
+              }
+            }
 
-          if(penguji1 == 'no'){
-            GetPembimbing($prodi,0);
+          if(penguji2 == 'no'){
+            
             for(var i=0; i < data.length; i++){
-              datas += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>'
+              datas += '<option value="'+data[i].id_dosen+'">'+data[i].nama+'</option>';
+
             }
             
             $("#penguji2").html('<option></option>'+datas);
             $("#penguji3").html('<option></option>'+datas);
           }else{
-            GetPembimbing($prodi,penguji1);
+            
             var dosens1='';
             var dosens2='';
             var dosens3='';
@@ -401,11 +408,11 @@
         }
       });
     }
-    function updateThesis(id,tanggal,penguji1,penguji2,penguji3,nilai_tampil){
+    function updateThesis(id,tanggal,penguji2,penguji3,nilai_tampil){
       $.ajax({
         type: 'POST',
         url : '<?php echo base_url('Thesis/updateThesis/');?>',
-        data: {tanggal:tanggal,penguji1:penguji1,penguji2:penguji2,penguji3:penguji3,nilai_tampil},
+        data: {tanggal:tanggal,penguji2:penguji2,penguji3:penguji3,nilai_tampil},
         success:function(data){
           Swal.fire(
           'Berhasil!',
@@ -468,32 +475,7 @@
     jQuery("#btn-cta-cetak").click(function(){
       jQuery("#modal-cetak").modal();
     });
-    function GetPembimbing(prodi,id){
-        var api = '<?php echo base_url();?>'+prodi+'/BackendC/rank/10';
-        var datas='';
-        
-        $.ajax({
-          type : 'GET',
-          url : api,
-          datatype: 'json',
-          success:function(data){
-            var posts = JSON.parse(data);
-            $.each(posts, function() {
-              if(id == this.id){
-                datas += '<option value="'+ this.id + '" selected>' + this.nama_dosen + '</li>' ;
-              }else{
-                datas += '<option value="'+ this.id + '">' + this.nama_dosen + '</li>' ;
-              }
-              
-            });
-            console.log(datas);
-            $("#pembimbing").html('<option></option>'+datas);
-          },error:function(data){
-            alert('mohon maaf, data tidak bisa diambil'); 
-            console.log('tidak dapat mengambil data');
-          }
-        });
-      }
+    
   });
 </script>
 </body>

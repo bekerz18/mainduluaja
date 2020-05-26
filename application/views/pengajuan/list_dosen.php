@@ -68,12 +68,25 @@
                             <td class="text-center"><?php echo $proposal['prodi'];?></td>
                             <td><?php echo $proposal['judul'];?></td>
                             <td><?php echo date('l, d F Y',strtotime($proposal['tgl_seminar']));?></td>
-                            <td><?php if($proposal["nilai"] == NULL){
-                              echo 'Belum Ada';
-                            }else{
-                              echo number_format($proposal["nilai"],2);
-                            }
-                            ?>
+                            <td>
+                              <?php if($proposal["nilai"] == NULL){
+                    echo 'Belum Ada';
+                  }else{
+                    echo number_format($proposal["nilai"],2).'<br>';
+                    if(number_format($proposal['nilai'],2) >= 86 && number_format($proposal['nilai'],2) <= 100){
+                      echo "A";
+                    }else if(number_format($proposal['nilai'],2) >= 76 && number_format($proposal['nilai'],2) < 86){
+                      echo "B";
+                    }else if(number_format($proposal['nilai'],2) >= 66 && number_format($proposal['nilai'],2) < 76){
+                      echo "C";
+                    }else if(number_format($proposal['nilai'],2) >= 56 && number_format($proposal['nilai'],2) < 66){
+                      echo "D";
+                    }else if(number_format($proposal['nilai'],2) <= 55){
+                      echo "E";
+                    }
+                  }
+                  ?>
+                             
                             </td>
                             <td class="text-center"><a class="detail-pengajuan text-info" href="#" data-id="<?php echo $proposal["id_proposal"];?>">Detail</a></td>
                         </tr>
@@ -158,12 +171,25 @@
                           </td>
                           <td><?php echo $kompre["judul"];?></td>
                           <td><?php echo date('l, d F Y',strtotime($kompre['tgl_sidang']));?></td>
-                          <td><?php if($kompre["nilai"] == NULL){
-                            echo 'Belum Ada';
-                          }else{
-                            echo number_format($kompre["nilai"],2);
-                          }
-                          ?>
+                          <td>
+                            <?php if($kompre["nilai"] == NULL){
+                    echo 'Belum Ada';
+                  }else{
+                    echo number_format($kompre["nilai"],2).'<br>';
+                    if(number_format($kompre['nilai'],2) >= 86 && number_format($kompre['nilai'],2) <= 100){
+                      echo "A";
+                    }else if(number_format($kompre['nilai'],2) >= 76 && number_format($kompre['nilai'],2) < 86){
+                      echo "B";
+                    }else if(number_format($kompre['nilai'],2) >= 66 && number_format($kompre['nilai'],2) < 76){
+                      echo "C";
+                    }else if(number_format($kompre['nilai'],2) >= 56 && number_format($kompre['nilai'],2) < 66){
+                      echo "D";
+                    }else if(number_format($kompre['nilai'],2) <= 55){
+                      echo "E";
+                    }
+                  }
+                  ?>
+                           
                           </td>
                           
                           <td><a class="details-kompre text-info text-md" data-id="<?php echo $kompre["id_komprehensif"];?>">Detail</a></td>
@@ -212,12 +238,24 @@
                           </td>
                           <td><?php echo $thesis["judul"];?></td>
                           <td><?php echo date('l, d F Y',strtotime($thesis['tgl_sidang']));?></td>
-                          <td><?php if($thesis["nilai"] == NULL){
-                            echo 'Belum Ada';
-                          }else{
-                            echo number_format($thesis["nilai"],2);
-                          }
-                          ?>
+                          <td>
+                            <?php if($thesis["nilai"] == NULL){
+                    echo 'Belum Ada';
+                  }else{
+                    echo number_format($thesis["nilai"],2).'<br>';
+                    if(number_format($thesis['nilai'],2) >= 86 && number_format($thesis['nilai'],2) <= 100){
+                      echo "A";
+                    }else if(number_format($thesis['nilai'],2) >= 76 && number_format($thesis['nilai'],2) < 86){
+                      echo "B";
+                    }else if(number_format($thesis['nilai'],2) >= 66 && number_format($thesis['nilai'],2) < 76){
+                      echo "C";
+                    }else if(number_format($thesis['nilai'],2) >= 56 && number_format($thesis['nilai'],2) < 66){
+                      echo "D";
+                    }else if(number_format($thesis['nilai'],2) <= 55){
+                      echo "E";
+                    }
+                  }
+                  ?>
                           </td>
                           
                           <td><a class="details-thesis text-info text-md" data-id="<?php echo $thesis["id_thesis"];?>">Detail</a></td>
@@ -419,13 +457,13 @@
                         </div>
                         <div class="form-group">
                           <label for="nama_penguji2_thesis">PENGUJI 2</label><br>
-                          <span id="nama_penguji2_thesis" class="text-md">nama_penguji2_thesis</span>
+                          <span id="nama_penguji2_thesis" class="text-md"></span>
                             <div id="nilai_2_thesis"></div>
                             <span id="nilai_penguji2_thesis" class="text-md font-italic">NILAI: </span>
                         </div>
                        <div class="form-group">
                           <label for="nama_penguji3_thesis">PENGUJI 3</label><br>
-                          <span id="nama_penguji3_thesis" class="text-md">nama_penguji3thesis</span>
+                          <span id="nama_penguji3_thesis" class="text-md"></span>
                             <div id="nilai_3_thesis"></div>
                             <span id="nilai_penguji3_thesis" class="text-md font-italic">NILAI: </span>
                         </div>
@@ -834,6 +872,11 @@
         url : '<?php echo base_url('thesis/getthesis/');?>'+$thesisID,
         dataType :'json',
         success: function(data){
+          if(data[0].tgl_sidang == null){
+
+            $('#tgl_sidang_thesis').remove();
+            $("#btn-simpan-thesis").attr("disabled",true);
+          }
 
           $id_thesis = data[0].id_thesis;
         
@@ -855,6 +898,7 @@
         getPenguji(data[0].id_penguji2,2,'thesis');
         getPenguji(data[0].id_penguji3,3,'thesis');
         if("<?php echo $this->session->userdata('id');?>" == data[0].id_penguji1){
+          
             penguji_thesis = 1;
             $("#nilai_penguji2_thesis").text("");
             $("#nilai_penguji3_thesis").text("");

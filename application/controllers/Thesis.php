@@ -69,7 +69,6 @@ class Thesis extends CI_Controller {
 					'status'		=> 'ya',
 					'tgl_terima'	=> date("Y-m-d H:i:s"),
 					'tgl_sidang'	=> $this->input->post('tanggal'),
-					'id_penguji1'	=> $this->input->post('penguji1'),
 					'id_penguji2'	=> $this->input->post('penguji2'),
 					'id_penguji3'	=> $this->input->post('penguji3'),
 					'nilai_tampil'	=> $this->input->post('nilai_tampil')
