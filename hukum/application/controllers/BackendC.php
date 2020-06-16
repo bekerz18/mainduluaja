@@ -3,7 +3,7 @@
 class BackendC extends CI_Controller{
 	function __construct(){
 		parent::__construct();
-		if($this->session->userdata('login') != true ) redirect('../home');
+		// if($this->session->userdata('login') != true ) redirect('../home');
 		$this->load->model('kriteria_m');
 		$this->load->model('alternatif_m');
 		$this->load->model('nilai_m');
