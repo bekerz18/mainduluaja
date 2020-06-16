@@ -61,8 +61,8 @@
                     <td class="text-center"><?php echo $pengajuan["nama"].'<br>'.$pengajuan["nim"];?></td>
                     <td class="text-center"><?php echo $pengajuan["nama_prodi"];?></td>
                     <td class="text-center"><?php echo $pengajuan["judul"];?></td>
-                    <td><?php if($pengajuan['pembimbing1'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing1'];}?></td>
-                    <td><?php if($pengajuan['pembimbing2'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing2'];}?></td>
+                    <td><?php echo $pengajuan['pembimbing1'];//if($pengajuan['pembimbing1'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing1'];}?></td>
+                    <td><?php echo $pengajuan['pembimbing2'];//if($pengajuan['pembimbing2'] == ''){echo 'Belum Ada';}else{ echo $pengajuan['pembimbing2'];}?></td>
                     <td class="text-center"><a class="details-penentuan text-info" data-id="<?php echo $pengajuan["id_pengajuan"];?>">Details</a>   <a class="text-danger" href="<?php echo base_url('pengajuan/penentuan_pembimbing/hapus/').$pengajuan["id_pengajuan"];?>">Hapus</a></td>
                   </tr>
                 <?php endforeach;?>
