@@ -54,7 +54,7 @@ class Pengajuan_model extends CI_Model {
 	}
 	public function get_select_pengajuan2($id)
 	{
-		return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, pengajuan.acc_sidang_kompre2 as sidang_kompre2, pengajuan.acc_sidang_kompre1 as sidang_kompre1, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id=$id")->row_array();
+		return $this->db->query("SELECT pengajuan.id as id_pengajuan,pengajuan.judul as judul,pengajuan.latarbelakang as latarbelakang, pengajuan.tujuan as tujuan, pengajuan.status as status_pengajuan, pengajuan.tglpengajuan as tglpengajuan, pengajuan.tglditerima as tglditerima, pengajuan.keterangan as alasan,pengajuan.status as status,pengajuan.id_pembimbing1 as pembimbing1, pengajuan.id_pembimbing2 as pembimbing2, pengajuan.acc_sidang_kompre2 as sidang_kompre2, pengajuan.acc_sidang_kompre1 as sidang_kompre1, mahasiswa.nama as nama, mahasiswa.username as nim,pengajuan.id_mahasiswa as id_mahasiswa, mahasiswa.konsentrasi as konsentrasi, prodi.nama as nama_prodi,prodi.sebutan as prodi_sebutan FROM pengajuan INNER JOIN mahasiswa ON mahasiswa.id=pengajuan.id_mahasiswa INNER JOIN prodi ON prodi.sebutan=mahasiswa.prodi WHERE pengajuan.id=$id")->row_array();
 	}
 	public function get_pengajuan_by($dosen,$id=null)
 	{
@@ -245,6 +245,13 @@ class Pengajuan_model extends CI_Model {
 		$this->db->where('id_pengajuan',$id);
 		$this->db->select('nilai_pembimbing');
 		return $this->db->get('thesis')->row_array();
+	}
+
+	public function insert_dosbing($pengajuanID,$pembimbing,$dosenID)
+	{
+		$this->db->where('id',$pengajuanID);
+		$this->db->set('id_pembimbing'.$pembimbing,$dosenID);
+		return $this->db->update('pengajuan');
 	}
 
 }
