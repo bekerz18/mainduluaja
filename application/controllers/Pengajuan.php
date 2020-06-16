@@ -286,8 +286,16 @@ class Pengajuan extends CI_Controller{
 		for($i = 0; $i < count($proposal); $i++){
 
 			$pengajuan = $model->get_select_pengajuan2($proposal[$i]);
-			$cariDosbing1 = $model->get_dosen($pengajuan['pembimbing1']);
-			$cariDosbing2 = $model->get_dosen($pengajuan['pembimbing2']);
+			$pembimbing1 = $pengajuan['pembimbing1'];
+			$pembimbing2 = $pengajuan['pembimbing2'];
+			if($pengajuan['pembimbing1'] == ""){
+				$pembimbing1 = $this->_automaticDosbing($pengajuan["id_pengajuan"],$pengajuan['prodi_sebutan'],1);
+			}
+			if($pengajuan['pembimbing2'] == ""){
+				$pembimbing2 = $this->_automaticDosbing($pengajuan["id_pengajuan"],$pengajuan['prodi_sebutan'],2);
+			}
+			$cariDosbing1 = $model->get_dosen($pembimbing1);
+			$cariDosbing2 = $model->get_dosen($pembimbing2);
 			$pengajuanAccepted += array( $i =>array(
 				'id_pengajuan' =>$pengajuan["id_pengajuan"],
 				'judul' =>$pengajuan["judul"],
@@ -565,4 +573,46 @@ class Pengajuan extends CI_Controller{
 		}
 	}
 
+	private function _automaticDosbing($pengajuanID,$prodi,$dosbing){
+		$url = base_url('/').$prodi.'/BackendC/rank/10';
+		// persiapkan curl
+	    $ch = curl_init(); 
+
+	    // set url 
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    
+	    // set user agent    
+	    curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+	    // return the transfer as a string 
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+	    // $output contains the output string 
+	    $output = curl_exec($ch); 
+
+	    // tutup curl 
+	    curl_close($ch);      
+
+	    // mengembalikan hasil curl   
+	    
+	    $data = json_decode($output,true);
+
+	    if($dosbing == 1){
+	    	$dosenID = $data[0]["id"];
+	    	$update = $this->_insertAutomaticDosbing($pengajuanID,$dosbing,$dosenID);
+	    	return $dosenID;
+	    }else if($dosbing == 2){
+	    	$dosenID = $data[5]["id"];
+	    	$update = $this->_insertAutomaticDosbing($pengajuanID,$dosbing,$dosenID);
+	    	return $dosenID;
+	    }
+	    // return $data;
+
+	}
+
+	private function _insertAutomaticDosbing($pengajuanID,$pembimbing,$dosenID){
+		$model = $this->Pengajuan_model;
+		return $model->insert_dosbing($pengajuanID,$pembimbing,$dosenID);
+	}
+	
 }
